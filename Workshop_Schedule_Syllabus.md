@@ -164,7 +164,7 @@ Principled sample selection (20')
 
 9-10am Welcome - Coffee, check installation of GitHub Desktop / GitHub account
 
-### Session 7: Pre-registration and pre-registered reports (AN, ME)
+### Session 7: Pre-registration and registered reports (AN, ME)
 **Exercise 7.1**: Identify issues. Perhaps ask to work as a group finding pre-registrations within certain repositories and evaluate within the group.
 
 **Exercise 7.2**: Pre-registration how-to
@@ -189,6 +189,8 @@ We are centering this introductin on GitHub's website and GitHub Desktop graphic
 Pre-printing, reporting guidelines, picking journals, peer review (15-20’)
 - what's FAIR 
 - private links
+- parting note
+<!-- if we have the time, could we pre-pachakge the tools we talked about in R?-->  
 
 **Exercise 8.1**: Literate coding - Publish analysis as html page ... 
 <!-- Inspiration: https://osf.io/enxcd -->
