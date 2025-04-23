@@ -35,10 +35,6 @@ library(specr)
 
 Load the example dataset data("example_data") \# Display the first few rows of the dataset head(example_data) \# Check the structure of the dataset str(example_data)
 
-We are going to use a pre-processed version of the hurricane data
-
-TBD. Package the data for the workshop and simplify structure
-
 ```{r , include=FALSE}
 
 # we ar loading the data-set, it takes the form of an .RData file, something
@@ -85,14 +81,14 @@ results <- specr(specs) # Summarize results summary(results)
 
 ```
 
-# Explore the different specifications with *results\$data*
+### Explore the different specifications 
 
 ```{r}
 summary(results)
 
 ```
 
-Exercise 4: Visualization
+### Visualization
 
 ```{r}
 plot(results)
@@ -106,7 +102,7 @@ To find the formula, lets use the *arrange()* sort the data by estimate, as we d
 ```{r}
 results$data %>% 
   dplyr::arrange(estimate) %>% # sort by estimate
-  dplyr::select(term,estimate,model,controls,formula)           
+  dplyr::select(term,estimate,model,controls,formula) # select the columns you want to see     
 
 ```
 

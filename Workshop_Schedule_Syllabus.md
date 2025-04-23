@@ -137,7 +137,7 @@ What are challenges to reproducibility? (30')
 **Exercise 4.3**: Multiverse analyses
 <!-- https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2694998
 Alternative to just report the one analysis that was going your way 
-Female hurricanes example 
+Female hurricanes example: TBD give small tasks to do in addition to executing bits
 https://cran.r-project.org/web/packages/multiverse/readme/README.html -->
 
 ### Session 5: Sample selection
