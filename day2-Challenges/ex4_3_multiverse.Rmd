@@ -39,7 +39,7 @@ Load the example dataset data("example_data") \# Display the first few rows of t
 
 # we ar loading the data-set, it takes the form of an .RData file, something
 # that can be loaded straight away into R, after loading you will see data.frame object in the  Environment window.
-load(file='hurricane.RData')
+load(file='./data/hurricane.RData')
 
 ```
 
