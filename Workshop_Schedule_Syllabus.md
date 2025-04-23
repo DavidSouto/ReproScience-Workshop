@@ -26,6 +26,14 @@ The workshop will take place in the Maurice Shock Building (MSB). You can find a
 
 MSB 206A and 208A can be found on the second floor.**TBD** 
 
+# Installation
+**TBD.** 
+Installing R & GitHub Desktop.
+Installing all packages. This can take a while. It can be done in one go …
+We can use the first hour of each day to troubleshoot issues with installation.
+
+Packages: tidyverse (superpackage that contains ggplot2, dplyr, among many others), specr, mimer (for fun) ... 
+
 # Course description
 This workshop offers a hand-on introduction to the concepts and practices of reproducible science, aimed at enhancing the integrity and reliability of research. Participants will learn about the importance of reproducibility, open science, version control (with GitHub), computational reproducibility, and data management. The program combines theoretical elements and hands-on exercises, including setting up reproducible environments, collaborative projects on GitHub, and creating reproducible analyses with analysis notebooks.
 
@@ -69,6 +77,7 @@ Introducing the RStudio interface (20')
 <!-- could produce a video and live-code -->
  
 **Exercise 1.1**: Organizing files
+<!-- Could introduce tidyverse::broom, and tibbles, useful later as well & file-org package -->
 
 **Exercise 1.3**: Finding errors in scripts and functions
 <!-- Level 2: positive tests / ground truth -->
