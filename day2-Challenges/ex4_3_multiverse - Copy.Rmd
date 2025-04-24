@@ -1,0 +1,115 @@
+---
+title: "Multiverse Analysis of Hurricane Names"
+output: html_document
+---
+
+Because we have discussed the "female Hurricane" dataset we are going to use this for illustrative purposes. But note that a serious analysis would have needed to give more thought to the choice of model.
+
+We are going to use the *specr* package to implement a basic multiverse analysis. Another option is *multiverse*
+
+Start by making sure the working directory is set to the day2-Challenges folder, where the data lives, with *getwd(path)*
+
+Run the following chunk to make sure packages are installed and attach them
+
+```{r setup, include=FALSE}
+
+# some options for chunks: we ask for it to produce outputs, no messages or warnings
+knitr::opts_chunk$set(echo = TRUE, message = TRUE, warning = TRUE) 
+
+# You will bbe asksed whether you want to install from source, say yes
+if (!require("specr")) 
+  install.packages("specr") 
+
+if (!require("tidyverse")) 
+  install.packages("tidyverse") 
+
+if (!require("ggplot2")) 
+  install.packages("ggplot2") 
+
+library(tidyverse)
+library(specr)
+
+```
+
+### Load and Examine the Dataset
+
+Load the example dataset data("example_data") \# Display the first few rows of the dataset head(example_data) \# Check the structure of the dataset str(example_data)
+
+```{r , include=FALSE}
+
+# we ar loading the data-set, it takes the form of an .RData file, something
+# that can be loaded straight away into R, after loading you will see data.frame object in the  Environment window.
+load(file='./data/hurricane.RData')
+
+```
+
+### Setting Up Specifications
+
+```{r , include=FALSE}
+
+# We are going to focus on the following variables in the Hurricane dataset
+# death: number of deaths
+# masfem: whether the name is seen masculine or feminine (rating scale)
+# dam: damage
+# zpressure: z-transformed atmospheric pressure
+
+# This is more or less the original analysis in the Paper, showing a significant effect of name "feminity"
+# We apply a general linear mode of a certain type (poisson) and we look at ...
+# Poisson models are common for count data with a certain type of distribution (e.g., number of deaths, number of neurons action potentials)
+fit <- glm(death ~ masfem * dam + masfem * zpressure, data = df, family = "poisson")
+
+# As odd as it sounds, we see a significant effect of the femininity of the hurricane (masfem)
+summary(fit)
+
+```
+
+### Execute Specification Curve Analysis
+
+```{r}
+specs <- setup(data = df, # our dataset
+   x = c("masfem", "masfem:dam", "masfem:zpressure"), # we are entering options for independent variables, those are our main variables of interest
+   y = c("death","dam"), # options for dependent variables, we could predict damage amount instead of deaths
+   control = c("masfem:dam", "masfem:zpressure"), # options for control variables, that is other predictors in our model
+   model = c("lm","glm"), # optoins for models
+   simplify = TRUE)
+```
+
+### Running the Analysis
+
+```{r}
+results <- specr(specs) # Summarize results summary(results)
+
+```
+
+### Explore the different specifications 
+
+```{r}
+summary(results)
+
+```
+
+### Visualization
+
+```{r}
+plot(results)
+
+```
+
+We can have a look at the terms this plot corresponds to by arranging by estimate we haven't isolated the effect of *masfem* but shown the impact of every choice on the ability to predict deaths
+
+To find the formula, lets use the *arrange()* sort the data by estimate, as we do in Figure A
+
+```{r}
+results$data %>% 
+  dplyr::arrange(estimate) %>% # sort by estimate
+  dplyr::select(term,estimate,model,controls,formula) # select the columns you want to see     
+
+```
+
+Note there are many options we didn't explore yet. This particular example didn't consider the type of model that was used in the paper (poisson), many other choices, for illustrative purposes.
+
+You can find a simpler example here.
+
+The actual multiverse analysis of the female Hurricanes is more sophisticated, it uses the *multiverse* package and can be found here in all its glory [here](https://rdrr.io/cran/multiverse/f/vignettes/example-hurricane.Rmd).
+
+This would be *Level 2*

@@ -26,13 +26,31 @@ The workshop will take place in the Maurice Shock Building (MSB). You can find a
 
 MSB 206A and 208A can be found on the second floor.**TBD** 
 
-# Installation
-**TBD.** 
-Installing R & GitHub Desktop.
-Installing all packages. This can take a while. It can be done in one go …
-We can use the first hour of each day to troubleshoot issues with installation.
+# Pre-session instructions 
+1. Installing or re-installing RStudio 
+* Download and install RStudio from the official website: https://posit.co/download/rstudio-desktop/. Make sure to choose the version compatible with your operating system (Windows or Mac). If you have RStudio already, upgrade to the last version if possible.
+2. Get the workshop materials 
+* Download the workshop materials as a ZIP file by clicking on the green "code" icon and selecting the bottom option: https://github.com/DavidSouto/ReproScience-Workshop.  
+* Once downloaded, extract the contents to a location on your hard drive.
+3. Set the working directory in RStudio
+* Open RStudio and navigate to the day1 folder where you extracted the workshop materials. Copy that path. 
+* On the RStudio Console type:
+*setwd("path/to/day1")*, for **set**ting the **w**orking **d**irectory, verify with *getwd()*)
+4. Install the workshop packages
+    * **Sourcing*** the *Pre_Package_Install.R*. Either by opening the file and press *source* (not run), or by typing *source(Pre_Package_Install.R)* in the Console.
+* This process can take a some time, so it's best to do it all at once.
+5. Packages installed
+* We are going to use several packages, mostly:
+**Tidyverse**: A collection of packages designed for data science, including ggplot2, dplyr and broom among many others.
+**Specr**: For multiverse analysis.
+**meme**: A fun package for meme generation.
 
-Packages: tidyverse (superpackage that contains ggplot2, dplyr, among many others), specr, mimer (for fun) ... 
+6. Install GitHub Desktop through this link: https://desktop.github.com/download/. This is a version control program that we are going to introduce in day 2.
+8. Troubleshooting
+* Let us know if this doesnt work.
+* If your installation 
+* We can use the first hour of each day (Welcome) to troubleshoot issues with installation.
+*** If you have issues with internet we'll have local copies of packages**
 
 # Course description
 This workshop offers a hand-on introduction to the concepts and practices of reproducible science, aimed at enhancing the integrity and reliability of research. Participants will learn about the importance of reproducibility, open science, version control (with GitHub), computational reproducibility, and data management. The program combines theoretical elements and hands-on exercises, including setting up reproducible environments, collaborative projects on GitHub, and creating reproducible analyses with analysis notebooks.
@@ -71,12 +89,21 @@ Day 2: Room, Maurice Shock (MSB) 208A
 
 Short intro on the importance of open and reproducible science - organization of the workshop (20-30’)
 
-We are going to mention levels … as a way to cater for people at different stages / who have different needs. Level's 2-3 go beyond what we can cover here.
+We are going to mention levels … as a way to cater for people at different stages / who have different needs. Level's 2-3 go beyond what we can cover here. You could attempt exercises  at this level if you have time left, but the idea is that Level 1 provides you with a basic and perfectly serviceable understanding of the topic for our purpose. 
 
-Introducing the RStudio interface (20')
-<!-- could produce a video and live-code -->
+Introducing the RStudio interface (20') 
+<!-- TBD: could produce a video and live-code -->
  
-**Exercise 1.1**: Organizing files
+Introducing RMarkdown: Literate programming (5')
+![aee29411b3c37fd15e53881a7306017a.png](aee29411b3c37fd15e53881a7306017a.png)
+<!-- A 40 year old concept put forth by another giant of computing - write code to be understood by humans not to suit the constraints of the machine; & switching betwee the visual/source options in RStudio; could be a live-code video as well, as it will make sense to use this for exercises-->
+
+**Exercise 1.1**: Workshop Packages
+* You would have done this already, following the pre-session instructions. Otherwise go back to those instructions on top. 
+* We are going to explore a few features related to the choice of packages.
+<!-- remember we can call functions within a package with package::function, we will sometimes use this more verbose form to avoid the pesky conflicts that come with using commmon function names across packages -->
+
+**Exercise 1.2**: Organizing files
 <!-- Could introduce tidyverse::broom, and tibbles, useful later as well & file-org package -->
 
 **Exercise 1.3**: Finding errors in scripts and functions
@@ -84,7 +111,7 @@ Introducing the RStudio interface (20')
 
 **Exercise 1.4**: Computational reproducibility
 
-**Exercise 1.5**: Documenting projects with README files 
+**Exercise 1.5**: Documenting projects with README files
 
 ### Session 2: Data wrangling & consolidating
 
@@ -98,8 +125,8 @@ Most common formats.
 
 **Exercise 2.3**: Producing data summaries  
 
-**Exercise 2.4**: Using analysis notebooks
-
+**Exercise 2.4**: Interactive reporting
+<!-- Continuing on Rmd, could show basic output options, like saving pdf / htlm files, how to animate a graph-->
 <!-- Level 2: More elaborate example of interactive reporting. https://osf.io/enxcd
  Could point to Faye's help sheets for statistical analysis-->
  
