@@ -1,0 +1,12 @@
+---
+title: "Exercise 1.1: Explore installed package"
+output: html_document
+---
+
+We are going to look explore some of the characteristics of the packages we installed, in particular those are are part of the *tidyverse*
+
+Set up the working directory to the day-1 folder
+
+Run source("workshop_pack.R") if you didn't install the packages yet
+
+### The Tidyverse

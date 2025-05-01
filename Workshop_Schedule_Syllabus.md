@@ -100,11 +100,12 @@ Introducing RMarkdown: Literate programming (5')
 
 **Exercise 1.1**: Workshop Packages
 * You would have done this already, following the pre-session instructions. Otherwise go back to those instructions on top. 
-* We are going to explore a few features related to the choice of packages.
-<!-- remember we can call functions within a package with package::function, we will sometimes use this more verbose form to avoid the pesky conflicts that come with using commmon function names across packages -->
+* We are going to explore a few features related to the choice of packages by opening *ex1_1_packages.Rmd*
+
+<!-- Could introduce tidyverse::broom, and tibbles, useful later as welll remember we can call functions within a package with package::function, we will sometimes use this more verbose form to avoid the pesky conflicts that come with using commmon function names across packages -->
 
 **Exercise 1.2**: Organizing files
-<!-- Could introduce tidyverse::broom, and tibbles, useful later as well & file-org package -->
+<!-- & file-org package -->
 
 **Exercise 1.3**: Finding errors in scripts and functions
 <!-- Level 2: positive tests / ground truth -->
@@ -232,6 +233,9 @@ Pre-printing, reporting guidelines, picking journals, peer review (15-20’)
 <!-- Inspiration: https://osf.io/enxcd -->
 
 **Exercise 8.1**: Prep data for sharing, Tables
+
+Statistical arcade game: 
+https://www.guessthecorrelation.com/
 
 - Feedback
 - Group photo
