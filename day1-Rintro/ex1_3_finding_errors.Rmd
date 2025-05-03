@@ -1,0 +1,66 @@
+---
+title: "Exercise 1.3: Finding Errors in Scripts and Functions"
+author: "David Souto"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Importance of code readability
+
+In this exercise, we will explore the importance of robust coding practices in R by identifying and fixing errors in a sample script. The provided code is poorly organized and contains an error that is not immediately obvious. Can you spot it?
+
+Improve the organization of the code and naming so you can find the error upon running the chunk and be more explicit about what it does.
+
+```{r sample-script, echo=TRUE}
+
+# this is how functions work in R
+# Define a function to calculate the square of a number
+# Execute with Ctrl+Enter (running the first line will run the entire function); try it out with square(2)
+square <- function(x) {
+  result <- x^2  # Calculate the square
+  return(result)  # Return the result
+}
+
+# Here is another function that generates an error 
+fun <- function(numbers) { total <- sum(numbers); average <- total / length(numbers) return(average)}
+
+
+```
+# Evaluate style complinance 
+
+We can use the `lintr` package to evaluate the style compliance of our R code. This package helps identify potential issues and improve code readability.
+
+```{r}
+# this package has a vignette, accessed with vignette("linter"), but no help
+install.packages("lintr") 
+library("lintr")
+
+# run linter on this file (or any R file):
+lint(filename="./ex1_3_finding_errors.Rmd")
+
+# double click on the list of propositions to locate in the file, try to fix some of the errors, note that you will be on the "Markers" 
+
+```
+
+Key takeaway
+
+Think about the readability of your code by using comments, code conventions and naming variables appropriately
+
+# Level 2 (optional): Debugging tools
+
+Imagine you want to calculate an average, 
+Locating the unexpected source of an error can involve trial and error, locating the exact line that is problematic. 
+
+Try to use browser() (and/or trace()) to locate errors within functions: https://rstudio-education.github.io/hopr/debug.html
+
+To locate the source of the error, use the `browser()` function. Place `browser()` on the line just before what you suspect is the problematic code. When you run the function, execution will pause, allowing you to inspect the state of variables at that point.
+
+Can you use browser to spot the error in the first chunk? Place a browser() on the line just before what you think is the culprit. 
+Observe the extra ">" that appears on the console indicating you have paused at that location. Check the state of variables at that location
+and run the erroneous line. Step out of the browser with "Esc".
+
+Additional Resources
+
+Narrated slides here on code readability and lintr (R or python): https://utrechtuniversity.github.io/workshop-computational-reproducibility/chapters/readability.html
+
+More exhaustive list of best coding practice tips in R:https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R.html

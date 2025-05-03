@@ -105,20 +105,21 @@ Introducing RMarkdown: Literate programming (5')
 <!-- Could introduce tidyverse::broom, and tibbles, useful later as welll remember we can call functions within a package with package::function, we will sometimes use this more verbose form to avoid the pesky conflicts that come with using commmon function names across packages -->
 
 **Exercise 1.2**: Organizing files
-<!-- & file-org package -->
+<!-- unfinished? -->
 
 **Exercise 1.3**: Finding errors in scripts and functions
-<!-- Level 2: positive tests / ground truth -->
+<!-- Level 2: Code-check -->
 
 **Exercise 1.4**: Computational reproducibility
 
 **Exercise 1.5**: Documenting projects with README files
+<!-- basic markdown, presented, continued Exercise 2.4 -->
 
 ### Session 2: Data wrangling & consolidating
 
 **Exercise 2.1**: Loading datasets
 Most common formats.
-<!-- link to FAIR -->
+<!-- link to FAIR, tibbles? -->
 
 **Exercise 2.2**: Using pipes
 

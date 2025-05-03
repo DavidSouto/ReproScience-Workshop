@@ -1,0 +1,128 @@
+---
+title: "Exercise 1.4: Computational reproducibility"
+author: "David Souto"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Iroduction
+
+Computational reproducibility ensures that your analysis can be repeated with the same results, even when performed by someone else or at a later time. This exercise demonstrates key practices for achieving reproducibility in R, including:
+
+* Setting a random seed for reproducible random number generation.
+* Specifying package versions to ensure consistent results.
+
+## Setting a Random Seed
+
+Random number generation is often used in simulations, sampling, or machine learning. Without setting a seed, the results will differ every time the code is run. Initializing the random number generator (RNG) seed on top of your script, or starting point, ensures reproducibility.
+
+You initialize the seed with `set.seed(seed_value)`. The seed_value is typically an integer. For example, set.seed(123) initializes the RNG to a specific state. This ensures that if somebody has the same RNG as you, they will observe the same results. 
+
+
+```{r random-seed, echo=TRUE}
+# Run these two lines repeatedly 
+random_numbers <- rnorm(5)  # rnorm: Generates 5 random numbers
+print(random_numbers)
+
+# Set the seed for reproducibility
+set.seed(123)
+random_numbers <- rnorm(5)  
+print(random_numbers)
+
+# What will I see now?
+random_numbers <- rnorm(5)  
+print(random_numbers)
+
+# Change the seed number above and observe the difference.
+
+```
+# Specifying package Versions
+ 
+The behavior of R packages can change between versions of packages and RNG types! To ensure reproducibility, you should document the versions of the packages you use. The `sessionInfo()` function provides this information.
+
+```{r random-seed, echo=TRUE}
+
+# use sessionInfo() to retrieve the package versions we are using and system information
+pack_Info<-sessionInfo()
+
+# explore the contents of pack_Info, using the $ sign, retrieve base packages and other packages that way
+
+# Usefully, we can see which of several possible RNGs was used:
+print(pack_Info$RNGkind)
+
+# We could actually use a different RNG one by
+RNGkind("Mersenne-Twister") 
+set.seed(42)
+random_numbers <- rnorm(5)  
+print(random_numbers)
+
+RNGkind("Wich") # specify Whichmann and Hill algorithm
+set.seed(42) # same seed as above
+random_numbers <- rnorm(5)  
+print(random_numbers)
+
+```
+
+# Save session information
+
+```{r}
+
+# You can easily save this information in a text file with sink, like set.seed it could be
+# something you specify on top of your main analysis script.
+sink('./analysis/session_info.txt') # redirects the output stream so you print to a file instead of printing to the Console
+print(sessionInfo())
+sink() # close the redirecting to the file
+
+```
+
+# Install specific packages
+
+To ensure that your analysis runs smoothly and consistently, it’s important to install specific versions of packages that you know work well with your code. This can prevent issues that arise from updates or changes in package behavior.
+
+There are different ways of installing older packages. One way is to specify versions using the `remotes package`. 
+
+```{r}
+# Example of installing specific versions of dplyr using the remotes package
+
+install.packages("remotes") 
+
+remotes::install_version("dplyr", version = "1.0.5") 
+
+```
+
+# Level 2 (optional):  Install and initialize 'renv'
+
+The renv package allows you to create a reproducible environment by locking the versions of the packages used in your project.
+
+By using renv, you ensure that anyone running your code will use the exact same package versions, eliminating discrepancies caused by updates or changes in package behavior.
+
+The typical workflow is shown below.
+
+```{r}
+# Install renv if you haven't already 
+install.packages("renv") # Initialize the renv environment, takes a while
+
+# see that the installation created a renv folder within my working directory (not to touch)
+
+renv::init() # Generates a lockfile, to store allowed package versions
+renv::install("dplyr") # Install dplyr within the environment
+renv::install("ggplot2") # Snapshot the current state of your project 
+renv::snapshot() # update the lockfile with the new packages, see the output
+
+```
+People downloading your code can now use Use the `renv::restore()` to recreate the exact package environment specified in the `renv.lock file` that is created alongside the "rev" folder. Open this file in R to see its contents.
+
+More information on how to use renv here: https://rstudio.github.io/renv/articles/renv.html
+
+# Level 3 (optional): Create a reproducible environment with packrat and docker
+
+A step further in creating a reproducible environment is the use of packrat and docker (https://rviews.rstudio.com/2018/01/18/package-management-for-reproducible-r-code/)
+
+We are not going in detail with level 2-3. It is good to be aware of it depending on your needs.
+
+Key Takeaways
+
+Set a Random Seed: Always set a seed when using random number generation to ensure reproducibility.
+Document Package Versions: Use sessionInfo() or renv to lock package versions and ensure consistent results.
+Test for Version Differences: Be aware that package updates can change behavior, and test your code with the intended versions.
+

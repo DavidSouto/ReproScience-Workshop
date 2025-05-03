@@ -1,0 +1,79 @@
+---
+title: "Exercise 1.2: File organization (10 mn)"
+output: html_document
+---
+
+File organization standards help share project data with collaborators and ultimately the scientific community.
+
+Why Organize Files?
+
+Reproducibility: A well-organized structure ensures that others (or your future self) can easily understand and use your data.
+
+Collaboration: Consistent file organization simplifies teamwork by reducing confusion.
+
+Efficiency: Saves time by making files easy to locate and reducing the need to reorganize later.
+
+## Organizing data
+Organization is field-specifc, as you are not dealing with the same data-types but you will face similar organizational issues. For instance, agreed upon standards for sharing brain imaging data can look like this (https://bids.neuroimaging.io/index.html):
+
+project_name/
+├── raw_data/
+│   ├── sub-01/
+│   │   ├── anat/
+│   │   │   └── sub-01_T1w.nii.gz
+│   │   └── func/
+│   │       └── sub-01_task-memory_bold.nii.gz 
+├── processed_data/
+│   └── sub-01/
+│       └── task-memory_preprocessed.nii.gz
+├── scripts/
+│   ├── preprocess.R
+│   └── analysis.R
+├── results/
+│   ├── figures/
+│   └── tables/
+├── docs/
+│   └── README.md
+
+### Naming 
+
+Good naming depends on what metadata you need to retrieve your files. An example, using YYYMMDD date format:
+
+Good naming Convention:
+
+data_20230501_analysis.csv
+data_20230511_analysis.csv
+data_20230521_analysis.csv
+
+Less good:
+
+data-01-05-2023.csv
+analysis_05_01_23.csv
+reportMay01.csv
+
+There are many benefit of systematic naming, one is the ability to automate some tasks. Filter out by sample by date: 
+
+```{r}
+
+library(tidyverse) # assumes you have run the first exercise, and the the working directory is set to the day1 folder
+
+# List all CSV files within the data folder
+dir('./data/') 
+
+# how is the data sorted? 
+
+```
+
+Reflection Questions (2 minutes)
+
+How does this compare with your current practice?
+What type of metadata do you need for your raw data? 
+
+E.g. in the BIDS system this could be a imaging file for the first run MRI run, sub-02_task-balloonanalogrisktask_run-01_bold.nii.gz
+
+Additional Resources
+
+Package 'prodigenr' and others (https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/literate-analysis-with-rmarkdown.html#tables) can be used to automatically generate a project structure for research projects. 
+
+Package 'fs' can be used to rename files and manage folders within R. It is a nice tool for messy, inconsistent naming in a large number of files: https://rfortherestofus.com/2025/01/fs-file-management
+
