@@ -123,7 +123,8 @@ Most common formats.
 
 **Exercise 2.2**: Using pipes
 
-**Exercise 2.3**: Consolidating datasets  
+**Exercise 2.3**: Consolidating datasets 
+<!-- point to data management resources -->
 
 **Exercise 2.3**: Producing data summaries  
 

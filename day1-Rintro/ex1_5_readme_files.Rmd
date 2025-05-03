@@ -1,0 +1,61 @@
+---
+title: "Exercise 1.5: Documenting Projects with README Files"
+author: "David Souto"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+In this section, we will learn how to create and format a README file using R Markdown. README files are essential for documenting your projects and providing information to users and collaborators. 
+
+There are several points where you want one.
+
+At a minimum you want one within the project folder, describing the project, what is needed to reproduce the analysis, etc.
+
+Other options: 
+
+In the data folder: Describe how the data is organized
+
+In the analysis folder: Describe how to run the analysis
+
+### Create a README.Rmd 
+
+1. Open RStudio.
+2. Navigate to File > R Markdown ... and `Create an empty document` at the bottom
+3. Save as README
+
+### Experiment with Headings
+
+Copy the following text into your README file
+
+These are different headings
+
+### Heading 3: Big title
+
+## Heading 2: Medium
+
+# Heading 1: Small
+
+### Knit the Document to HTML
+
+- In RStudio, click on the **Knit** button, then select **Knit to HTML**, or just `Knit`
+- This will generate a formatted version of the document that should pop up and could also be opened in any web browser
+
+### Create a Bullet Point List
+
+Add a bullet point list to your README file using the following syntax:
+markdown
+
+* Point 1
+
+* Point 2
+
+After adding the bullet points, click Knit to see the formatted list in the output document.
+
+### Integration
+
+
+Key Takeaways 
+
+Creating a well-documented README file is essential for any project. It serves as the first point of contact for users and collaborators, providing them with the necessary information to understand and use your work effectively. 
+
+By using R Markdown, you can create a dynamic and reproducible document that combines narrative text with code. More on this in the second session (Exercise 2.4)
