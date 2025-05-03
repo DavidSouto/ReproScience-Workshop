@@ -17,10 +17,24 @@ In the data folder: Describe how the data is organized
 
 In the analysis folder: Describe how to run the analysis
 
+Typical in a project README
+
+* Project Title: The name of your project.
+
+* Description: A brief overview of what the project does.
+
+* Installation Instructions: How to set up the project.
+
+* Usage Examples: How to use the project effectively.
+
+* Contributing Guidelines: Information on how others can contribute to the project.
+
+* License Information: The licensing terms for the project.
+
 ### Create a README.Rmd 
 
 1. Open RStudio.
-2. Navigate to File > R Markdown ... and `Create an empty document` at the bottom
+2. Navigate to File > New File > Markdown file and (not R Markdown, which would create an .Rmd file) 
 3. Save as README
 
 ### Experiment with Headings
@@ -35,10 +49,11 @@ These are different headings
 
 # Heading 1: Small
 
-### Knit the Document to HTML
+### Preview the file (HTML format)
 
-- In RStudio, click on the **Knit** button, then select **Knit to HTML**, or just `Knit`
-- This will generate a formatted version of the document that should pop up and could also be opened in any web browser
+- In RStudio, click on the **Preview** button, or " select **PreviewHTML**, or just **Preview**
+- This will generate a formatted version of the document that should pop up and could also be opened in any web browser and will generate
+and .html file in the working directory
 
 ### Create a Bullet Point List
 
@@ -52,9 +67,10 @@ markdown
 After adding the bullet points, click Knit to see the formatted list in the output document.
 
 ### Integration with GitHub
-If you visit the workshop repository you will see a formatted README.md file: https://github.com/DavidSouto/ReproScience-Workshop
 
-This is a MarkDown file. R Markdown extends this format but is very similar in its basic function.
+If you visit the [workshop repository](https://github.com/DavidSouto/ReproScience-Workshop) you will that GitHub shows the formatted contents of the README.md project file. 
+
+Note that R Markdown (the file type of the exercise notebooks) extends this format to R code but is very similar in its basic function. On the other hand it isn't recognised by GitHub
 
 Key Takeaways 
 

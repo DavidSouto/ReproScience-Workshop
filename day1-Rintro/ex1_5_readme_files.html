@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="David Souto" />
 
+<meta name="date" content="2025-05-03" />
 
-<title>Exercise 1.1: Workshop packages (20 mn)</title>
+<title>Exercise 1.5: Documenting Projects with README Files</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,159 +350,95 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Exercise 1.1: Workshop packages (20
-mn)</h1>
+<h1 class="title toc-ignore">Exercise 1.5: Documenting Projects with
+README Files</h1>
+<h4 class="author">David Souto</h4>
+<h4 class="date">2025-05-03</h4>
 
 </div>
 
 
-<p>We are going to look explore some of the characteristics of the
-packages we installed, in particular those are are part of the
-<em>tidyverse</em></p>
-<p>Set up the working directory to the day-1 folder. Run
-source(“workshop_pack.R”) if you didn’t install the packages yet</p>
-<pre><code>## Starting installation process...</code></pre>
-<pre><code>## tidyverse is already installed.</code></pre>
-<pre><code>## specr is already installed.</code></pre>
-<pre><code>## meme is already installed.</code></pre>
-<pre><code>## 
-## Verifying installations...</code></pre>
-<pre><code>## tidyverse is successfully installed.</code></pre>
-<pre><code>## specr is successfully installed.</code></pre>
-<pre><code>## meme is successfully installed.</code></pre>
-<pre><code>## 
-## Installation process completed!</code></pre>
-<div id="start-by-loading-the-tidyverse" class="section level3">
-<h3>Start by loading the tidyverse</h3>
-<p>The tidyverse is a collection of R packages designed for data science
-that share a common philosophy and design. In this worksheet, we’ll
-explore: - What packages are included in the tidyverse - How to handle
-package conflicts - Compare tidyverse with base R approaches</p>
-<pre class="r"><code># Use Ctrl+Enter (Cmd+Enter) to run line-by-line, rather than by chunk
-library(&quot;tidyverse&quot;); </code></pre>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code># find out how to cite in a publication (this format can be imported to Zotero for instance)
-citation(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## To cite package &#39;tidyverse&#39; in publications use:
-## 
-##   Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R,
-##   Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller
-##   E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V,
-##   Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). &quot;Welcome to
-##   the tidyverse.&quot; _Journal of Open Source Software_, *4*(43), 1686.
-##   doi:10.21105/joss.01686 &lt;https://doi.org/10.21105/joss.01686&gt;.
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Article{,
-##     title = {Welcome to the {tidyverse}},
-##     author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D&#39;Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
-##     year = {2019},
-##     journal = {Journal of Open Source Software},
-##     volume = {4},
-##     number = {43},
-##     pages = {1686},
-##     doi = {10.21105/joss.01686},
-##   }</code></pre>
-<pre class="r"><code># Optional: Find out general information about the package with library(help=&quot;tidyverse&quot;), find out what a meme is with library(help=&quot;meme&quot;)</code></pre>
-<p>Look at the message that appears when loading tidyverse. Which core
-packages are loaded by default? Take note of conflicts. Those are
-functions within one of the packages that have the same name as other
-loaded packages (e.g. part of base R)</p>
+<p>In this section, we will learn how to create and format a README file
+using R Markdown. README files are essential for documenting your
+projects and providing information to users and collaborators.</p>
+<p>There are several points where you want one.</p>
+<p>At a minimum you want one within the project folder, describing the
+project, what is needed to reproduce the analysis, etc.</p>
+<p>Other options:</p>
+<p>In the data folder: Describe how the data is organized</p>
+<p>In the analysis folder: Describe how to run the analysis</p>
+<p>Typical in a project README</p>
+<ul>
+<li><p>Project Title: The name of your project.</p></li>
+<li><p>Description: A brief overview of what the project does.</p></li>
+<li><p>Installation Instructions: How to set up the project.</p></li>
+<li><p>Usage Examples: How to use the project effectively.</p></li>
+<li><p>Contributing Guidelines: Information on how others can contribute
+to the project.</p></li>
+<li><p>License Information: The licensing terms for the
+project.</p></li>
+</ul>
+<div id="create-a-readme.rmd" class="section level3">
+<h3>Create a README.Rmd</h3>
+<ol style="list-style-type: decimal">
+<li>Open RStudio.</li>
+<li>Navigate to File &gt; New File &gt; Markdown file and (not R
+Markdown, which would create an .Rmd file)</li>
+<li>Save as README</li>
+</ol>
 </div>
-<div id="managing-package-conflicts" class="section level3">
-<h3>Managing package conflicts</h3>
-<p>There are different ways to manage naming conflicts. Or you could be
-explicit about those functions by using the “package_name”::“function
-name” syntax. You could also install the ‘conflicted’ package, which
-will throw an error when ‘overloaded’ functions are found.</p>
-<pre class="r"><code># Run this chunk and observe the output 
-filter(mpg, cyl==4) # we are filtering the pre-loaded fuel economy data frame by number of cylinders</code></pre>
-<pre><code>## # A tibble: 81 × 11
-##    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
-##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 audi         a4           1.8  1999     4 auto… f        18    29 p     comp…
-##  2 audi         a4           1.8  1999     4 manu… f        21    29 p     comp…
-##  3 audi         a4           2    2008     4 manu… f        20    31 p     comp…
-##  4 audi         a4           2    2008     4 auto… f        21    30 p     comp…
-##  5 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…
-##  6 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
-##  7 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
-##  8 audi         a4 quattro   2    2008     4 auto… 4        19    27 p     comp…
-##  9 chevrolet    malibu       2.4  1999     4 auto… f        19    27 r     mids…
-## 10 chevrolet    malibu       2.4  2008     4 auto… f        22    30 r     mids…
-## # ℹ 71 more rows</code></pre>
-<pre class="r"><code># Do the same using &quot;filter&quot; within the dplyr package by using the :: syntax, 
-
-# Do the same using the &quot;stats&quot; package  
-
-# Optional: install the conflicted package (syntax: install.packages(&quot;&quot;), then load with library()) and observe the output when running the first line
-
-# Optional: Can you guess what dplyr is about by browsing through package functions with the :: syntax? </code></pre>
+<div id="experiment-with-headings" class="section level3">
+<h3>Experiment with Headings</h3>
+<p>Copy the following text into your README file</p>
+<p>These are different headings</p>
 </div>
-<div id="data-filtering" class="section level3">
-<h3>Data filtering</h3>
-<p>Let’s see how we filter data in the tydiverse by selecting cars with
-6 cylinders:</p>
-<pre class="r"><code># Base R approach 
-base_r_way &lt;-mtcars[mtcars$cyl == 6, ]
-
-# Tidyverse approach 
-tidyverse_way &lt;- mtcars %&gt;% dplyr::filter(cyl == 6) 
-
-# Compare the results 
-head(base_r_way) # head() shows the first rows of a dataset</code></pre>
-<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</code></pre>
-<pre class="r"><code>head(tidyverse_way)</code></pre>
-<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</code></pre>
+<div id="heading-3-big-title" class="section level3">
+<h3>Heading 3: Big title</h3>
 </div>
-<div id="data-summaries" class="section level3">
-<h3>Data Summaries</h3>
-<p>Calculate the average mpg by cylinder:</p>
-<pre class="r"><code># Base R approach 
-aggregate(mpg ~ cyl, data = mtcars, FUN = mean) </code></pre>
-<pre><code>##   cyl      mpg
-## 1   4 26.66364
-## 2   6 19.74286
-## 3   8 15.10000</code></pre>
-<pre class="r"><code># Tidyverse approach 
-mtcars %&gt;% group_by(cyl) %&gt;% summarise(avg_mpg = mean(mpg))</code></pre>
-<pre><code>## # A tibble: 3 × 2
-##     cyl avg_mpg
-##   &lt;dbl&gt;   &lt;dbl&gt;
-## 1     4    26.7
-## 2     6    19.7
-## 3     8    15.1</code></pre>
-<p>Reflection Questions (2 minutes)</p>
-<p>What differences do you notice between tidyverse and base R syntax?
-Which approach seems more readable to you and why? Can you identify
-situations where one approach might be preferable over the other?</p>
-<p>Key Takeaways The tidyverse is a collection of packages that work
-together cohesively. Keep in mind possible function naming conflicts The
-tidyverse approach often emphasizes readability</p>
-<p>Additional Resources R for Data Science (free online): <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a>
-Tidyverse website: <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a> RStudio’s cheatsheets: <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></p>
+<div id="heading-2-medium" class="section level2">
+<h2>Heading 2: Medium</h2>
+</div>
+<div id="heading-1-small" class="section level1">
+<h1>Heading 1: Small</h1>
+<div id="preview-the-file-html-format" class="section level3">
+<h3>Preview the file (HTML format)</h3>
+<ul>
+<li>In RStudio, click on the <strong>Preview</strong> button, or ”
+select <strong>PreviewHTML</strong>, or just
+<strong>Preview</strong></li>
+<li>This will generate a formatted version of the document that should
+pop up and could also be opened in any web browser and will generate and
+.html file in the working directory</li>
+</ul>
+</div>
+<div id="create-a-bullet-point-list" class="section level3">
+<h3>Create a Bullet Point List</h3>
+<p>Add a bullet point list to your README file using the following
+syntax: markdown</p>
+<ul>
+<li><p>Point 1</p></li>
+<li><p>Point 2</p></li>
+</ul>
+<p>After adding the bullet points, click Knit to see the formatted list
+in the output document.</p>
+</div>
+<div id="integration-with-github" class="section level3">
+<h3>Integration with GitHub</h3>
+<p>If you visit the <a href="https://github.com/DavidSouto/ReproScience-Workshop">workshop
+repository</a> you will that GitHub shows the formatted contents of the
+README.md project file.</p>
+<p>Note that R Markdown (the file type of the exercise notebooks)
+extends this format to R code but is very similar in its basic function.
+On the other hand it isn’t recognised by GitHub</p>
+<p>Key Takeaways</p>
+<p>Creating a well-documented README file is essential for any project.
+It serves as the first point of contact for users and collaborators,
+providing them with the necessary information to understand and use your
+work effectively.</p>
+<p>By using R Markdown, you can create a dynamic and reproducible
+document that combines narrative text with code. More on this in the
+second session (Exercise 2.4)</p>
+</div>
 </div>
 
 
