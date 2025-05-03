@@ -7,5 +7,3 @@ These are different headings
 
 # Heading 1: Small
 
-Try this
-[workshop repository](https://github.com/DavidSouto/ReproScience-Workshop)
