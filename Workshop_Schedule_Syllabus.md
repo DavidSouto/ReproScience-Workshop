@@ -41,7 +41,7 @@ MSB 206A and 208A can be found on the second floor.**TBD**
 * This process can take a some time, so it's best to do it all at once.
 5. Packages installed
 * We are going to use several packages, mostly:
-**Tidyverse**: A collection of packages designed for data science, including ggplot2, dplyr and broom among many others.
+**Tidyverse**: A collection of packages designed for data science, including ggplot2, dplyr among many others.
 **Specr**: For multiverse analysis.
 **meme**: A fun package for meme generation.
 
@@ -53,7 +53,7 @@ MSB 206A and 208A can be found on the second floor.**TBD**
 *** If you have issues with internet we'll have local copies of packages**
 
 # Course description
-This workshop offers a hand-on introduction to the concepts and practices of reproducible science, aimed at enhancing the integrity and reliability of research. Participants will learn about the importance of reproducibility, open science, version control (with GitHub), computational reproducibility, and data management. The program combines theoretical elements and hands-on exercises, including setting up reproducible environments, collaborative projects on GitHub, and creating reproducible analyses with analysis notebooks.
+This workshop offers a hands-on introduction to the concepts and practices of reproducible science, aimed at enhancing the integrity and reliability of research. Participants will learn about the importance of reproducibility, open science, version control (with GitHub), computational reproducibility, and data management. The program combines theoretical elements and hands-on exercises, including setting up reproducible environments, collaborative projects on GitHub, and creating reproducible analyses with analysis notebooks.
 
 This 3-day workshop will equip participants with the essential tools and knowledge (e.g. regarding preregistration) to ensure research integrity, transparency, and reproducibility.
 
