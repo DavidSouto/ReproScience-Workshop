@@ -13,8 +13,8 @@
 * Once downloaded, extract the contents to a location on your hard drive.
 
 ### Set the working directory in RStudio
-* Open RStudio and use File > Open File and select the exercise (typically .Rmd file) or copy the path to the folder and type in the Console:
-*setwd("path/to/day1")*, for **set**ting the **w**orking **d**irectory, verify with *getwd()*)
+* Open RStudio. Find the path to the exercise (typically a .Rmd file), copy the path to the folder and type in the Console:
+*setwd("path/to/ReproScience")*, for **set**ting the **w**orking **d**irectory, verify with *getwd()*)
 
 ### Install the workshop packages
 * **Sourcing*** the *Pre_Package_Install.R*. Either by opening the file and press *source* (not run), or by typing *source("Pre_Package_Install.R")* in the Console.
