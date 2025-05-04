@@ -2,6 +2,8 @@
 3-Day workshop run by the Open Science Team within the University of Leicester School of Psychology and Vision Sciences
 
 * Start by looking at the Workshop_Schedule_Syllabus document
+* Materials are organized by day / session
+* Set the working directory in RStudio to go through the .Rmd worksheets by File > Open File or setwd('path/to/folder')
 
 # Hidden files: 
 We are going to pay attention to file extensions (e.g. .docx) and system files that could be hidden by default by your OS; For instance .git, which are used to keep track of what to synchronize with GitHub via Git
