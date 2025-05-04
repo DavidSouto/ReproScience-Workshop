@@ -17,7 +17,7 @@
 *setwd("path/to/day1")*, for **set**ting the **w**orking **d**irectory, verify with *getwd()*)
 
 ### Install the workshop packages
-    * **Sourcing*** the *Pre_Package_Install.R*. Either by opening the file and press *source* (not run), or by typing *source(Pre_Package_Install.R)* in the Console.
+* **Sourcing*** the *Pre_Package_Install.R*. Either by opening the file and press *source* (not run), or by typing *source(Pre_Package_Install.R)* in the Console.
 * This process can take a some time, so it's best to do it all at once.
 
 ### Packages installed
