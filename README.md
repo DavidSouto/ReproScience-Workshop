@@ -6,10 +6,10 @@
 
 # Pre-session instructions
 ### Installing or re-installing RStudio 
-* Download and install RStudio from the official website: https://posit.co/download/rstudio-desktop/. Make sure to choose the version compatible with your operating system (Windows or Mac). If you have RStudio already, upgrade to the last version if possible.
+* Download and install RStudio from the official [website](https://posit.co/download/rstudio-desktop/). Make sure to choose the version compatible with your operating system (Windows or Mac). If you have RStudio already, upgrade to the last version if possible.
 
 ### Get the workshop materials 
-* Download the workshop materials as a ZIP file by clicking on the green "code" icon and selecting the bottom option: https://github.com/DavidSouto/ReproScience-Workshop.  
+* Download the [workshop materials](https://github.com/DavidSouto/ReproScience-Workshop) as a ZIP file by clicking on the green "code" icon and selecting the bottom option.  
 * Once downloaded, extract the contents to a location on your hard drive.
 
 ### Set the working directory in RStudio
@@ -26,7 +26,8 @@
 **Specr**: For multiverse analysis.
 **meme**: A fun package for meme generation.
 
-## Install GitHub Desktop through this link: https://desktop.github.com/download/. This is a version control program that we are going to introduce in day 2.
+## Install GitHub Desktop 
+* Download and install [GitHub Desktop](https://desktop.github.com/download/). This is a version control program that we are going to introduce in day 2.
 
 # Hidden files: 
 We are going to pay attention to file extensions (e.g. .docx) and system files that could be hidden by default by your OS; For instance .git, which are used to keep track of what to synchronize with GitHub via Git
