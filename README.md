@@ -3,7 +3,30 @@
 
 * Start by looking at the Workshop_Schedule_Syllabus document
 * Materials are organized by day / session
-* Set the working directory in RStudio to go through the .Rmd worksheets by File > Open File or setwd('path/to/folder')
+
+# Pre-session instructions
+### Installing or re-installing RStudio 
+* Download and install RStudio from the official website: https://posit.co/download/rstudio-desktop/. Make sure to choose the version compatible with your operating system (Windows or Mac). If you have RStudio already, upgrade to the last version if possible.
+
+### Get the workshop materials 
+* Download the workshop materials as a ZIP file by clicking on the green "code" icon and selecting the bottom option: https://github.com/DavidSouto/ReproScience-Workshop.  
+* Once downloaded, extract the contents to a location on your hard drive.
+
+### Set the working directory in RStudio
+* Open RStudio and use File > Open File and select the exercise (typically .Rmd file) or copy the path to the folder and type in the Console:
+*setwd("path/to/day1")*, for **set**ting the **w**orking **d**irectory, verify with *getwd()*)
+
+### Install the workshop packages
+    * **Sourcing*** the *Pre_Package_Install.R*. Either by opening the file and press *source* (not run), or by typing *source(Pre_Package_Install.R)* in the Console.
+* This process can take a some time, so it's best to do it all at once.
+
+### Packages installed
+* We are going to use several packages, mostly:
+**Tidyverse**: A collection of packages designed for data science, including ggplot2, dplyr among many others.
+**Specr**: For multiverse analysis.
+**meme**: A fun package for meme generation.
+
+## Install GitHub Desktop through this link: https://desktop.github.com/download/. This is a version control program that we are going to introduce in day 2.
 
 # Hidden files: 
 We are going to pay attention to file extensions (e.g. .docx) and system files that could be hidden by default by your OS; For instance .git, which are used to keep track of what to synchronize with GitHub via Git
