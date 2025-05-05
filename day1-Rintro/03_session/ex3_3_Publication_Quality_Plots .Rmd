@@ -3,187 +3,132 @@ title: "Exercise 3.3: Publication quality plots"
 output: html_document
 ---
 
-There are many considerations to produce publication-ready plots, with tutorials often stopping at the aesthetic value. 
+Here are some considerations to produce publication-ready plots: 
 - Submission standards, such as file types and dots per inch.
-- Font size readable on a two column vs one column plot in a paper
 - Colour blindness
+- Font size readable on a two column vs one column plot in a paper
+
+We'll continue with the finch data. Run this again or skip if you follow from exercise 2.
 
 ```{r}
+library(tidyverse) 
+setwd('./03_session')
+
+# let's load the Finch data, it is actually four datasets
+beak_t1<- read.csv("./data/finch_beaks_1975.csv")     # peak measurements in1 1975 for scandens / fortis
+beak_t2<- read.csv("./data/finch_beaks_2012.csv")     # peak measurements in1 2012 for scandens / fortis
+
+beak_t1 <- beak_t1 %>% mutate(year = 1975)
+beak_t2 <- beak_t2 %>% mutate(year = 2012)
+
+# Combine the datasets using bind_rows (dplyr::bind_rows())
+finch_data <- bind_rows(beak_t1, beak_t2)
 
 ```
 
-### Subtitle
+# Colour blindness
 
-Description
+We tend to forget that colour deficiencies (colour blindness of some type) are extremely prevalent. People can then have difficulties in telling the difference between conditions.
 
 ```{r}
+# We need the package ggthemes exptending ggplot capabilities
+install.packages("ggthemes")
+library(ggthemes)
 
-```
+ggplot(finch_data, aes(x = Beak_length.mm, y = Beak_depth.mm, colour = species)) + 
+  geom_point()+
+  scale_colour_colorblind()+  # Apply colorblind-friendly palette
 
-
-```{r eval=FALSE}
-install.packages(c("colorBlindness"))
-```
-  
-```{r eval=TRUE}
-library(colorBlindness,tidyverse)
-```
-
-
-```{r eval=FALSE}
-install.packages(c("colorBlindness", "tidyverse"))
-```
-  
-```{r eval=TRUE}
-library(colorBlindness,tidyverse)
-```
-
-# Saving your graphs: Publication quality production
-
-Use ggsave to increase dpi from base R level (72 dpi) and to defining figure dimensions.
-E.g. nature: 3.5 in (89 mm), for a single column figure. 183 for a double column figure. 7.2
-
-600 should cover the upper limit for publishers 
-
-```{r}
-ggsave("filename.png", dpi=600, height=4, width=5, units="in")
-
-ggsave(P3, file="Fig2B.pdf", device="pdf",dpi=300)
-
-```
-# Colour blindness using colourBlindness package
-
-```{r}
-
-h<-ggplot(mpg, aes(x=displ,y=hwy, color=drv)) + 
-  geom_point() +
-  stat_summary(fun.data="mean_se", linewidth=1, size=1, aes(color=trans))+
-  stat_summary(fun="mean", linewidth=2, size=1, aes(color=trans), geom="line")+    
-  # I can commend here, it won't generate an error, ain't that neat?
-  geom_smooth()+ 
-  theme_bw(base_size=16)+
-  theme(text = element_text(family="serif"), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()
-  )
-
-# let's simulate what colour blind people see
-cvdPlot(h)
-
-# lets replace so people can see it
-cvdPlot(replacePlotColor(h))
-
-# can I save this? it will sae the last plot
-ggsave("filename.png", dpi=600, height=4, width=5, units="in")
-
-# where is it going?
-getwd(); setwd()
-
-# what is going on?
-h<-ggplot(mpg, aes(x=displ,y=hwy, color=drv)) + 
-  geom_point(size=1) +
-  stat_summary(fun.data="mean_se", linewidth=1, size=1, aes(color=trans))+
-  stat_summary(fun="mean", linewidth=1, size=1, aes(color=trans), geom="line")+    
-  # I can commend here, it won't generate an error, ain't that neat?
-  geom_smooth()+ 
-  theme_bw(base_size=8)+
-  theme(text = element_text(family="serif"), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()
-  )
-
-# lets replace so people can see it
-cvdPlot(replacePlotColor(h))
-
-
-# how to change the palette, so we can save the new plot
-replacePlotColor(h)
-
-# how to change the ggplot2 code so we have a safe palette?
-# we have :
-colorBlindness::safeColors
-
-# we can now apply to our color property
-# then we get an error, cute but not very practical, we can use the colourblindness function isntead? ...
-h<-ggplot(filter(mpg,drv==c('f','m')), aes(x=displ,y=hwy, color=drv, Values=t(c(safeColors[1],safeColors[2])))) + 
-  geom_point(size=1) +
-  stat_summary(fun.data="mean_se", linewidth=1, size=1)+
-  stat_summary(fun="mean", linewidth=1, size=1,  geom="line")+    
-  # I can commend here, it won't generate an error, ain't that neat?
-  geom_smooth()+ 
-  theme_bw(base_size=8)+
-  theme(text = element_text(family="serif"), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()
-  )
-
-# instead we could just use the viridis package, https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-
-# we can use colourBlindness to check the result
-install.packages("viridis")
-library(viridis)
-h<-ggplot(filter(mpg,drv==c('f','r')), aes(x=displ,y=hwy, color=drv)) + 
-  geom_point(size=1) +
-  stat_summary(fun.data="mean_se", linewidth=1, size=1)+
-  stat_summary(fun="mean", linewidth=1, size=1, geom="line")+    
-  # I can commend here, it won't generate an error, ain't that neat?
-  geom_smooth()+ 
-  scale_fill_viridis()+
-  theme_bw(base_size=8)+
-  theme(text = element_text(family="serif"), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()
-  )
-
-# THIS IS NOT WORKING??
-#install.packages("viridis")
-#library(viridis)
-# Vignette("viridis")
-h<-ggplot(filter(mpg,drv==c('f','r')), aes(x=displ,y=hwy, color=drv)) + 
-  geom_point(size=1) +
-  stat_summary(fun.data="mean_se", linewidth=1, size=1)+
-  stat_summary(fun="mean", linewidth=1, size=1, geom="line")+    
-  # I can commend here, it won't generate an error, ain't that neat?
-  geom_smooth()+ 
-  scale_color_manual(viridis+
-  theme_bw(base_size=8)+
-  theme(text = element_text(family="serif"), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()
-  )
-
-# Or change the colours from the saved file?
-  
-# they can be called by name or code, if you are interested in a very specific colour
-# check here: http://sape.inf.usi.ch/quick-reference/ggplot2/colour
-
-# You can specify the colors manually?
-# Where to find them?
-# sp + scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))
-
+# We now have a plot where differences are defined by brightness mostly, and color
+# However, We have the problem that the contrast of the orange dots is not very good
+# fix somewhat by adding the theme_classic() and increasing dot sizes
 
 ```
 
 # Saving publication-ready plots
+
 Use ggsave to increase dpi from base R level (72 dpi) and to defining figure dimensions. It is common to increase to 300-600 dpi for high-quality graphs. 
 
-For instance, last time I checked the journal Nature will display 3.5 in (89 mm) of a single column figure and 7.2 in (183 mm) of a double column figure.
+For instance, last time I checked the journal Nature will display 3.5 in (89 mm) of a single column figure and 7.2 in (183 mm) of a double column figure. PNG and PDF formats are very common requests for production.
 
-PNG and PDF formats are very common.
+For a publication-quality figure, a common practice is to use a font size of 10 to 12 points for axis labels and legends. This size ensures that the text is legible when printed or viewed on a screen. As a rule of thumb make the text within the figure as big as the surrounding text if not bigger.
 
-```{r}
-# lets save a very high resolution figure
+Next we are saving a plot meant for a 3.5-inch width (single-column).
+
+You are faced with the issue of specifying the aspect ratio in inches? 
+
+1. Go to the "Plot" tab in the bottom-right window. Go to "Export" > "Copy to clipboard"
+
+2. Grab the bottom right corner of the image to change the aspect ratio. See the numbers on top (pixels) change. Make sure "Maintain aspect ratio" is deselected 
+
+3. Find an aspect ratio (ratio of width to height) that works for you. You could insert into a word file and print to get a good idea of what it would look like in one column of a paper. Copy the pixel values for width and height. Those determine the aspect ratio.
+
+The aspect ratio is width / height You know the figure should occupy 3.5 inches. You multiply by the aspect ratio to get the height in inches.
+
+For example, if the width is 3.5 inches and the aspect ratio is 1.4, the height would be 3.5 / 1.4 = 2.5
+
+4. Adjust font size family if too tiny
+
+```{r eval=FALSE, include=FALSE}
+# plot a production-ready figure (let's not be too finicky at this point)
+ggplot(finch_data, aes(x = Beak_length.mm, y = Beak_depth.mm, colour = species)) + 
+  geom_point(size=1) +  # Add points for each observation
+  theme_classic(base_size = 10) +  # Use a classic theme for a clean look
+  labs(
+    x = "Beak Length (mm)",  # Label for x-axis
+    y = "Beak Depth (mm)",    # Label for y-axis
+    colour = "Species"        # Legend title
+  ) +
+  theme(
+    # change the size of individual elements by uncommenting this if you want
+    #axis.title.x = element_text(size = 12),  # X-axis title font size
+    #axis.title.y = element_text(size = 12),  # Y-axis title font size
+    #axis.text = element_text(size = 10),  # Axis text font size
+    #legend.title = element_text(size = 12),  # Legend title font size
+    #legend.text = element_text(size = 10)  # Legend text font size
+  )
+
+# Fill the blank
+
+# Specify the size in pixels for the height and width (as determined above)
 
 # save a png file
-ggsave("filename.png", dpi=600, height=4, width=5, units="in")
+ggsave("figures/finch_data_hr.png",dpi=600, height=___, width=__, units="in")
+
+# note you are not getting exactly what you are seeing on the preview, when it comes to dot size
+# open and zoom on the figure with the Files tab
+# see the difference with different values of dpi
+# adjust the size of dots and base_size to optimal values
 
 # save a pdf 
-ggsave(P3, file="Fig2B.pdf", device="pdf",dpi=300)
+ggsave("figures/finch_data_hr.pdf", device="pdf",dpi=600, height=__, width, __)
 
 ```
 
-Reflection Questions 
+# To cap the day: 
 
-Key Takeaways
+Make the fanciest possible plot of the scandens beak length by year, save it and upload it. Winner will be judged based on aesthetic quality and application of the principles we have covered. You can use AI (e.g. Copilot) to make as sophisticated a plot as you want and bring this bird data to life; you are not limited to what we have covered or the packages we have used.
 
-Additional Resources
+Upload the file using this [link](https://forms.gle/NYreXR7rvZc2rJzH8). 
+
+Name the file: (Your Name)_(Your Surname)_pretty_finch.png
+
+# Key Takeaways
+
+File Types: Use PNG or PDF for high-quality outputs.
+
+Resolution (DPI): Increase DPI to 300–600 for publication.
+
+Font Size: Use 10–12 points for axis labels and legends.
+
+Aspect Ratio: Maintain a suitable width-to-height ratio (e.g., 3.5 inches wide for single-column figures).
+
+Additional resources
+
+Edward Tufte book: Tufte, E. R., & Graves-Morris, P. R. (1983). The visual display of quantitative information (Vol. 2, No. 9). Cheshire, CT: Graphics press.
+
+You can see a summary [here](https://benjaminleroy.github.io/pages/blog/public/post/2018/05/16/review-of-tufte-s-the-visual-display-of-quantitative-information/)
+
+Stephen Kosslyn's book: Kosslyn, S. M. (2006). Graph design for the eye and mind. OUP USA.
+
+You can see a very short summary here [here](https://civilstat.com/2012/11/graph-design-for-the-eye-and-mind-stephen-kosslyn/)

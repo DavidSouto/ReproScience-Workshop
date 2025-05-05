@@ -1,51 +1,166 @@
 ---
-title: "Exercise 3.2: Displaying all data"
+title: "Exercise 3.2: Displaying All Data"
+author: David Souto
 output: html_document
 ---
 
-Show the dots behind the data. 
+## Show the dots behind the data
 
-The quick way. We can use packages that do this for you.
+The quick way to visualize data effectively is to use packages that help manage overplotting. Combining different elements on the same plot can sometimes lead to clutter, but there are strategies to solve this problem.
 
-Combining different elements on the same plot can be harder  
-
-# solving the overplotting problem
-
-# Overplotting problem (position layer)
-# from RFDS examples
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
-
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar(alpha = 1/5, position = "identity")
-
-ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + 
-  geom_bar(fill = NA, position = "identity")
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
-You can jitter the data.
+Run the following chunk if needed to get started.
 
 ```{r}
-# Increase the 
-ggplot(finch_data, 
-  aes(x = species, y = Beak_length.mm)) + 
-  geom_point() 
-```
+# let's load the tidyverse, which holds ggplot
+library(tidyverse) 
+#setwd('./03_session')
 
-### Subtitle
+# let's load the Finch data, it is actually four datasets
+beak_t1<- read.csv("./data/finch_beaks_1975.csv")     # peak measurements in1 1975 for scandens / fortis
+beak_t2<- read.csv("./data/finch_beaks_2012.csv")     # peak measurements in1 2012 for scandens / fortis
 
-Description
+beak_t1 <- beak_t1 %>% mutate(year = 1975)
+beak_t2 <- beak_t2 %>% mutate(year = 2012)
 
-```{r}
+# Combine the datasets using bind_rows (dplyr::bind_rows())
+finch_data <- bind_rows(beak_t1, beak_t2)
 
 ```
 
-Reflection Questions 
+### Solving the Overplotting Problem
 
-Key Takeaways
+To address overplotting, the issue we have with dots being on top of each other, we can use the `position` argument in `geom_point()` to jitter the points, making them more distinguishable. 
 
-Additional Resources
+```{r}
+# We can show a boxplot of beak lengths by species and see the problem straight away
+ggplot(finch_data, aes(x=species, y=Beak_length.mm))+
+  geom_point()
+```
+We could sort this problem by jittering the dots by some amount. It is not cheating if we jitter along the x-axis, as we are not altering beak length. 
+
+```{r eval=FALSE, include=FALSE}
+# Let's try jittering along the by using position 
+ggplot(finch_data,aes(x = species, y = Beak_depth.mm)) + 
+  geom_point(position = "jitter")
+
+# Fill the blanks
+
+# by default this is a lot of jitter, also we want an horizontal jitter, we can adjust that with postion_jitter()
+# adjust the parameters to something that feels right
+ggplot(finch_data,mapping = aes(x = species, y = Beak_depth.mm)) + 
+  geom_point(position = position_jitter(width=__,height=__))
+
+# We 
+# Bar plot with transparency for clarity ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + geom_bar(alpha = 1/5, position = "identity")
+
+```
+
+# Combining elements
+
+We are not restricted to just one type of geometry, we can combine them.
+
+```{r}
+
+# Add a geom_boxplot() to this graph (remember a + to indicate we are adding a layer)
+ggplot(finch_data,aes(x = species, y = Beak_depth.mm)) + 
+  geom_point(position = "jitter")+
+  geom_boxplot()
+
+# See what happens if we invert the order of the geom_'s
+
+```
+# Adding averages and error bars
+
+With the stat_ layer we have the option of calculating several summary statistics within ggplot. That way we can display error bars on top of dots.
+
+```{r}
+ggplot(finch_data,aes(x = species, y = Beak_depth.mm)) + 
+  geom_point(position = "jitter")+
+  # we specify we want a standard deviation
+  stat_summary(fun.data = "mean_sdl", 
+               # specify we want an errorbar geometry
+               geom = "errorbar", colour="red",size=1, width=0.2)+
+
+# we have now created the ugliest error bar possible: make it pretty with the parameter size and colour in stat_summary; 
+# add another summary corresponding to the mean on top, note a subtlety here, you specify fun="" and not fun.data="" because it is a single value, specify size and colour again
+
+```
+
+# Mixing datasets
+
+What if we have done the work of summarizing the data already with say `dplyr` in some specific way we like? How can we mix the observation-level data with the averages?
+
+```{r}
+# Mixing datasets
+
+# say we have a data summary for the finch dataset
+# we know how to do this
+beak_summary<- finch_data %>% 
+  group_by(species) %>% 
+  summarise(mean = mean(Beak_length.mm), # calculate mean
+              sd = sd(Beak_length.mm))   # calculate standard deviation
+
+print(beak_summary)  
+
+# Now combine raw data with summarized data in a ggplot
+ggplot(finch_data, aes(x = species, y = Beak_length.mm)) +
+  # We start by adding raw data points with jitter
+  geom_point(position = position_jitter(width = 0.2), 
+             alpha = 0.5, size = 2, color = "blue")+
+  # Add mean points for the summarized data
+  # sublety here: we have to be more specific, omitting 'data', as we did for ggplot() won't work
+  geom_point(data = beak_summary, 
+             aes(x = species, y = mean), 
+             size = 3, color = "red")
+```
+# Violin and dot plots
+
+Rain and violin plots can be used to efficiently show dot distributions, including with large amounts of data. To do so with `ggplot` we can use `stat_halfeye`, `geom_violin`.
+
+```{r}
+ggplot(finch_data, aes(x = species, y = Beak_depth.mm)) +
+  # Add a density plot
+  stat_halfeye(
+    adjust = 0.5,
+    width = 0.6,
+    .width = 0,
+    justification = -0.2,
+    point_colour = NA
+  ) +
+  # Add boxplot
+  geom_boxplot(
+    width = 0.12,
+  ) +
+  # Add dot plot
+  stat_dots(
+    side = "left",
+    justification = 1.1,
+    binwidth = NA 
+  )
+```
+
+Another version uses `geom_violin`, producing a proper violin plot, basically a mirrored density plot.
+
+```{r}
+
+# Fill the blanks
+ggplot(finch_data, aes(x = species, y = Beak_depth.mm)) +
+  # Add half-violin plot, 
+  geom_violin()+
+  geom_boxplot()
+
+# This plot doesn't win any beauty contests; use 'width' to adjust the width of the boxplot
+# change the smoothing bandwidth of the violin plot with 'bw', or 'adjust' (a factor of default value), try different values
+
+```
+# Level 2 (optional): Advanced Visualization Using Specialized Packages
+
+You would have noticed that combinations of dot / violin plots are a bit fiddly to handle with base ggplot. Package `ggdist` facilitates some of this. 
+
+The package has its own cheat-sheets and documentation](https://github.com/mjskay/ggdist/tree/master).
+              
+Key Takeaway: 
+
+When combining multiple statistical elements, focus on clarity and avoid visual clutter. 
+
+Use transparency and appropriate positioning to ensure all elements are visible and interpretable.
