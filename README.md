@@ -13,9 +13,8 @@
 * Once downloaded, extract the contents to a location on your hard drive.
 
 ### Set the working directory in RStudio
-* Open RStudio. Find the path to the exercise (typically a .Rmd file), copy the path to the folder and type in the Console:
-*setwd("path/to/ReproScience")*, for **set**ting the **w**orking **d**irectory, verify with *getwd()*)
-
+* Open RStudio. Set the working directory to be the workshop folder: click on the "Session" tab (on top) then "Set working Directory" then "Choose Directory" then "Open". This will set the working directory to the overarching folder. You can check executing `setwd()` on the Console. Worksheets will change the working directory for you, so outputs point to the right place.
+* 
 ### Install the workshop packages
 * **Sourcing*** the *Pre_Package_Install.R*. Either by opening the file and press *source* (not run), or by typing *source("Pre_Package_Install.R")* in the Console.
 * This process could take a some time, so it's best to do it all at once.
