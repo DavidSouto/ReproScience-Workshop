@@ -19,7 +19,7 @@ Random number generation is often used in simulations, sampling, or machine lear
 You initialize the seed with `set.seed(seed_value)`. The seed_value is typically an integer. For example, set.seed(123) initializes the RNG to a specific state. This ensures that if somebody has the same RNG as you, they will observe the same results. 
 
 
-```{r random-seed, echo=TRUE}
+```{r, echo=TRUE}
 # Run these two lines repeatedly 
 random_numbers <- rnorm(5)  # rnorm: Generates 5 random numbers
 print(random_numbers)
@@ -34,13 +34,13 @@ random_numbers <- rnorm(5)
 print(random_numbers)
 
 # Change the seed number above and observe the difference.
-
 ```
+
 # Specifying package Versions
  
 The behavior of R packages can change between versions of packages and RNG types! To ensure reproducibility, you should document the versions of the packages you use. The `sessionInfo()` function provides this information.
 
-```{r random-seed, echo=TRUE}
+```{r, echo=TRUE}
 
 # use sessionInfo() to retrieve the package versions we are using and system information
 pack_Info<-sessionInfo()
@@ -110,6 +110,7 @@ renv::install("ggplot2") # Snapshot the current state of your project
 renv::snapshot() # update the lockfile with the new packages, see the output
 
 ```
+
 People downloading your code can now use Use the `renv::restore()` to recreate the exact package environment specified in the `renv.lock file` that is created alongside the "rev" folder. Open this file in R to see its contents.
 
 More information on how to use renv here: https://rstudio.github.io/renv/articles/renv.html
@@ -123,6 +124,8 @@ We are not going in detail with level 2-3. It is good to be aware of it dependin
 Key Takeaways
 
 Set a Random Seed: Always set a seed when using random number generation to ensure reproducibility.
+
 Document Package Versions: Use sessionInfo() or renv to lock package versions and ensure consistent results.
+
 Test for Version Differences: Be aware that package updates can change behavior, and test your code with the intended versions.
 

@@ -11,8 +11,9 @@ Here are some considerations to produce publication-ready plots:
 We'll continue with the finch data. Run this again or skip if you follow from exercise 2.
 
 ```{r}
+# The working directory needs setting to day1/03_session 
+
 library(tidyverse) 
-setwd('./03_session')
 
 # let's load the Finch data, it is actually four datasets
 beak_t1<- read.csv("./data/finch_beaks_1975.csv")     # peak measurements in1 1975 for scandens / fortis

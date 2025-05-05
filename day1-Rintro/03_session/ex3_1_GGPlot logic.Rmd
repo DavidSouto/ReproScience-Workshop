@@ -44,9 +44,10 @@ See the data card for Darwin's Finch Evolution Dataset from in  [Kaggle](https:/
 (We are taking inspiration from the python analysis [here](https://www.kaggle.com/code/muhammetgamal5/darwin-s-finches-evolution)
 
 ```{r}
+# The working directory needs setting to day1/03_session 
+
 # let's load the tidyverse, which holds ggplot
 library(tidyverse) 
-#setwd('./03_session')
 
 # let's load the Finch data, it is actually four datasets
 beak_t1<- read.csv("./data/finch_beaks_1975.csv")     # peak measurements in1 1975 for scandens / fortis

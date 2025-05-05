@@ -24,8 +24,8 @@ square <- function(x) {
 # Here is another function that generates an error 
 fun <- function(numbers) { total <- sum(numbers); average <- total / length(numbers) return(average)}
 
-
 ```
+
 # Evaluate style complinance 
 
 We can use the `lintr` package to evaluate the style compliance of our R code. This package helps identify potential issues and improve code readability.
@@ -61,6 +61,6 @@ and run the erroneous line. Step out of the browser with "Esc".
 
 Additional Resources
 
-Narrated slides here on code readability and lintr (R or python): https://utrechtuniversity.github.io/workshop-computational-reproducibility/chapters/readability.html
+Narrated slides [here](https://utrechtuniversity.github.io/workshop-computational-reproducibility/chapters/readability.html) on code readability and lintr (R or python).
 
-More exhaustive list of best coding practice tips in R:https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R.html
+More exhaustive list of best [coding practice](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R.html) tips in R.

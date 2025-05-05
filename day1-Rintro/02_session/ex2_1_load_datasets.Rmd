@@ -12,9 +12,8 @@ R supports various data formats through specialized packages. With base R we can
 ```{r}
 # Load necessary libraries and set the working directory to the correct session number
 library(tidyverse)  
-setwd("./data/02_session")
+# set the working directory to day1/02_session 
 
-# load the .csv data (using base R)
 tt_data <- read.csv("./data/tiktok_data.csv")
 
 # Load the dataset from the URL: letter frequency in the english language

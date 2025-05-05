@@ -10,7 +10,7 @@ You have seem how R markdown documents work across our exercises. We are now goi
 # We are going to start by loading our data and set working directories
 
 # Run this chunk unless you have run Exercise 2.1
-# setwd("./02_session")
+# The working directory needs setting to day1/02_session 
 library(tidyverse)
 
 tt_data <- read.csv("./data/tiktok_data.csv")

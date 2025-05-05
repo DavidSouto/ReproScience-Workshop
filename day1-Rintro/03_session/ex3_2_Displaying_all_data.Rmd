@@ -11,9 +11,10 @@ The quick way to visualize data effectively is to use packages that help manage 
 Run the following chunk if needed to get started.
 
 ```{r}
+# The working directory needs setting to day1/03_session 
+
 # let's load the tidyverse, which holds ggplot
 library(tidyverse) 
-#setwd('./03_session')
 
 # let's load the Finch data, it is actually four datasets
 beak_t1<- read.csv("./data/finch_beaks_1975.csv")     # peak measurements in1 1975 for scandens / fortis
