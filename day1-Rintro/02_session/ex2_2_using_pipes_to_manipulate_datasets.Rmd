@@ -1,0 +1,170 @@
+---
+title: "Exercise 2.2: Using pipes to manipulate datasets"
+output: html_document
+---
+
+We have seen pipes before, the `%>%` symbol that re-routes (think plumbing) the output of a function to another function. We are going to explore their use more systematically in the context of the tydiverse. Note there is another type of pipe syntax: |> but you might find this very awkward on your keyboard.
+
+We are mainly going to use `dplyr` and `tidyr` functions and pipes to manipulate our data.
+
+```{r}
+# Run this chunk unless you have run Exercise 2.1
+setwd("./02_session")
+library(tidyverse)
+
+tt_data <- read.csv("./data/tiktok_data.csv")
+
+# make numbers variables numeric
+tt_data$video_comment_count<-as.numeric(tt_data$video_comment_count)
+tt_data$video_view_count<-as.numeric(tt_data$video_view_count)
+tt_data$video_like_count<-as.numeric(tt_data$video_like_count)
+tt_data$video_download_count<-as.numeric(tt_data$video_download_count)
+
+# you will see a warning as indeed some of the data is NA and can't be coerced into a numeric value
+```
+# Data Cleaning
+
+Data cleaning may involve removing NA values, stripping spaces, or converting data types.
+
+# Remove rows with NA values
+
+For some analysis, we could remove data for which we have incomplete information. With our data set it would 
+correspond to removing rows whenever an NA value (not-a-number) is observed. 
+
+```{r}
+#  tt_data is routed to drop_na() which strips out rows containing NA occurrences, not-a-number
+#  the result of that is assigned to tt_data
+tt_data <- tt_data %>%
+  drop_na()
+
+# Now write and execute the equivalent in base R
+# check the result (hint: head(), or as_tibble())
+```
+
+## Data manipulation functions in the tidyverse 
+
+In the next chunk We are going to review `dplyr` functions `mutate`, `across`, and `where` to locate and manipulate data. The `dplyr` package has numerous options that we are not going to detail exhaustively.
+
+# Use of mutate()
+
+```{r}
+
+# we are creating a new variable in the dataset, called long, which 
+# takes a value of TRUE if video_duration is below 20 seconds, FALSE if above
+tt_data <- tt_data %>%
+  mutate(short = video_duration_sec>20) 
+
+head(tt_data$short)
+
+# Note the equivalence to: dplyr::mutate(tt_data, short=video_duration_sec>20)
+
+# You can also specify the value for observations that meet the condition with
+# if_else(), a dplyr function: if_else(video_duration_sec>20, "Short", "Long")
+
+# create a new variable that takes the log of the video_comment_count, transform to integer if necessary
+
+```
+
+# Use of select() and filter() 
+
+Our dataset is quite big, we may want to select specific variables to simplify things
+
+```{r}
+
+# Use of select()
+
+# We could start by selecting only the numeric variables and the column verified_status with select() 
+tt_data2<-tt_data %>% 
+  # is.numeric() tells you whether a variable is numeric, whereas as.numeric is used to change the type
+  select(is.numeric, verified_status)
+
+# Try selecting by variable name
+
+# Use of filter()
+
+# We are interested in looking at the distribution of view counts, likes and shares
+
+# let's see the frequency of videos downloads numbers 
+# We can use base R to create a histogram of video download counts with specified x-axis limits
+# We see most videos have z downloads
+hist(tt_data2$video_download_count, 
+     breaks = 5000,                # Number of bins
+     xlim = c(0, 100),           # Set x-axis limits (adjust as needed)
+     #ylim = c(0, 20),           # Set x-axis limits (adjust as needed)
+     main = "Histogram of Video Download Counts",  # Title of the histogram
+     xlab = "Video download Count",    # Label for the x-axis
+     ylab = "Frequency",            # Label for the y-axis
+     col = "lightblue",             # Color of the bars
+     border = "black")              # Color of the bar borders
+
+# We may be interested in filtering out videos with very few view counts
+tt_data_f1 <- tt_data2 %>% 
+  filter(video_view_count>1000)
+
+# now filter out by video count AND filtering out accounts that were banned (author_ban_status) with '!=" (not equal to)
+tt_data_f2 <- tt_data2 %>% 
+  filter(_______, ______)
+
+# run again the chunk but with the filtered data
+
+```
+
+# Produce summaries
+
+We can use `group_by()` and `summarise()` to produce summaries of our data. Here we are going to count the number of posts by user status.
+
+```{r}
+counts_by_status <- tt_data %>%
+  # we group by ban status
+  group_by(author_ban_status) %>%
+  # we summarize by status, and calculate the number of posts per group
+  # note that n() does a count of rows within a group, it doesn't need to know the column
+  summarise(post_count = n()) 
+
+# use other type of summaries, using mean(), median(); and change the name of summary variables cacordingly. 
+# Note that this time we need to know what (the column / variable) we are averaging
+
+# View the results
+print(counts_by_status)
+
+# Check the average number of views per verified status 
+
+```
+
+# Combine functions
+
+We can now use a combination of these functions to clean up, select and summarize data in a readable way.
+
+```{r}
+
+# Fill the blanks in the following chunk & execute
+
+# Combine functions to summarize and filter data 
+summary_combined <- tt_data2 %>% 
+  # filter out videso with low view counts
+  filter(video_view_count>20) %>% 
+  # Select two variables 
+  select(author_ban_status, video_view_count) %>% 
+  # Group by author_ban_status
+  group_by(author_ban_status) %>% 
+  # provide summaries for view counts
+  summarise( total_posts = ____, average_views = _____, max_views = ____ , min_views = ____)) 
+
+
+```
+
+Key Takeaways
+
+Summarizing Data: The summarise() function allows you to compute various statistics like count, mean, and median for grouped data.
+
+Combining Functions: You can chain multiple dplyr functions together to filter, select, and summarize data in a clear and concise manner.
+
+Additional Resources
+
+We only have touched upon most used functions of `dplyr`. More on [dplyr here](https://dplyr.tidyverse.org/).
+
+The tiktok dataset can be access in [Kaggle.com](https://www.kaggle.com/datasets/yakhyojon/tiktok/data). It is a popular website among the 
+data science / machine learning community. By selecting the "Code" tab you can see what multiple people have done with the dataset.
+
+
+You might find the dplyr and tidyverse [cheatsheets useful](https://rstudio.com/resources/cheatsheets/).

@@ -1,0 +1,189 @@
+---
+title: "Exercise 3.3: Publication quality plots"
+output: html_document
+---
+
+There are many considerations to produce publication-ready plots, with tutorials often stopping at the aesthetic value. 
+- Submission standards, such as file types and dots per inch.
+- Font size readable on a two column vs one column plot in a paper
+- Colour blindness
+
+```{r}
+
+```
+
+### Subtitle
+
+Description
+
+```{r}
+
+```
+
+
+```{r eval=FALSE}
+install.packages(c("colorBlindness"))
+```
+  
+```{r eval=TRUE}
+library(colorBlindness,tidyverse)
+```
+
+
+```{r eval=FALSE}
+install.packages(c("colorBlindness", "tidyverse"))
+```
+  
+```{r eval=TRUE}
+library(colorBlindness,tidyverse)
+```
+
+# Saving your graphs: Publication quality production
+
+Use ggsave to increase dpi from base R level (72 dpi) and to defining figure dimensions.
+E.g. nature: 3.5 in (89 mm), for a single column figure. 183 for a double column figure. 7.2
+
+600 should cover the upper limit for publishers 
+
+```{r}
+ggsave("filename.png", dpi=600, height=4, width=5, units="in")
+
+ggsave(P3, file="Fig2B.pdf", device="pdf",dpi=300)
+
+```
+# Colour blindness using colourBlindness package
+
+```{r}
+
+h<-ggplot(mpg, aes(x=displ,y=hwy, color=drv)) + 
+  geom_point() +
+  stat_summary(fun.data="mean_se", linewidth=1, size=1, aes(color=trans))+
+  stat_summary(fun="mean", linewidth=2, size=1, aes(color=trans), geom="line")+    
+  # I can commend here, it won't generate an error, ain't that neat?
+  geom_smooth()+ 
+  theme_bw(base_size=16)+
+  theme(text = element_text(family="serif"), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()
+  )
+
+# let's simulate what colour blind people see
+cvdPlot(h)
+
+# lets replace so people can see it
+cvdPlot(replacePlotColor(h))
+
+# can I save this? it will sae the last plot
+ggsave("filename.png", dpi=600, height=4, width=5, units="in")
+
+# where is it going?
+getwd(); setwd()
+
+# what is going on?
+h<-ggplot(mpg, aes(x=displ,y=hwy, color=drv)) + 
+  geom_point(size=1) +
+  stat_summary(fun.data="mean_se", linewidth=1, size=1, aes(color=trans))+
+  stat_summary(fun="mean", linewidth=1, size=1, aes(color=trans), geom="line")+    
+  # I can commend here, it won't generate an error, ain't that neat?
+  geom_smooth()+ 
+  theme_bw(base_size=8)+
+  theme(text = element_text(family="serif"), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()
+  )
+
+# lets replace so people can see it
+cvdPlot(replacePlotColor(h))
+
+
+# how to change the palette, so we can save the new plot
+replacePlotColor(h)
+
+# how to change the ggplot2 code so we have a safe palette?
+# we have :
+colorBlindness::safeColors
+
+# we can now apply to our color property
+# then we get an error, cute but not very practical, we can use the colourblindness function isntead? ...
+h<-ggplot(filter(mpg,drv==c('f','m')), aes(x=displ,y=hwy, color=drv, Values=t(c(safeColors[1],safeColors[2])))) + 
+  geom_point(size=1) +
+  stat_summary(fun.data="mean_se", linewidth=1, size=1)+
+  stat_summary(fun="mean", linewidth=1, size=1,  geom="line")+    
+  # I can commend here, it won't generate an error, ain't that neat?
+  geom_smooth()+ 
+  theme_bw(base_size=8)+
+  theme(text = element_text(family="serif"), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()
+  )
+
+# instead we could just use the viridis package, https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+
+# we can use colourBlindness to check the result
+install.packages("viridis")
+library(viridis)
+h<-ggplot(filter(mpg,drv==c('f','r')), aes(x=displ,y=hwy, color=drv)) + 
+  geom_point(size=1) +
+  stat_summary(fun.data="mean_se", linewidth=1, size=1)+
+  stat_summary(fun="mean", linewidth=1, size=1, geom="line")+    
+  # I can commend here, it won't generate an error, ain't that neat?
+  geom_smooth()+ 
+  scale_fill_viridis()+
+  theme_bw(base_size=8)+
+  theme(text = element_text(family="serif"), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()
+  )
+
+# THIS IS NOT WORKING??
+#install.packages("viridis")
+#library(viridis)
+# Vignette("viridis")
+h<-ggplot(filter(mpg,drv==c('f','r')), aes(x=displ,y=hwy, color=drv)) + 
+  geom_point(size=1) +
+  stat_summary(fun.data="mean_se", linewidth=1, size=1)+
+  stat_summary(fun="mean", linewidth=1, size=1, geom="line")+    
+  # I can commend here, it won't generate an error, ain't that neat?
+  geom_smooth()+ 
+  scale_color_manual(viridis+
+  theme_bw(base_size=8)+
+  theme(text = element_text(family="serif"), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()
+  )
+
+# Or change the colours from the saved file?
+  
+# they can be called by name or code, if you are interested in a very specific colour
+# check here: http://sape.inf.usi.ch/quick-reference/ggplot2/colour
+
+# You can specify the colors manually?
+# Where to find them?
+# sp + scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))
+
+
+```
+
+# Saving publication-ready plots
+Use ggsave to increase dpi from base R level (72 dpi) and to defining figure dimensions. It is common to increase to 300-600 dpi for high-quality graphs. 
+
+For instance, last time I checked the journal Nature will display 3.5 in (89 mm) of a single column figure and 7.2 in (183 mm) of a double column figure.
+
+PNG and PDF formats are very common.
+
+```{r}
+# lets save a very high resolution figure
+
+# save a png file
+ggsave("filename.png", dpi=600, height=4, width=5, units="in")
+
+# save a pdf 
+ggsave(P3, file="Fig2B.pdf", device="pdf",dpi=300)
+
+```
+
+Reflection Questions 
+
+Key Takeaways
+
+Additional Resources

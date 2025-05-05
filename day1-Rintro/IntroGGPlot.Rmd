@@ -57,7 +57,7 @@ tidyverse_logo()
 knitr::include_graphics("tidyverse_packages.png") 
 ```
 
-You can also access those conflicts with tidyverse_conflicts(). See which other packages are installed under the tidyverse umpbrella with 
+You can also access those conflicts with tidyverse_conflicts(). See which other packages are installed under the tidyverse umbrella with 
 tidyverse_packages()
 
 ## Understanding R namespace helps
@@ -428,7 +428,7 @@ p + theme_bw()
 p + theme_bw()+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
 
 # using a lot less ink. Dots are a bit tiny but that we sort in geom_point
-# what about incresing the size of all the fonts?
+# what about increasing the size of all the fonts?
 p + theme_bw(base_size=16)+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
 
 # change the font?

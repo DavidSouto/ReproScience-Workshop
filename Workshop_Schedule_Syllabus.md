@@ -27,26 +27,10 @@ The workshop will take place in the Maurice Shock Building (MSB). You can find a
 MSB 206A and 208A can be found on the second floor.**TBD** 
 
 # Pre-session instructions 
-1. Installing or re-installing RStudio 
-* Download and install RStudio from the official website: https://posit.co/download/rstudio-desktop/. Make sure to choose the version compatible with your operating system (Windows or Mac). If you have RStudio already, upgrade to the last version if possible.
-2. Get the workshop materials 
-* Download the workshop materials as a ZIP file by clicking on the green "code" icon and selecting the bottom option: https://github.com/DavidSouto/ReproScience-Workshop.  
-* Once downloaded, extract the contents to a location on your hard drive.
-3. Set the working directory in RStudio
-* Open RStudio and navigate to the day1 folder where you extracted the workshop materials. Copy that path. 
-* On the RStudio Console type:
-*setwd("path/to/day1")*, for **set**ting the **w**orking **d**irectory, verify with *getwd()*)
-4. Install the workshop packages
-    * **Sourcing*** the *Pre_Package_Install.R*. Either by opening the file and press *source* (not run), or by typing *source(Pre_Package_Install.R)* in the Console.
-* This process can take a some time, so it's best to do it all at once.
-5. Packages installed
-* We are going to use several packages, mostly:
-**Tidyverse**: A collection of packages designed for data science, including ggplot2, dplyr among many others.
-**Specr**: For multiverse analysis.
-**meme**: A fun package for meme generation.
+You would have been emailed instructions. 
+They can be found on the GitHub repository as well: https://github.com/DavidSouto/ReproScience-Workshop/
 
-6. Install GitHub Desktop through this link: https://desktop.github.com/download/. This is a version control program that we are going to introduce in day 2.
-8. Troubleshooting
+Troubleshooting
 * Let us know if this doesnt work.
 * If your installation 
 * We can use the first hour of each day (Welcome) to troubleshoot issues with installation.
@@ -92,7 +76,8 @@ Short intro on the importance of open and reproducible science - organization of
 We are going to mention levels … as a way to cater for people at different stages / who have different needs. Level's 2-3 go beyond what we can cover here. You could attempt exercises  at this level if you have time left, but the idea is that Level 1 provides you with a basic and perfectly serviceable understanding of the topic for our purpose. 
 
 Introducing the RStudio interface (20') 
-<!-- TBD: could produce a video and live-code -->
+<!-- TBD: could produce a video and live-code; can show setwd() tips with ".." and ".", at times opening a file does not set up the working directory correctly, 
+can do getwd() to figure out where you are and use ".." to go back one or "./03_session" for instance to go one folder down-->
  
 Introducing RMarkdown: Literate programming (5')
 ![aee29411b3c37fd15e53881a7306017a.png](aee29411b3c37fd15e53881a7306017a.png)
@@ -116,34 +101,32 @@ Introducing RMarkdown: Literate programming (5')
 <!-- basic markdown, presented, continued Exercise 2.4 -->
 
 ### Session 2: Data wrangling & consolidating
+<!-- point to data management resources -->
 
 **Exercise 2.1**: Loading datasets
 Most common formats.
 <!-- link to FAIR, tibbles? -->
 
-**Exercise 2.2**: Using pipes
+**Exercise 2.2**: Using pipes to manipulate datasets
 
-**Exercise 2.3**: Consolidating datasets 
-<!-- point to data management resources -->
-
-**Exercise 2.3**: Producing data summaries  
-
-**Exercise 2.4**: Interactive reporting
+**Exercise 2.3**: Interactive reporting
 <!-- Continuing on Rmd, could show basic output options, like saving pdf / htlm files, how to animate a graph-->
 <!-- Level 2: More elaborate example of interactive reporting. https://osf.io/enxcd
  Could point to Faye's help sheets for statistical analysis-->
  
 ### Session 3: Data visualization
+<!-- Based on live coded examples but  -->
 
+<!-- We will be using the Finches dataset: https://www.kaggle.com/code/muhammetgamal5/darwin-s-finches-evolution
+Read about the data here: https://www.kaggle.com/datasets/crbelhekar619/darwins-finches-evolution-dataset/data -->
+<!-- The relationship between beak size and ecological events which has been somewhat popularised as being an example of ‘[evolution occurring before our eyes](https://books.google.co.in/books/about/The_Beak_of_the_Finch.html?id=-bbh3c4ezP0C\&redir_esc=y)’.
+ -->
 Short intro to GGPlot (10').
 
-**Exercise 3.1**: GGPlot workflow
+**Exercise 3.1**: GGPlot logic
 <!-- Example showing how data needs to be organized -->
 
-**Exercise 3.2**: What hides behind means?
-<!-- Example showing deceptive means -->
-
-**Exercise 3.3**: Strategies to show data
+**Exercise 3.2**: Displaying all data
 <!-- Jitter / Rainclouds - Problems with data overlay -->
 
 **Exercise 3.4**: Publication quality plots

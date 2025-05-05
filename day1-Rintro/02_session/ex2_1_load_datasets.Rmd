@@ -1,0 +1,107 @@
+---
+title: "Exercise 2.1: Loading datasets"
+output: html_document
+---
+
+In this exercise, we will explore how to load and examine different types of datasets from various sources. 
+
+We are using a [Tiktok user engagement dataset](https://www.kaggle.com/datasets/yakhyojon/tiktok?resource=download) shows views and likes for a large number of videos.
+
+R supports various data formats through specialized packages. With base R we can easily load .csv data or data that lives online.
+
+```{r}
+# Load necessary libraries and set the working directory to the correct session number
+library(tidyverse)  
+setwd("./data/02_session")
+
+# load the .csv data (using base R)
+tt_data <- read.csv("./data/tiktok_data.csv")
+
+# Load the dataset from the URL: letter frequency in the english language
+url <- "https://people.sc.fsu.edu/~jburkardt/data/csv/letter_frequency.csv"
+freq_data <- read.csv(url)
+
+```
+
+# Display dataset information 
+
+Common `classes` for data are character,`chr`, numeric, `num`, which allows whole numbers and decimal numbers and integer, `int`. Note how numbers are at times stored as characters (between `""`) and therefore number operations cannot be applied to them.
+
+```{r}
+# Look at the tiktok data with print(), compare to the output in the Console
+print(tt_data)
+
+# Compare to just displaying the first 10 rows
+head(tt_data)
+
+# Check the properties of the variables
+str(tt_data)
+
+# you can also find the class
+
+# Retrieve the names of the variables with names()
+
+# Apply this to explore the letter frequency dataset 
+
+# try using the console to see the output
+```
+
+# Factor type
+
+In R, a factor is a data structure used to represent categorical data. Factors are particularly useful for statistical modeling and data analysis because they allow R to treat categorical variables appropriately. Here’s a detailed explanation of factors in R:
+
+Levels: Each unique value in a factor is called a level. For instance, if you have a factor representing the colors of cars, the levels might be "red," "blue," and "green."
+
+```{r}
+
+# Change the letter variable of the word frequency dataset into a factor using as.factor()
+
+# Print the result with print() or run in the Console
+
+```
+
+# Change data types and save data
+
+You can change data types with may want to save the cleaned up data
+
+```{r}
+
+# Example: transform to integer the number of comments
+tt_data$video_comment_count <- as.integer(tt_data$video_comment_count)
+
+# check what happens
+str(tt_data)
+
+# do the same for likes and views
+
+# change video_id to a character, using an analogue syntax to as.integer()
+
+# you can save data pretty much in the same way you load data, using write.csv()
+# use ?write.csv() to find out how to save the data in the same folder, appending v2 to the name.
+
+# Load the version 2 of the dataset again and check whether the types have changed with str()
+
+```
+
+# Other useful dataset types: Tibbles
+
+Tibbles are data frame types that are part of dplyr. 
+
+```{r}
+
+# Observe the difference in displaying a dataset, when typing the following in the Console
+head(as_tibble(tt_data)) # or more explicitly dplyr::as_tibble()
+
+head(tt_data)
+
+```
+
+# Key Takeaways
+
+Always check data types and structure after loading
+
+Handle missing values appropriately
+
+# Additional resources
+
+Analyzing `big data`, data that would exceed memory capacity, is another kettle of fish. There are techniques and packages that enable handling of big data, as explained [here](https://hbs-rcs.github.io/large_data_in_R/). 
