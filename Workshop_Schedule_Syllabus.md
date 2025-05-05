@@ -182,6 +182,11 @@ Principled sample selection (20')
 **Exercise 6.3**: Example of how sequential testing works with NHST 
 <!-- show how the scenario above is problematic, but can be fixed by correcting for peeking -->
 
+**Exercise 6.4** Are you a trend spotter?
+A rather gartuituous but fun exercise to finish the day where you will learn whether you can spot the strength of a relationship.
+Highest score, based on an uploaded screen copy, wins a prize.
+<!-- https://www.guessthecorrelation.com/ -->
+
 ## Day 3: Sharing plans, data and code
 
 9-10am Welcome - Coffee, check installation of GitHub Desktop / GitHub account
@@ -205,23 +210,18 @@ We are centering this introductin on GitHub's website and GitHub Desktop graphic
 **Exercise 8.2**: Push / pull
 
 **Exercise 8.2**: Merge conflict resolution 
+<!-- the meme meme contest is the prize for day 3 -->
 
 ### Session 9: Publishing
 
 Pre-printing, reporting guidelines, picking journals, peer review (15-20’)
-- what's FAIR 
+- What's FAIR?
 - private links
 - parting note
-<!-- if we have the time, could we pre-pachakge the tools we talked about in R?-->  
 
-**Exercise 8.1**: Literate coding - Publish analysis as html page ... 
-<!-- Inspiration: https://osf.io/enxcd -->
+**Exercise 8.1**: Publish analysis as an html page  
+<!-- We have had a session to do that before. Inspiration: https://osf.io/enxcd -->
 
-**Exercise 8.1**: Prep data for sharing, Tables
+**Exercise 8.2**: Workshop feedback
 
-Statistical arcade game: 
-https://www.guessthecorrelation.com/
-
-- Feedback
-- Group photo
-- Prizes
+<!-- Prizes and group photo -->
