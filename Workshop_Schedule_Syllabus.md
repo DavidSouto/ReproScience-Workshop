@@ -142,6 +142,7 @@ What are challenges to reproducibility? (30')
 - QRPs
 - P-values misconceptions
 - Power
+  <!-- coudl actually watch the dance of p-values video -->
   
 **Exercise 4.1**: The dance of the p-values.
 
@@ -153,7 +154,7 @@ Alternative to just report the one analysis that was going your way
 Female hurricanes example: TBD give small tasks to do in addition to executing bits
 https://cran.r-project.org/web/packages/multiverse/readme/README.html -->
 
-### Session 5: Sample selection
+### Session 5: Power and sample selection
 
 Principled sample selection (20')
 - Gpower is as an alternative
@@ -166,9 +167,9 @@ Principled sample selection (20')
 
 **Exercise 5.3**: Power from simulation, example 2
  
-### Session 6: Strength of evidence 
+### Session 6: Strength of evidence and sample selection
 
-'New' statistics shift in focus on precision & strength of evidence 
+'New' statistics shift in focus on precision & strength of evidence. 
 
 <!-- Idea that precision is a better indication of the strength of evidence. See also Bayesian statistics.
  -->

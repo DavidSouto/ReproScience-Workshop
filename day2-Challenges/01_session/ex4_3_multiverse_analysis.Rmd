@@ -1,0 +1,145 @@
+---
+title: "Exercise 4.3: Multiverse Analysis of Hurricane Names"
+author: David Souto
+output: html_document
+---
+
+In this exercise, we will explore the "female Hurricane" dataset to understand how different modeling choices can influence our results. This analysis will illustrate the concept of multiverse analysis, where we examine how varying our analytical choices can lead to different conclusions. Let's see how the femininity of hurricane names might affect the outcomes!
+
+A complete analysis of this data has been done elsewhere; the analysis we are carrying out here is for illustration purposes. A more serious analysis would have needed to give more thought to the choice of model.
+
+We are going to use the *specr* package to implement a basic multiverse analysis. Another option is *multiverse*.
+
+Run the following chunk to make sure packages are installed and attach them
+
+### Instructions
+1. Set your working directory to the `day2-Challenges` folder where the data is located using with Session > Set Working Directory > Choose Directory.
+2. Run the setup code to install and load the necessary packages.
+3. Load the hurricane dataset and examine its structure.
+
+```{r setup, include=FALSE}
+
+# some options for chunks: we ask for it to produce outputs, no messages or warnings
+knitr::opts_chunk$set(echo = TRUE, message = TRUE, warning = TRUE) 
+
+# You will bbe asksed whether you want to install from source, say yes
+if (!require("specr")) 
+  install.packages("specr") 
+
+if (!require("tidyverse")) 
+  install.packages("tidyverse") 
+
+if (!require("ggplot2")) 
+  install.packages("ggplot2") 
+
+library(tidyverse)
+library(specr)
+
+```
+
+### Load and Examine the Dataset
+
+Load the example dataset data("example_data") \# Display the first few rows of the dataset head(example_data) \# Check the structure of the dataset str(example_data)
+
+```{r , include=FALSE}
+
+load(file='./data/hurricane.RData')
+
+# we ar loading the data-set, it takes the form of an .RData file, saved with save(), something
+# that can be loaded straight away into R, after loading you will see data.frame object in the  Environment window.
+load(file='./data/hurricane.RData')
+
+# Display the first few rows of the dataset
+head(example_data)  # Check the structure of the dataset
+str(example_data)
+```
+
+
+How might the variables you've chosen influence the results of your analysis?
+
+### Setting Up Specifications
+
+```{r , include=FALSE}
+
+# We are going to focus on the following variables in the Hurricane dataset
+# death: number of deaths
+# masfem: whether the name is seen masculine or feminine (rating scale)
+# dam: damage
+# zpressure: z-transformed atmospheric pressure
+
+# This is more or less the original analysis in the Paper, showing a significant effect of name "feminity"
+# We apply a general linear mode of a certain type (poisson) and we look at ...
+# Poisson models are common for count data with a certain type of distribution (e.g., number of deaths, number of neurons action potentials)
+fit <- glm(death ~ masfem * dam + masfem * zpressure, data = df, family = "poisson")
+
+# As odd as it sounds, we see a significant effect of the femininity of the hurricane (masfem)
+summary(fit)
+
+```
+
+### Execute Specification Curve Analysis
+
+```{r}
+specs <- setup(data = df, # our dataset
+   x = c("masfem", "masfem:dam", "masfem:zpressure"), # we are entering options for independent variables, those are our main variables of interest
+   y = c("death","dam"), # options for dependent variables, we could predict damage amount instead of deaths
+   control = c("masfem:dam", "masfem:zpressure"), # options for control variables, that is other predictors in our model
+   model = c("lm","glm"), # optoins for models
+   simplify = TRUE)
+```
+
+### Running the Analysis
+
+```{r}
+results <- specr(specs) # Summarize results summary(results)
+
+```
+
+### Explore the different specifications 
+
+```{r}
+summary(results)
+
+```
+
+### Visualization
+
+After running the analysis, visualize the results to understand the impact of different specifications on predicting deaths.
+
+```{r}
+plot(results)
+
+```
+
+What patterns do you observe in the plot?
+
+How do different specifications affect the estimated impact of femininity on hurricane deaths?
+
+We can have a look at the terms this plot corresponds to by arranging by estimate we haven't isolated the effect of *masfem* but shown the impact of every choice on the ability to predict deaths
+
+To find the formula, let's use the *arrange()* sort the data by estimate, as we do in Figure A
+
+```{r}
+results$data %>% 
+  dplyr::arrange(estimate) %>% # sort by estimate
+  dplyr::select(term,estimate,model,controls,formula) # select the columns you want to see     
+
+```
+
+Note there are many options we didn't explore yet. This particular example didn't consider the type of model that was used in the paper (poisson), many other choices, for illustrative purposes.
+
+Key Takeaways
+
+Understanding Multiverse Analysis: Multiverse analysis allows researchers to explore multiple analytical paths and decision points, providing a more comprehensive view of how different choices can affect research outcomes.
+
+Impact of Modeling Choices: The analysis of hurricane names illustrates how varying modeling choices—such as the inclusion of outliers, choice of dependent variables, and model types—can lead to different conclusions about the same dataset.
+
+Transparency in Research: By making all analytical decisions explicit, multiverse analysis enhances transparency and helps identify potential biases or false positives in research findings.
+
+Critical Thinking: Engaging with multiverse analysis encourages critical thinking about the robustness of scientific claims and the importance of replicability in research.
+
+Additional resources
+
+For a more sophisticated analysis, check out the *multiverse* package and its application in the analysis of female hurricanes [here](https://rdrr.io/cran/multiverse/f/vignettes/example-hurricane.Rmd). This is fairly sophisticated as it uses custom code chunks.
+
+

@@ -1,0 +1,124 @@
+---
+title: "Exercise 4.1: The dance of the P-value"
+author: David Souto
+output: html_document
+---
+
+Understand the variability of p-values through simulation
+Compare precision measures with probability-based inference
+Explore the relationship between effect sizes and statistical significance
+Practice interpreting confidence intervals
+Part 1: The Dance of P-values
+Background
+P-values can be highly variable, even when studying the same underlying effect. Let's explore this through simulation.
+Exercise 1: P-value Simulation
+Complete the following code to simulate p-values from repeated experiments:
+# Function to simulate p-values simulate_pvalues <- function(n_simulations = 1000, sample_size = 30, effect_size = 0.3) { p_values <- numeric(n_simulations) for(i in 1:n_simulations) { # TODO: Generate two groups of data group1 <- rnorm(n = ___, mean = 0, sd = 1) group2 <- rnorm(n = ___, mean = effect_size, sd = 1) # Perform t-test test_result <- t.test(group1, group2) p_values[i] <- test_result$p.value } return(p_values) } # Run simulation p_values <- simulate_pvalues() # Create visualization ggplot(data.frame(p_value = p_values), aes(x = p_value)) + geom_histogram(bins = 50, fill = "skyblue", color = "black") + geom_vline(xintercept = 0.05, color = "red", linetype = "dashed") + labs(title = "Distribution of p-values across 1000 simulations", x = "p-value", y = "Frequency")
+Questions:
+What proportion of p-values fall below 0.05?
+Why do we see such variability even with the same true effect size?
+Part 2: Confidence Intervals and Precision
+Exercise 2: Exploring Confidence Intervals
+Complete the code to calculate and visualize confidence intervals:
+# Generate sample data sample_data <- rnorm(50, mean = 10, sd = 2) # TODO: Calculate confidence interval ci_calc <- function(data, conf_level = 0.95) { mean_val <- mean(data) se <- sd(data) / sqrt(length(data)) t_value <- qt(___, df = length(data) - 1) ci_lower <- ___ ci_upper <- ___ return(list(mean = mean_val, ci = c(lower = ci_lower, upper = ci_upper))) } # Calculate CI results <- ci_calc(sample_data) # Visualize ggplot(data.frame(x = 1:length(sample_data), y = sample_data)) + geom_point(aes(x = x, y = y), alpha = 0.5) + geom_hline(yintercept = results$mean, color = "red") + geom_hline(yintercept = results$ci, color = "green", linetype = "dashed") + labs(title = "Sample Data with 95% Confidence Interval", x = "Observation", y = "Value")
+Part 3: Effect Sizes and Replication
+Exercise 3: Comparing Effect Sizes with P-values
+# Function to calculate Cohen's d calculate_cohens_d <- function(group1, group2) { # TODO: Implement Cohen's d calculation mean_diff <- ___ pooled_sd <- ___ return(mean_diff / pooled_sd) } # Test different effect sizes effect_sizes <- c(0.2, 0.5, 0.8) # Small, Medium, Large results <- data.frame() for(effect in effect_sizes) { group1 <- rnorm(50, 0, 1) group2 <- rnorm(50, effect, 1) # TODO: Calculate effect size and p-value d <- ___ p_val <- ___ results <- rbind(results, data.frame(Effect_Size = effect, Observed_d = d, p_value = p_val)) } print(results)
+Bonus Exercise: Power Analysis Simulation
+Try implementing a power analysis simulation:
+simulate_power <- function(effect_size, sample_size, n_sims = 1000, alpha = 0.05) { # TODO: Implement power simulation # Hint: Count proportion of significant results significant_results <- 0 for(i in 1:n_sims) { # Your code here } return(significant_results / n_sims) } # Test different sample sizes sample_sizes <- c(20, 50, 100)
+Discussion Questions
+Based on your simulations, why might relying solely on p-values be problematic?
+How do confidence intervals provide more information than p-values?
+What role does effect size play in understanding the practical significance of results?
+Key Takeaways
+P-values show considerable variation even with consistent underlying effects
+Precision measures (like confidence intervals) provide more informative results
+Effect sizes help quantify the magnitude of differences, complementing statistical significance
+Larger sample sizes generally provide more reliable estimates
+References and Further Reading
+Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+Cumming, G. (2014). The new statistics: Why and how
+Button et al. (2013). Power failure: Why small sample size undermines reliability of neuroscience
+
+Understand the variability of p-values through simulation
+Compare precision measures with probability-based inference
+Explore the relationship between effect sizes and statistical significance
+Practice interpreting confidence intervals
+Part 1: The Dance of P-values
+Background
+P-values can be highly variable, even when studying the same underlying effect. Let's explore this through simulation.
+Exercise 1: P-value Simulation
+Complete the following code to simulate p-values from repeated experiments:
+# Function to simulate p-values simulate_pvalues <- function(n_simulations = 1000, sample_size = 30, effect_size = 0.3) { p_values <- numeric(n_simulations) for(i in 1:n_simulations) { # TODO: Generate two groups of data group1 <- rnorm(n = ___, mean = 0, sd = 1) group2 <- rnorm(n = ___, mean = effect_size, sd = 1) # Perform t-test test_result <- t.test(group1, group2) p_values[i] <- test_result$p.value } return(p_values) } # Run simulation p_values <- simulate_pvalues() # Create visualization ggplot(data.frame(p_value = p_values), aes(x = p_value)) + geom_histogram(bins = 50, fill = "skyblue", color = "black") + geom_vline(xintercept = 0.05, color = "red", linetype = "dashed") + labs(title = "Distribution of p-values across 1000 simulations", x = "p-value", y = "Frequency")
+Questions:
+What proportion of p-values fall below 0.05?
+Why do we see such variability even with the same true effect size?
+Part 2: Confidence Intervals and Precision
+Exercise 2: Exploring Confidence Intervals
+Complete the code to calculate and visualize confidence intervals:
+# Generate sample data sample_data <- rnorm(50, mean = 10, sd = 2) # TODO: Calculate confidence interval ci_calc <- function(data, conf_level = 0.95) { mean_val <- mean(data) se <- sd(data) / sqrt(length(data)) t_value <- qt(___, df = length(data) - 1) ci_lower <- ___ ci_upper <- ___ return(list(mean = mean_val, ci = c(lower = ci_lower, upper = ci_upper))) } # Calculate CI results <- ci_calc(sample_data) # Visualize ggplot(data.frame(x = 1:length(sample_data), y = sample_data)) + geom_point(aes(x = x, y = y), alpha = 0.5) + geom_hline(yintercept = results$mean, color = "red") + geom_hline(yintercept = results$ci, color = "green", linetype = "dashed") + labs(title = "Sample Data with 95% Confidence Interval", x = "Observation", y = "Value")
+Part 3: Effect Sizes and Replication
+Exercise 3: Comparing Effect Sizes with P-values
+# Function to calculate Cohen's d calculate_cohens_d <- function(group1, group2) { # TODO: Implement Cohen's d calculation mean_diff <- ___ pooled_sd <- ___ return(mean_diff / pooled_sd) } # Test different effect sizes effect_sizes <- c(0.2, 0.5, 0.8) # Small, Medium, Large results <- data.frame() for(effect in effect_sizes) { group1 <- rnorm(50, 0, 1) group2 <- rnorm(50, effect, 1) # TODO: Calculate effect size and p-value d <- ___ p_val <- ___ results <- rbind(results, data.frame(Effect_Size = effect, Observed_d = d, p_value = p_val)) } print(results)
+Bonus Exercise: Power Analysis Simulation
+Try implementing a power analysis simulation:
+simulate_power <- function(effect_size, sample_size, n_sims = 1000, alpha = 0.05) { # TODO: Implement power simulation # Hint: Count proportion of significant results significant_results <- 0 for(i in 1:n_sims) { # Your code here } return(significant_results / n_sims) } # Test different sample sizes sample_sizes <- c(20, 50, 100)
+Discussion Questions
+Based on your simulations, why might relying solely on p-values be problematic?
+How do confidence intervals provide more information than p-values?
+What role does effect size play in understanding the practical significance of results?
+
+
+# Ability of CI to predict the future vs p-values
+
+Replication is fundamental to science, so statistical analysis should give information about replication. Because p values dominate statistical analysis in psychology, it is important to ask what p says about replication. The answer to this question is “Surprisingly little.” In one simulation of 25 repetitions of a typical experiment, p varied from <.001 to .76, thus illustrating that p is a very unreliable measure. This article shows that, if an initial experiment results in two-tailed p = .05, there is an 80% chance the one-tailed p value from a replication will fall in the interval (.00008, .44), a 10% chance that p <.00008, and fully a 10% chance that p >.44. Remarkably, the interval—termed a p interval—is this wide however large the sample size. p is so unreliable and gives such dramatically vague information that it is a poor basis for inference. Confidence intervals, however, give much better information about replication. Researchers should minimize the role of p by using confidence intervals and model-fitting techniques and by adopting meta-analytic thinking.
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+Reflection Questions 
+
+
+Key Takeaways
+
+P-values show considerable variation even with consistent underlying effects
+
+Precision measures (like confidence intervals) provide more informative results
+
+Effect sizes help quantify the magnitude of differences, complementing statistical significance
+
+Larger sample sizes generally provide more reliable estimates
+
+
+Additional Resources
+
+Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+Cumming, G. (2014). The new statistics: Why and how
+Button et al. (2013). Power failure: Why small sample size undermines reliability of neuroscience
+
+https://mickresearch.wordpress.com/2012/04/18/use-confidence-intervals-to-avoid-the-dance-of-the-p-values/
+https://theconversation.com/mind-your-confidence-interval-how-statistics-skew-research-results-3186
+
+https://chooser.crossref.org/?doi=10.1111%2Fj.1745-6924.2008.00079.x
+

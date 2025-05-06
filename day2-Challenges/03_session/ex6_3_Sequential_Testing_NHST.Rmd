@@ -1,0 +1,221 @@
+---
+title: "Exercise 6.3:  Sequential testing with NHST"
+author: David Souto
+output: html_document
+---
+
+# Introduction
+
+Sequential testing allows researchers to analyze data as it is collected, rather than waiting for a fixed sample size to be reached. While Bayes factors are well-suited for sequential testing, it is also possible to use Null Hypothesis Significance Testing (NHST) in a sequential framework. However, NHST-based sequential testing requires careful adjustments to control for inflated Type I error rates (false positives) caused by repeated testing.
+
+This approach has been used in medical fields where, for ethical reasons, we may not want to continue with a trial if the effect is evident. Recent research has shown the utility of group sequential designs in various medical trials, with studies demonstrating that some trials could have been stopped early for futility, potentially saving time and resources. While less common in other fields, sequential testing can be conducted without p-hacking and offers a more efficient way of collecting data, provided we correct for the family-wise false-discovery rate.
+
+This worksheet will explain how sequential testing works with NHST, introduce key concepts like alpha spending and stopping boundaries, and provide R Markdown chunks to explore these ideas in practice.
+
+## What is Sequential Testing with NHST?
+
+In traditional NHST, you calculate a p-value after collecting data for a fixed sample size. Sequential testing, however, involves analyzing data at multiple points during data collection. This flexibility allows you to stop the test early if there is strong evidence for or against the null hypothesis.
+
+## Challenges of Sequential Testing with NHST
+
+- **Inflated Type I Error Rates**: Repeated testing increases the chance of observing a significant result purely by chance.
+- **Peeking Problem**: If you stop the test as soon as you see a significant result, the Type I error rate will exceed the nominal alpha level (e.g., 0.05).
+
+## Understanding Family-wise False Discovery Rate
+
+The family-wise error rate (FWER) is crucial in sequential testing. As demonstrated by our simulation, the probability of making at least one Type I error increases substantially with the number of interim analyses.
+
+```{r}
+# Simulate family-wise error rate for sequential analyses
+
+set.seed(42) # comment the seed if you want to see how the estimate varies with new iterations
+
+# Parameters
+n_simulations <- 1000  # Number of simulations
+n_interim <- 3         # Number of interim analyses (peeks)
+alpha <- 0.05          # Nominal alpha (Type I error rate)
+n_observations<-100
+type_I_errors <- numeric(n_simulations)  # Store Type I errors
+
+# Simulate interim analyses
+for (sim in 1:n_simulations) {
+  # Simulate data for the entire experiment
+  data <- rnorm(n_observations, mean = 0, sd = 1)  # Null hypothesis is true (mean = 0)
+  
+  p_values <- numeric(n_interim)  # Store p-values for each interim analysis
+  
+  for (i in 1:n_interim) {
+    
+    # Perform a t-test on the current data against 0 (no effect). From observation 1 to the number of observations divided by the number of interim analysis
+    # we assume equal amount of data for each peek
+    t_test <- t.test(data[1:(i * (n_observations / n_interim))], mu = 0)  # Incrementally analyze
+    p_values[i] <- t_test$p.value
+  }
+  
+  # Check if any p-value is below the nominal alpha
+  type_I_errors[sim] <- any(p_values < alpha)
+}
+
+# Calculate family-wise error rate
+family_wise_error_rate <- mean(type_I_errors)
+cat("Family-wise error rate (FWER):", family_wise_error_rate, "\n")
+
+
+```
+What do you notice with just 3 interim analyses? 
+
+What happens with just 2? Simply change the value of `n_interim`.
+
+# Solutions for Sequential Testing
+
+Alpha Spending Functions
+
+Different approaches to alpha spending provide various levels of conservatism:
+
+O'Brien-Fleming: Conservative early, more liberal later.
+
+Pocock: Constant rate of alpha spending.
+
+Haybittle-Peto: Very conservative until final analysis.
+
+# Basic Sequential Testing
+
+When we test sequentially, further tests are based on more data. 
+
+Using the following chunk see how the p-value changes with each analysis when there is no effect. 
+
+See what happens when you assume the effect size is not zero, but for instance 0.1
+
+Try different number of observations and interim analyses
+
+```{r}
+# We are using a simulated dataset to calculate 
+
+# We are not seeting a seed; every run will be different
+
+# Total sample size 
+effect_size <- 0.1 # Null hypothesis is true 
+alpha <- 0.05 # Nominal significance level 
+n_interim <- 10 # Number of interim analyses 
+
+# Simulate data where there is no effect
+n_observations = 100
+data <- rnorm(n_observations, mean = effect_size, sd = 1) 
+
+# Perform sequential testing 
+p_values <- numeric(n_interim) 
+for (i in 1:n_interim) { 
+  interim_data <- data[1:(i * (n_observations/ n_interim))] 
+  t_test <- t.test(interim_data, mu = 0) 
+  p_values[i] <- t_test$p.value 
+} 
+
+# Plot p-values over time 
+plot(1:n_interim, p_values, type = "b", col = "blue", pch = 19, xlab = "Interim Analysis", ylab = "P-value", main = "Sequential Testing with NHST") 
+abline(h = alpha, col = "red", lty = 2)
+
+```
+
+Reflection Questions:
+
+How do the p-values change as more data is collected?
+
+What happens if you stop the test as soon as a p-value falls below 0.05?
+
+# Controlling Type I Error with Alpha Spending
+
+This chunk demonstrates how to use an alpha spending function to control the overall Type I error rate in sequential testing.
+
+It uses the O'Brien-Flemning alpha spending function.What is the O'Brien-Fleming Alpha Spending Function?
+
+The O'Brien-Fleming alpha spending function is a conservative approach to controlling the overall Type I error rate (α) in sequential testing. It ensures that the cumulative probability of making a Type I error across all interim analyses does not exceed the nominal α (e.g., 0.05).
+
+The function is conservative early in the trial (spending very little α in the early stages) and becomes less conservative later (spending more α
+as the trial progresses). This means that early stopping requires very strong evidence, while later analyses allow for more lenient thresholds.
+
+Look at the following example with 2 interim analyses. 
+
+Note that we stop the trial / experiment any time we spot a significant value. Stopping is unlikely to begin with, as we we require more evidence.
+
+```{r}
+
+# Parameters
+alpha <- 0.05  # Total Type I error rate
+n_interim <- 5 # Number of interim analyses
+n_observations <- 100  # Total number of observations
+effect_size <- 0  # Null hypothesis is true (mean = 0)
+
+# Allocate alpha across analyses using O'Brien-Fleming alpha spending function
+alpha_spent <- numeric(n_interim)
+for (i in 1:n_interim) {
+  alpha_spent[i] <- 2 * (1 - pnorm(qnorm(1 - alpha / 2) / sqrt(i)))
+}
+
+# Simulate data
+data <- rnorm(n_observations, mean = effect_size, sd = 1)
+
+# Perform sequential testing with alpha spending
+p_values <- numeric(n_interim)
+for (i in 1:n_interim) {
+  # Use cumulative data for each interim analysis
+  interim_data <- data[1:(i * (n_observations / n_interim))]
+  
+  # Perform a t-test
+  t_test <- t.test(interim_data, mu = 0)
+  
+  # Store the p-value
+  p_values[i] <- t_test$p.value
+}
+
+# Plot p-values and alpha thresholds
+plot(1:n_interim, p_values, type = "b", col = "blue", pch = 19,
+     xlab = "N Interim Analyses", ylab = "P-value",
+     main = "Sequential Testing with Alpha Spending",
+     ylim = c(0,1)
+)
+lines(1:n_interim, alpha_spent, col = "red", lty = 2, lwd = 2)  # Add alpha thresholds
+
+# Add legend
+legend("topright", legend = c("P-values", "Alpha Thresholds"),
+       col = c("blue", "red"), lty = c(1, 2), pch = c(19, NA), bty = "n")
+
+```
+
+Reflection Questions:
+
+How does the alpha threshold change with the number of interim analyses?
+
+Why does the alpha spending function help control the Type I error rate?
+
+# How would you report this? 
+
+Interim Analyses and Alpha Spending
+
+This trial included two planned analyses: one interim analysis at 50% of the planned sample size and a final analysis at 100%. To control the overall Type I error rate at α = 0.05
+α=0.05, we used the O'Brien-Fleming alpha spending function. The adjusted significance thresholds were 0.012 for the interim analysis and 0.038 for the final analysis.
+
+At the interim analysis, the p-value was 0.015, which exceeded the adjusted threshold of 0.012. Therefore, the trial continued to the final analysis. At the final analysis, the p-value was 0.032, which was below the adjusted threshold of 0.038. As a result, the null hypothesis was rejected, and the treatment was deemed effective.
+
+# Key Takeaways
+
+Alpha Spending: Distributes the total Type I error rate across multiple analyses, ensuring that the overall error rate remains controlled.
+
+Stopping Boundaries: Define thresholds for stopping the test early, based on cumulative evidence.
+
+Efficiency: Sequential testing can reduce the required sample size in cases where strong evidence emerges early.
+
+References
+
+Psychology: https://online.ucpress.edu/collabra/article/7/1/24953/117665/Don-t-Forget-the-Psychology-in-Analyses-of
+
+Medical example: https://pmc.ncbi.nlm.nih.gov/articles/PMC10260346/pdf/S2059866123005526a.pdf
+
+Jennison, C., & Turnbull, B. W. (2000). Group Sequential Methods with Applications to Clinical Trials. Chapman and Hall/CRC.
+
+Lakens, D. (2014). Performing high-powered studies efficiently with sequential analyses. European Journal of Social Psychology, 44(7), 701-710.https://doi.org/10.1002/ejsp.2023
+
+Pocock, S. J. (1977). Group sequential methods in the design and analysis of clinical trials. Biometrika, 64(2), 191-199.
+
+O'Brien, P. C., & Fleming, T. R. (1979). A multiple testing procedure for clinical trials. Biometrics, 35(3), 549-556.
+
+Haybittle, J. L. (1971). Repeated assessment of results in clinical trials of cancer treatment. The British Journal of Radiology, 44(526), 793-797.

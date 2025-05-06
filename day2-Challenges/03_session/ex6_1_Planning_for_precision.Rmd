@@ -1,0 +1,212 @@
+---
+title: "Exercise 6.1: Planning for precision"
+author: David Souto
+output: html_document
+---
+
+Introduction
+
+This worksheet relates to Geoff Cumming's New Statistics. Namely the idea that we can focus on the precision of our measures, as described by their confidence intervals to test hypothesis.
+
+Precision is a key concept in statistical inference. Instead of focusing solely on p-values, we aim to estimate effects with precision, represented by narrow confidence intervals (CIs). This worksheet will guide you through R Markdown chunks to explore how sample size, variability, and effect size influence precision.
+
+# Simulating confidence intervals for a mean
+
+This chunk demonstrates how to simulate confidence intervals for a single mean and visualize their width.
+
+```{r}
+# Set seed for reproducibility
+set.seed(42)
+
+# Simulate data
+n <- 30  # Sample size
+mu <- 100  # True mean
+sigma <- 15  # Standard deviation
+
+# Generate random sample
+data <- rnorm(n, mean = mu, sd = sigma)
+
+# Calculate mean and 95% CI
+mean_sample <- mean(data)
+se <- sd(data) / sqrt(n)
+ci_lower <- mean_sample - 1.96 * se
+ci_upper <- mean_sample + 1.96 * se
+
+# Print results
+cat("Sample Mean:", round(mean_sample, 2), "\n")
+cat("95% CI: [", round(ci_lower, 2), ",", round(ci_upper, 2), "]\n")
+```
+
+Reflection Questions: How does the width of the confidence interval depend on the sample size n
+
+What happens to the CI if the standard deviation σ increases?
+
+# Visualizing confidence intervals across multiple samples
+
+This chunk simulates multiple samples and visualizes their confidence intervals to show variability in precision.
+
+```{r}
+# Simulate multiple samples and their CIs
+n_samples <- 50
+n <- 30
+mu <- 100
+sigma <- 15
+
+# Generate samples and calculate CIs
+results <- replicate(n_samples, {
+  data <- rnorm(n, mean = mu, sd = sigma)
+  mean_sample <- mean(data)
+  se <- sd(data) / sqrt(n)
+  ci_lower <- mean_sample - 1.96 * se
+  ci_upper <- mean_sample + 1.96 * se
+  c(mean = mean_sample, ci_lower = ci_lower, ci_upper = ci_upper)
+})
+
+# Convert to data frame
+results_df <- as.data.frame(t(results))
+
+# Plot the CIs
+library(ggplot2)
+ggplot(results_df, aes(x = 1:n_samples, y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+  labs(title = "Confidence Intervals Across Samples",
+       x = "Sample Number", y = "Mean Estimate") +
+  theme_minimal()
+```
+
+Reflection Questions:
+
+How often do the confidence intervals fail to capture the true mean?
+
+What does this tell you about the interpretation of a 95% CI?
+
+# Exploring the Impact of Sample Size on Precision (flip to "Visual" to see the formulas)
+
+This chunk explores how increasing the sample size reduces the width of confidence intervals (CIs). Confidence intervals provide a range of values within which we expect the true population parameter to lie, with a specified level of confidence (e.g., 95%).
+
+As the sample size increases, the standard error of the mean decreases, leading to narrower confidence intervals. This relationship is crucial in statistical analysis, as it indicates that larger samples yield more precise estimates of population parameters.
+
+In this example, we assume we know the population standard deviation and calculate the margin of error to determine the width of the confidence interval. The formula for the width of a 95% confidence interval is given by:
+
+$$
+\text{CI Width} = 2 \times z \times \frac{\sigma}{\sqrt{n}}
+$$
+
+where $z$ is the z-score corresponding to the desired confidence level (1.96 for 95% confidence), $\sigma$ is the population standard deviation, and $n$ is the sample size.
+
+```{r}
+# Function to calculate CI width for different sample sizes
+ci_width <- function(n, mu = 100, sigma = 15) {
+  data <- rnorm(n, mean = mu, sd = sigma)
+  se <- sd(data) / sqrt(n)
+  ci_width <- 2 * 1.96 * se  # Width of 95% CI
+  return(ci_width)
+}
+
+# Sample sizes to test
+sample_sizes <- seq(10, 200, by = 10)
+
+# Calculate CI widths
+ci_widths <- sapply(sample_sizes, ci_width)
+
+# Plot CI width vs. sample size
+plot(sample_sizes, ci_widths, type = "b", col = "blue",
+     xlab = "Sample Size", ylab = "CI Width",
+     main = "Effect of Sample Size on CI Width")
+
+```
+
+Reflection Questions:
+
+How does the width of the confidence interval change as the sample size increases?
+
+Why does increasing the sample size improve precision?
+
+# Planning for Precision: Required sample size
+
+This chunk calculates the required sample size to achieve a desired precision (CI width).
+
+```{r}
+# Function to calculate required sample size for a given CI width
+required_sample_size_fun <- function(desired_width, sigma = 15) {
+  n <- (2 * 1.96 * sigma / desired_width)^2
+  return(ceiling(n))  # Round up to the nearest whole number
+}
+
+# Desired CI width
+desired_width <- 5
+
+# Calculate required sample size
+n_required <- required_sample_size_fun(desired_width)
+cat("Required Sample Size for CI Width of", desired_width, ":", n_required, "\n")
+```
+
+Reflection Questions:
+
+How does the required sample size change if the desired CI width is halved?
+
+What role does the population standard deviation σ play in determining the required sample size?
+
+# Comparing precision for two groups
+
+This chunk compares the precision of confidence intervals for two independent groups.
+
+```{r}
+# Simulate data for two groups
+n <- 30
+mu1 <- 100
+mu2 <- 110
+sigma <- 15
+
+group1 <- rnorm(n, mean = mu1, sd = sigma)
+group2 <- rnorm(n, mean = mu2, sd = sigma)
+
+# Calculate means and CIs
+mean1 <- mean(group1)
+mean2 <- mean(group2)
+se1 <- sd(group1) / sqrt(n)
+se2 <- sd(group2) / sqrt(n)
+
+ci1 <- c(mean1 - 1.96 * se1, mean1 + 1.96 * se1)
+ci2 <- c(mean2 - 1.96 * se2, mean2 + 1.96 * se2)
+
+# Print results
+cat("Group 1: Mean =", round(mean1, 2), ", 95% CI =", round(ci1, 2), "\n")
+cat("Group 2: Mean =", round(mean2, 2), ", 95% CI =", round(ci2, 2), "\n")
+```
+
+Reflection Questions:
+
+How do the widths of the confidence intervals compare between the two groups?
+
+What factors could lead to differences in precision between groups?
+
+# Visualizing confidence intervals for effect sizes
+
+This chunk visualizes confidence intervals for the difference in means (effect size).
+
+```{r}
+# Calculate difference in means and CI
+mean_diff <- mean2 - mean1
+se_diff <- sqrt(se1^2 + se2^2)
+ci_diff <- c(mean_diff - 1.96 * se_diff, mean_diff + 1.96 * se_diff)
+
+# Plot the effect size and CI
+plot(1, mean_diff, ylim = c(ci_diff[1] - 5, ci_diff[2] + 5), pch = 19,
+     xlab = "Effect Size", ylab = "Difference in Means",
+     main = "Confidence Interval for Effect Size")
+arrows(1, ci_diff[1], 1, ci_diff[2], angle = 90, code = 3, length = 0.1, col = "blue")
+```
+
+Reflection Questions:
+
+How does the precision of the effect size estimate depend on the sample size?
+
+Why is it relevant to report confidence intervals for effect sizes?
+
+Key References
+
+[Cumming, G. (2012). Understanding the New Statistics: Effect Sizes, Confidence Intervals, and Meta-Analysis](https://www.routledge.com/Understanding-The-New-Statistics-Effect-Sizes-Confidence-Intervals-and-Meta-Analysis/Cumming/p/book/9780415879682?srsltid=AfmBOorHi68-PWqi31tKx4UNUYwo93Tg0wKnSlcMao-wOtv08bTqPCCg). This book provides a comprehensive overview of modern statistical practices, emphasizing the importance of effect sizes and confidence intervals.
+
+[Cumming, G., & Finch, S. (2005). "Inference by Eye: Confidence Intervals and How to Read Pictures of Data." American Psychologist, 60(2), 170-180.](https://pubmed.ncbi.nlm.nih.gov/15740449/) This article discusses the interpretation of confidence intervals and their visual representation.

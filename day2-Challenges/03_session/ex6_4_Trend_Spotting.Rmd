@@ -1,0 +1,39 @@
+---
+title: "Exercise 6.4: Trend Spotting"
+author: David Souto
+output: html_document
+---
+
+A slightly gratuitous but fun way of finishing a day that was heavy on theory: A statistical arcade game where you can win big!
+
+# The correlation game
+
+1. Go to [Guess the correlation](https://www.guessthecorrelation.com/)
+2. Ask for a "new game"
+3. Enter your username / start "new game" again
+4. Observe the estimation error
+4. Repeat until you lose
+
+Feel free to play as many times as you want!
+
+### Score submission 
+
+Make a screen copy of your best score. The best score wins the day!
+
+Upload your best score here:[link](https://forms.gle/NYreXR7rvZc2rJzH8). 
+
+Name the file: (Your Name)_(Your Surname)_pretty_finch.png
+
+## Reflection Questions
+
+After playing the game, take a moment to reflect on your experience. Answer the following questions:
+
+1. **How did your score evolve?**  
+   Did you tend to underestimate or overestimate correlations? Reflect on how your initial guesses compared to your final scores.
+
+2. **Can you trust your gut feeling regarding the strength of the relationship?**  
+   Consider whether your intuition about correlation strength aligned with the actual values you encountered in the game.
+
+3. **The game assumes a linear relationship.**  
+   Would you be better or worse at assessing non-linear relationships? Think about how non-linear patterns might affect your ability to estimate correlations accurately.
+
