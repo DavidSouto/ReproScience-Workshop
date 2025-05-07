@@ -45,8 +45,9 @@ This 3-day workshop will equip participants with the essential tools and knowled
 
 Day 1: Room, Maurice Shock (MSB) 206A
 
-9-10am Welcome  
-10-12pm Helping yourself
+9-10am Welcome / Coffee served
+10-12pm Helping yourself 
+12pm-1pm Lunch / Lunch Boxes with Vegetarian options
 1pm-2:30pm Data wrangling
 2:45-4pm Data visualization
 
@@ -100,7 +101,7 @@ Introducing RMarkdown: Literate programming (5')
 **Exercise 1.5**: Documenting projects with README files
 <!-- basic markdown, presented, continued Exercise 2.4 -->
 
-### Session 2: Data wrangling & consolidating
+### Session 2: Data wrangling 
 <!-- point to data management resources -->
 
 **Exercise 2.1**: Loading datasets
@@ -136,13 +137,13 @@ Short intro to GGPlot (10').
 
 9-10am Welcome - Coffee, check installations
 
-### Session 4: Challenge to reproducibilty
-
 What are challenges to reproducibility? (30')
 - QRPs
 - P-values misconceptions
 - Power
   <!-- coudl actually watch the dance of p-values video -->
+
+### Session 1: P-values and forking paths
   
 **Exercise 4.1**: The dance of the p-values.
 
@@ -154,7 +155,7 @@ Alternative to just report the one analysis that was going your way
 Female hurricanes example: TBD give small tasks to do in addition to executing bits
 https://cran.r-project.org/web/packages/multiverse/readme/README.html -->
 
-### Session 5: Power and sample selection
+### Session 2: Power and sample selection
 
 Principled sample selection (20')
 - Gpower is as an alternative
@@ -167,7 +168,7 @@ Principled sample selection (20')
 
 **Exercise 5.3**: Power from simulation, example 2
  
-### Session 6: Strength of evidence and sample selection
+### Session 3: Strength of evidence and sample selection
 
 'New' statistics shift in focus on precision & strength of evidence. 
 
@@ -192,14 +193,14 @@ Highest score, based on an uploaded screen copy, wins a prize.
 
 9-10am Welcome - Coffee, check installation of GitHub Desktop / GitHub account
 
-### Session 7: Pre-registration and registered reports (AN, ME)
+### Session 1: Pre-registration and registered reports
 **Exercise 7.1**: Identify issues. Perhaps ask to work as a group finding pre-registrations within certain repositories and evaluate within the group.
 
 **Exercise 7.2**: Pre-registration how-to
 
 **Exercise 7.3**: ...
 
-### Session 8: Version Control with GitHub 
+### Session 2: Version Control with GitHub 
 We are centering this introductin on GitHub's website and GitHub Desktop graphical interface, not git itself.
 
 **Exercise 8.1**: Setup
@@ -213,7 +214,7 @@ We are centering this introductin on GitHub's website and GitHub Desktop graphic
 **Exercise 8.2**: Merge conflict resolution 
 <!-- the meme meme contest is the prize for day 3 -->
 
-### Session 9: Publishing
+### Session 3: Publishing
 
 Pre-printing, reporting guidelines, picking journals, peer review (15-20’)
 - What's FAIR?
