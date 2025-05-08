@@ -22,8 +22,6 @@ _In orange_: You can click on "History" and see all the changes to the repositor
 
 _In green_: This is how you can **commit** changes. Unless you **commit** you won't be able to **push** your local changes (changes in yoru computer) to the remote repository (GitHub website). You don't have to do this every time you change something of course. However, it makes sense to **commit** at every stage you want to document or go back to. In the playground example I committed at times small things so the website the repository is linked to could update. 
 
-To **commit** you require at least to provide a **summary** but not necessarily a description. The summary can be one word: e.g. *typos*. "commit to master". Now you have another option on GitHub Desktop (blue area). That is to **push to origin**. Now the remote repository is in synch with your local repository. 
-
 # Fetch
 
 When you get started the only option is **fetch origin**. Try clicking on it, it won't do a thing unless we changed something to the repository. 
@@ -33,6 +31,19 @@ Let's try a change. We go online and modify "index.html" to say "Visuomotor Lab"
 On the top right corner we **commit changes** and explain what those changes are. Let's now do a **fetch origin** on GitHub Desktop. This allowed you to get the changes between local and remote repositories. You now have a nother option: **pull origin**. By pressing pull origin now you recover the last version of the code locally. 
 
 Go now your editor and change again "index.html". You see that immediately changes are being pointed to you on GitHub Desktop. 
+
+# Commit
+
+To **commit** (green area) you require at least to provide a **summary** but not necessarily a description. The summary can be one word: e.g. *typos*. "commit to master". Now you have another option on GitHub Desktop (blue area). 
+
+That is to **push to origin**. 
+
+# Push to origin 
+
+Once you have Now the remote repository is in synch with your local repository. 
+
+# Pull
+
 # Creating repositories from GitHub Desktop
 
 # Forking a repository
