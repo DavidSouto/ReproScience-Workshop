@@ -1,0 +1,25 @@
+---
+title: "Exercise 8.1: Publish this doc"
+author: 
+output: html_document
+---
+
+# Introduction 
+
+In this worksheet we are going to publish this document as an .html file hosted on GitHub
+
+You could use this, for instance, as a document supporting a paper, where you can insert video demos (e.g. hosted on figshare.le.ac.uk).
+
+# Subtitle
+
+Description
+
+```{r eval=FALSE, include=FALSE}
+```
+
+Reflection question:
+
+Key Takeaways
+
+Additional Resources
+
