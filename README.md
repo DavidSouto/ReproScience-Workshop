@@ -49,7 +49,8 @@ Hidden items will appear greyed out.
 * Use the Keyboard Shortcut: Press Command + Shift + . (period) to toggle visibility of hidden files and folders in the selected directory. 
 Hidden items will appear grayed out.
 
-Materials are shared under a [MIT License](https://opensource.org/license/MIT) for code and under a [CC BY](https://creativecommons.org/licenses/by/4.0/) License for other documents.
+Materials are shared under a [MIT License](https://opensource.org/license/MIT) for code and under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/) License for other documents.
+Don't hesitate to email me if you spot a mistake: d.souto@le.ac.uk
 
 MIT License: This is a permissive open-source license that allows users to freely use, modify, and distribute the code, provided that the original license and copyright notice are included. It is widely used in the software community for its simplicity and flexibility.
 
