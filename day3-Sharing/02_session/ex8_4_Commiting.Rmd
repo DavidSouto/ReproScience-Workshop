@@ -1,5 +1,5 @@
 ---
-title: "Exercise X.X: Title"
+title: "Exercise 8.4: Commiting"
 author: 
 output: html_document
 ---
@@ -7,7 +7,6 @@ output: html_document
 # Introduction 
 
 The goal of this worksheet is to:
-
 
 # Subtitle
 

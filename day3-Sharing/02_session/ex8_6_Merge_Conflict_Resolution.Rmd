@@ -4,24 +4,42 @@ author: David Souto
 output: html_document
 ---
 
+In this worksheet we are going to see how merging branches works through a meme contest!
+
 # Forking a repository
 
-Forking creates a personal copy of someone else's project on GitHub, whereas Cloning is making a local copy on your computer.
+We are going to start by *forking* a meme repository. This is a rather barebone repository where you will be able to contribute your best meme work. To reiterate, we need to *fork* and not *clone*, as we want the repository to maintain its relationship with the repository it comes from. 
 
-We'll see how this works when well talk about merge conflict resolution & pull requests in exercise 8.6.
+By doing this, we can access ways in wich different people can work on different versions of the repository but we can later integrate into the original repository. 
 
-You can see how forking **Forked** repositories are connected to the original repository. Find a repositury on GitHub you could be interested in and fork it. 
+You can see how **Forked** repositories are connected to the original repository. Find a repository on GitHub you could be interested in and fork it. 
 
-# Introduction 
+# Making a new brank on GitHub Desktop
 
-The goal of this worksheet is to:
+You also have the option to branch out from your local repository. Let's say you want another brank, you call "sandbox" where you try thigns. 
+
+You can branch out by selecting the "Current branch" button (next to the blue area in our visual summary) and press "new branch".
+
+Try it out. What do you see?
 
 # Subtitle
 
 Description
 
-```{r eval=FALSE, include=FALSE}
+Here is an example of usage of the meme library. It is a very simple library. You would need to put an image in the working directory, load it in the following way and add a caption.
+
+Here is a [meme database](XXXX) you can draw inspiration from.
+
+```{r warning=FALSE}
+library(meme)
+### ** Examples
+
+f <- system.file("angry8.jpg", package="meme")
+meme(f, "code", "all the things!", font = "Helvetica")
 ```
+
+# Merge request
+
 
 Reflection question:
 

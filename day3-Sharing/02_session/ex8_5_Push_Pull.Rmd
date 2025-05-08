@@ -1,24 +1,9 @@
 ---
-title: "Exercise X.X: Title"
+title: "Exercise 8.5: Pushing and Pulling"
 author: 
 output: html_document
 ---
 
-# Introduction 
-
-The goal of this worksheet is to:
 
 
-# Subtitle
-
-Description
-
-```{r eval=FALSE, include=FALSE}
-```
-
-Reflection question:
-
-Key Takeaways
-
-Additional Resources
-
+# .Gitignore

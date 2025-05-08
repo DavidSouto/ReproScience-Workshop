@@ -40,9 +40,18 @@ That is to **push to origin**.
 
 # Push to origin 
 
-Once you have Now the remote repository is in synch with your local repository. 
+Once you have made your first *commit* you see another option in the red area. 
 
-# Pull
+Now the remote repository is in synch with your local repository. 
+
+# Pull origin
+
+If you have remote changes. For instance, you have done some changes on another computer that you have pushed remotely, GitHub Desktop will
+tell you that there are remote changes to need to *pull* before you *push* your changes online.
+
+# Branches
+
+
 
 # Creating repositories from GitHub Desktop
 
