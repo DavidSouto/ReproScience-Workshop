@@ -197,7 +197,9 @@ Highest score, based on an uploaded screen copy, wins a prize.
 ### Session 2: Version Control with GitHub 
 We are centering this introductin on GitHub's website and GitHub Desktop graphical interface, not git itself.
 
-**Exercise 8.1**: Setup
+**Exercise 8.1**: Setup & GitHub overview
+
+**Exercise 8.2**: GitHub Desktop verview
 
 **Exercise 8.2**: Cloning
 

@@ -40,7 +40,7 @@ You then have three options. We could press "set up in Desktop". This will gener
 ![e61f74003233297277aee49da4190422.png](e61f74003233297277aee49da4190422.png)
 
 Note how we could do all of this from the command line. We will be avoiding git commands altogether this in this crash course.
-
+  
 That way we can ask to populate the new repository with the playground code: https://github.com/DavidSouto/playground
 
 ![605bb1c02e887562e00e8e3fced1220f.png](605bb1c02e887562e00e8e3fced1220f.png)
@@ -49,7 +49,7 @@ When I ask to "begin import", I have now a new repository I called "test2" in ca
 
 The code itself corresponds to an HTML template website made by Vasilios Mavroudis. I can use it because because it was shared under a license that allows me to. You can click on the "BSD-2-Clause license" link to see the conditions. Basically, you are allowed to reuse as long as you keep the origina lincense. I also kept the disclaimer at the end from the original version.
 
-![38fee73f576539e87c350e51942c6dfa.png](38fee73f576539e87c350e51942c6dfa.png)
+![38fee73f576539e87c350e51942c6dfa.png](images/38fee73f576539e87c350e51942c6dfa.png)
 
 This is the simplest website template I could find. By simple I mean that all the text lives in a single HTML file (index.html). There is a minimal amount of code for aesthetics and navigation. I actually made it a tad simpler by removing the "home" tab becase as we can go backwards on the browser. We have one folder for pdfs and one folder for images or videos. It gets a while to get used to it but from experience it is a lot quicker to make small changes (add a reference) that way than relying on a visual interface (e.g. wordpress, weebly, etc.).
 

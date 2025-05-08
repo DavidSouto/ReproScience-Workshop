@@ -1,0 +1,31 @@
+---
+title: "Exercise 8.6: Merging and conflict resolution"
+author: David Souto
+output: html_document
+---
+
+# Forking a repository
+
+Forking creates a personal copy of someone else's project on GitHub, whereas Cloning is making a local copy on your computer.
+
+We'll see how this works when well talk about merge conflict resolution & pull requests in exercise 8.6.
+
+You can see how forking **Forked** repositories are connected to the original repository. Find a repositury on GitHub you could be interested in and fork it. 
+
+# Introduction 
+
+The goal of this worksheet is to:
+
+# Subtitle
+
+Description
+
+```{r eval=FALSE, include=FALSE}
+```
+
+Reflection question:
+
+Key Takeaways
+
+Additional Resources
+
