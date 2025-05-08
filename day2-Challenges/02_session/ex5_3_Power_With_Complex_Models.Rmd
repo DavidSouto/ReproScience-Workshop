@@ -4,35 +4,97 @@ author: David Souto
 output: html_document
 ---
 
-ntroduction
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(lme4)  # For glmm
+library(simr) # for simulated power calculation
+set.seed(42)
+```
+
+Introduction
+
 Power analysis for complex models, such as Generalized Linear Mixed Models (GLMMs), is more challenging than for simpler models like t-tests or ANOVAs. GLMMs account for both fixed and random effects, making them ideal for hierarchical or nested data, but this complexity also makes analytical power calculations difficult.
+
 In this worksheet, we’ll explore simulation-based power analysis for GLMMs using the simr package. By the end of this exercise, you’ll understand how to:
-Perform power analysis for GLMMs.
-Explore the impact of sample size and effect size on power.
-Use simulation to plan studies with complex designs.
+- Perform power analysis for GLMMs.
+- Explore the impact of sample size and effect size on power.
+- Use simulation to plan studies with complex designs.
+
 Part 1: Setting Up a GLMM
+
 Example Scenario
 Imagine we are studying the effect of a treatment (treatment) on a binary outcome (success), where observations are nested within groups (group). We hypothesize that the treatment increases the probability of success.
+
 Exercise 1: Simulating Data for a GLMM
+
 Run the following code to simulate a dataset for a GLMM:
-# Simulate data set.seed(42) n_groups <- 20 # Number of groups n_obs <- 10 # Observations per group group <- rep(1:n_groups, each = n_obs) treatment <- rep(c(0, 1), length.out = n_groups * n_obs) success <- rbinom(n_groups * n_obs, size = 1, prob = 0.5 + 0.2 * treatment) # Create a data frame data <- data.frame(group = factor(group), treatment = treatment, success = success) # Fit a GLMM model <- glmer(success ~ treatment + (1 | group), data = data, family = binomial) # Summary of the model summary(model)
+
+```{r}
+# Simulate data 
+set.seed(42) 
+n_groups <- 20 # Number of groups 
+n_obs <- 10 # Observations per group 
+group <- rep(1:n_groups, each = n_obs) 
+treatment <- rep(c(0, 1), length.out = n_groups * n_obs) 
+success <- rbinom(n_groups * n_obs, size = 1, prob = 0.5 + 0.2 * treatment) 
+
+# Create a data frame 
+data <- data.frame(group = factor(group), treatment = treatment, success = success) 
+
+# Fit a GLMM 
+model <- glmer(success ~ treatment + (1 | group), data = data, family = binomial) 
+
+# Summary of the model 
+summary(model)
+```
 Questions:
+
 What is the estimated effect of the treatment on success?
+
 Why do we include (1 | group) in the model?
+
 Part 2: Power Analysis for the GLMM
+
 Exercise 2: Estimating Power for the GLMM
+
 We’ll use the simr package to estimate power by simulating data and testing for significance. Run the following code to calculate power for the treatment effect:
-# Extend the model to include power analysis model_power <- extend(model, along = "group", n = 30) # Increase the number of groups # Perform power analysis power <- powerSim(model_power, nsim = 100) # Run 100 simulations power
+
+```{r}
+# Extend the model to include power analysis 
+model_power <- extend(model, along = "group", n = 30) # Increase the number of groups 
+
+# Perform power analysis 
+power <- powerSim(model_power, nsim = 100) # Run 100 simulations 
+power
+```
 Questions:
+
 What is the estimated power for detecting the treatment effect?
+
 How does increasing the number of groups affect power?
+
 Part 3: Exploring the Impact of Sample Size
+
 Exercise 3: Power Curve for Sample Size
+
 Let’s explore how power changes with the number of groups. Complete the code below to generate a power curve:
-# Define a range of group sizes group_sizes <- seq(10, 50, by = 5) # Calculate power for each group size power_curve <- powerCurve(model, along = "group", breaks = group_sizes, nsim = 50) # Plot the power curve plot(power_curve)
+
+```{r}
+# Define a range of group sizes 
+group_sizes <- seq(10, 50, by = 5) 
+
+# Calculate power for each group size 
+power_curve <- powerCurve(model, along = "group", breaks = group_sizes, nsim = 50) 
+
+# Plot the power curve 
+plot(power_curve)
+```
 Questions:
+
 At what group size does power reach 80%?
+
 Why does power increase with the number of groups?
+
 Part 4: Exploring the Impact of Effect Size
 Exercise 4: Power for Different Effect Sizes
 Modify the code below to calculate power for different treatment effect sizes (( \beta = 0.2, 0.4, 0.6 )):
