@@ -6,6 +6,12 @@ output: html_document
 
 # Introduction
 
+To Read: https://lakens.github.io/statistical_inferences/10-sequential.html
+
+" Four common approaches are the Pocock correction, the O’Brien-Fleming correction, the Haybittle & Peto correction, and the Wang and Tsiatis approach. Users are also free to specify their own preferred way to spend the alpha level across looks."
+
+"At the final look, sequential designs require somewhat more participants than a fixed design, depending on how much the alpha level at this look is lowered due to the correction for multiple comparisons. That said, due to early stopping, sequential designs will on average require less participants."
+
 Sequential testing allows researchers to analyze data as it is collected, rather than waiting for a fixed sample size to be reached. While Bayes factors are well-suited for sequential testing, it is also possible to use Null Hypothesis Significance Testing (NHST) in a sequential framework. However, NHST-based sequential testing requires careful adjustments to control for inflated Type I error rates (false positives) caused by repeated testing.
 
 This approach has been used in medical fields where, for ethical reasons, we may not want to continue with a trial if the effect is evident. Recent research has shown the utility of group sequential designs in various medical trials, with studies demonstrating that some trials could have been stopped early for futility, potentially saving time and resources. While less common in other fields, sequential testing can be conducted without p-hacking and offers a more efficient way of collecting data, provided we correct for the family-wise false-discovery rate.
@@ -19,6 +25,7 @@ In traditional NHST, you calculate a p-value after collecting data for a fixed s
 ## Challenges of Sequential Testing with NHST
 
 - **Inflated Type I Error Rates**: Repeated testing increases the chance of observing a significant result purely by chance.
+
 - **Peeking Problem**: If you stop the test as soon as you see a significant result, the Type I error rate will exceed the nominal alpha level (e.g., 0.05).
 
 ## Understanding Family-wise False Discovery Rate

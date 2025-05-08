@@ -24,7 +24,7 @@ Office: GDC 1.11
 # Access instructions
 The workshop will take place in the Maurice Shock Building (MSB). You can find access details [here](https://www.accessable.co.uk/university-of-leicester/access-guides/maurice-shock-building).
 
-MSB 206A and 208A can be found on the second floor.**TBD** 
+MSB 206A and 208A can be found on the second floor. 
 
 # Pre-session instructions 
 You would have been emailed instructions. 
@@ -32,7 +32,6 @@ They can be found on the GitHub repository as well: https://github.com/DavidSout
 
 Troubleshooting
 * Let us know if this doesnt work.
-* If your installation 
 * We can use the first hour of each day (Welcome) to troubleshoot issues with installation.
 *** If you have issues with internet we'll have local copies of packages**
 
@@ -43,27 +42,35 @@ This 3-day workshop will equip participants with the essential tools and knowled
 
 # Schedule at a glance
 
-Day 1: Room, Maurice Shock (MSB) 206A
+Day 1: Intro to R for Open and Reproducible Science
+Maurice Shock (MSB) 206A
 
 9-10am Welcome / Coffee served
 10-12pm Helping yourself 
-12pm-1pm Lunch / Lunch Boxes with Vegetarian options
+12pm-1pm Lunch 
 1pm-2:30pm Data wrangling
+2:30-2:45pm Coffee break
 2:45-4pm Data visualization
 
-Day 2: Room, Maurice Shock (MSB) 208A
+Day 2: Understanding challenges to reproducibility
+Maurice Shock (MSB) 208A
 
-9-10am Welcome
-10-12pm 
-1pm-2:30pm 
-2:45-4pm 
+9-10am Welcome / Coffee served
+10-12pm P-values and forking paths
+12pm-1pm Lunch 
+1pm-2:30pm Power and sample selection
+2:30-2:45pm Coffee break
+2:45-4pm Strength of evidence and sample selection
 
-Day 2: Room, Maurice Shock (MSB) 208A
+Day 3:  Sharing plans, data and code
+Maurice Shock (MSB) 208A
 
-9-10am Welcome
-10-12pm 
-1pm-2:30pm 
-2:45-4pm
+9-10am Welcome / Coffee served
+10-12pm Pre-registration and registered reports
+12pm-1pm Lunch 
+1pm-2:30pm Version Control with GitHub 
+2:30-2:45pm Coffee break
+2:45-4pm Publishing
 
 # Syllabus
 
@@ -72,23 +79,10 @@ Day 2: Room, Maurice Shock (MSB) 208A
 
 ### Session 1: Introduction to workshop & R for Open and Reproducible science
 
-Short intro on the importance of open and reproducible science - organization of the workshop (20-30’)
-
-We are going to mention levels … as a way to cater for people at different stages / who have different needs. Level's 2-3 go beyond what we can cover here. You could attempt exercises  at this level if you have time left, but the idea is that Level 1 provides you with a basic and perfectly serviceable understanding of the topic for our purpose. 
-
-Introducing the RStudio interface (20') 
-<!-- TBD: could produce a video and live-code; can show setwd() tips with ".." and ".", at times opening a file does not set up the working directory correctly, 
-can do getwd() to figure out where you are and use ".." to go back one or "./03_session" for instance to go one folder down-->
- 
-Introducing RMarkdown: Literate programming (5')
-![aee29411b3c37fd15e53881a7306017a.png](aee29411b3c37fd15e53881a7306017a.png)
-<!-- A 40 year old concept put forth by another giant of computing - write code to be understood by humans not to suit the constraints of the machine; & switching betwee the visual/source options in RStudio; could be a live-code video as well, as it will make sense to use this for exercises-->
+Exercise worksheets can be found 
 
 **Exercise 1.1**: Workshop Packages
 * You would have done this already, following the pre-session instructions. Otherwise go back to those instructions on top. 
-* We are going to explore a few features related to the choice of packages by opening *ex1_1_packages.Rmd*
-
-<!-- Could introduce tidyverse::broom, and tibbles, useful later as welll remember we can call functions within a package with package::function, we will sometimes use this more verbose form to avoid the pesky conflicts that come with using commmon function names across packages -->
 
 **Exercise 1.2**: Organizing files
 <!-- unfinished? -->
