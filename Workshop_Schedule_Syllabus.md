@@ -199,16 +199,15 @@ We are centering this introductin on GitHub's website and GitHub Desktop graphic
 
 **Exercise 8.1**: Setup & GitHub overview
 
-**Exercise 8.2**: GitHub Desktop verview
+**Exercise 8.2**: Creating a repository 
 
-**Exercise 8.2**: Cloning
+**Exercise 8.3**: GitHub Desktop overview
 
-**Exercise 8.2**: Committing
+**Exercise 8.4**: Committing
 
-**Exercise 8.2**: Push / pull
+**Exercise 8.5**: Push / pull 
 
-**Exercise 8.2**: Merge conflict resolution 
-<!-- the meme meme contest is the prize for day 3 -->
+**Exercise 8.6**: Merge conflict resolution
 
 ### Session 3: Publishing
 
@@ -218,8 +217,5 @@ Pre-printing, reporting guidelines, picking journals, peer review (15-20’)
 - parting note
 
 **Exercise 8.1**: Publish analysis as an html page  
-<!-- We have had a session to do that before. Inspiration: https://osf.io/enxcd -->
 
 **Exercise 8.2**: Workshop feedback
-
-<!-- Prizes and group photo -->

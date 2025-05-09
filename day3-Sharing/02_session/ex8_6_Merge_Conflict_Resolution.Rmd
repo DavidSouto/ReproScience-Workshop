@@ -14,7 +14,7 @@ By doing this, we can access ways in wich different people can work on different
 
 You can see how **Forked** repositories are connected to the original repository. Find a repository on GitHub you could be interested in and fork it. 
 
-# Making a new brank on GitHub Desktop
+# Making a new branch on GitHub Desktop
 
 You also have the option to branch out from your local repository. Let's say you want another brank, you call "sandbox" where you try thigns. 
 
@@ -22,9 +22,9 @@ You can branch out by selecting the "Current branch" button (next to the blue ar
 
 Try it out. What do you see?
 
-# Subtitle
-
-Description
+# Merge conflict
+# Merge request
+# Pull request
 
 Here is an example of usage of the meme library. It is a very simple library. You would need to put an image in the working directory, load it in the following way and add a caption.
 
@@ -37,13 +37,4 @@ library(meme)
 f <- system.file("angry8.jpg", package="meme")
 meme(f, "code", "all the things!", font = "Helvetica")
 ```
-
-# Merge request
-
-
-Reflection question:
-
-Key Takeaways
-
-Additional Resources
 

@@ -6,18 +6,21 @@ output: html_document
 
 # Introduction 
 
-The goal of this worksheet is to:
+The goal of this worksheet is to go through the intricacies of *push* and *pull*.
 
-# Subtitle
+# Project organization
 
-Description
+Let's go back to project organization adn data managment. You want all your project files organized in the same folder.
+If you have multiple projects with multiple folders pointing to the same project data there will be some confusion down the line.
 
-```{r eval=FALSE, include=FALSE}
-```
+But GtiHub is not made to store your data. Storing code requires much less space than data. You won't be able to store large amounts of data on GitHub.
+There are better repositories for data. So how do you manage to have the data in your local repository?
 
-Reflection question:
+# Use .gitignore
+You can use the .gitignore file that is created wtih each repository or specify this through the menus (Repository> Repositoroy Settings>Ignored files). 
+You can specify folderes to ignore.
 
-Key Takeaways
+Create a new folder where you put things  you don't want to push to GitHub (e.g. I have a file called "local" for things I want to keep local this purpose, 
+to whicih I would add a "data"). Open the .gitignore file (with e.g. notepad) and type the name of the directory you want ignored.
 
-Additional Resources
-
+Commit the changes and push. Then click "View on GitHub". You should see the folder is not online.
