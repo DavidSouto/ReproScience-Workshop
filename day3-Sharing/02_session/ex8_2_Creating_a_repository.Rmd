@@ -28,7 +28,7 @@ That way we you can ask to populate the new repository with the playground code:
 
 ![](images/605bb1c02e887562e00e8e3fced1220f.png)
 
-When you ask to "begin import", you have now a new repository I called "test2", which you can now find in your profile and repository list.
+When you ask to "begin import", you have now a new repository (I called it "test2"), which you can now find in your profile and repository list.
 
 A few things to note about this repository. As we mentioned before about my version of the plain-academic repository. It is not connected to the original repository in that I cannot ask for changes to be merged with the original one. However it lists everyone who contributed to the repository and every change made.
 
@@ -47,5 +47,15 @@ This will open GitHub Desktop. I can then decide where to save the clone of the 
 ![](images/194625f6d1ed52df17c267337c8255d1.png) 
 
 You see I have a folder called GitHub close to the "root" of the drive (D:) where I keep all my repositories.
+
+### Contributor vs Collaborator
+
+There is one essential difference between *contributors* to a repository and *collaborators*. *Collaborators* can [push changes to the repository directly](https://help.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository). However, when you fetch the origin you are going to see which changes have been made and will have the choice to pull or not. 
+
+On the other hand, a *contributor* [has to fork your repository first](https://help.github.com/en/github/getting-started-with-github/fork-a-repo), and make a pull request from their own fork/branch to your repo/master branch. You will have to validate that pull request for it to take effect.
+
+You can invite collaborators to your repository by going to "settings" and "collaborators" (top left menu) and enter their email.
+
+# Next
 
 Next open GitHub Desktop and explore its features in the next worksheet.

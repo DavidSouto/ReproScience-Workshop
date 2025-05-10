@@ -85,47 +85,31 @@ Exercise worksheets can be found
 * You would have done this already, following the pre-session instructions. Otherwise go back to those instructions on top. 
 
 **Exercise 1.2**: Organizing files
-<!-- unfinished? -->
 
 **Exercise 1.3**: Finding errors in scripts and functions
-<!-- Level 2: Code-check -->
 
 **Exercise 1.4**: Computational reproducibility
 
 **Exercise 1.5**: Documenting projects with README files
-<!-- basic markdown, presented, continued Exercise 2.4 -->
 
 ### Session 2: Data wrangling 
-<!-- point to data management resources -->
 
 **Exercise 2.1**: Loading datasets
 Most common formats.
-<!-- link to FAIR, tibbles? -->
 
 **Exercise 2.2**: Using pipes to manipulate datasets
 
 **Exercise 2.3**: Interactive reporting
-<!-- Continuing on Rmd, could show basic output options, like saving pdf / htlm files, how to animate a graph-->
-<!-- Level 2: More elaborate example of interactive reporting. https://osf.io/enxcd
- Could point to Faye's help sheets for statistical analysis-->
  
 ### Session 3: Data visualization
-<!-- Based on live coded examples but  -->
 
-<!-- We will be using the Finches dataset: https://www.kaggle.com/code/muhammetgamal5/darwin-s-finches-evolution
-Read about the data here: https://www.kaggle.com/datasets/crbelhekar619/darwins-finches-evolution-dataset/data -->
-<!-- The relationship between beak size and ecological events which has been somewhat popularised as being an example of ‘[evolution occurring before our eyes](https://books.google.co.in/books/about/The_Beak_of_the_Finch.html?id=-bbh3c4ezP0C\&redir_esc=y)’.
- -->
 Short intro to GGPlot (10').
 
 **Exercise 3.1**: GGPlot logic
-<!-- Example showing how data needs to be organized -->
 
 **Exercise 3.2**: Displaying all data
-<!-- Jitter / Rainclouds - Problems with data overlay -->
 
 **Exercise 3.4**: Publication quality plots
-<!-- colour blind-friendly plots -->
 
 ## Day 2: Understanding challenges to reproducibility
 
@@ -135,7 +119,6 @@ What are challenges to reproducibility? (30')
 - QRPs
 - P-values misconceptions
 - Power
-  <!-- coudl actually watch the dance of p-values video -->
 
 ### Session 1: P-values and forking paths
   
@@ -144,10 +127,6 @@ What are challenges to reproducibility? (30')
 **Exercise 4.2**: P-hacking challenge 
 
 **Exercise 4.3**: Multiverse analyses
-<!-- https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2694998
-Alternative to just report the one analysis that was going your way 
-Female hurricanes example: TBD give small tasks to do in addition to executing bits
-https://cran.r-project.org/web/packages/multiverse/readme/README.html -->
 
 ### Session 2: Power and sample selection
 
@@ -155,44 +134,31 @@ Principled sample selection (20')
 - Gpower is as an alternative
 
 **Exercise 5.1**: Power from first principles (t-test) 
-<!-- see Baker’s book.-->
 
 **Exercise 5.2**: Power from simulation, example 1
-<!-- can use reading example we mentioned from Vicky) -->
 
 **Exercise 5.3**: Power from simulation, example 2
  
 ### Session 3: Strength of evidence and sample selection
 
 'New' statistics shift in focus on precision & strength of evidence. 
-
-<!-- Idea that precision is a better indication of the strength of evidence. See also Bayesian statistics.
- -->
  
 **Exercise 6.1**: Planning for precision 
-<!-- Example for the mean / proportion & show precision across sample sizes. Alternatives to power calculations To think about confidence around effects (can’t be too confident effect size)-->
 
 **Exercise 6.2**: Example of sequential testing using Bayesian statistics 
-<!-- Is subject to p-hacking? mention that it still has to be a pre-defined stop rule -->
 
 **Exercise 6.3**: Example of how sequential testing works with NHST 
-<!-- show how the scenario above is problematic, but can be fixed by correcting for peeking -->
 
 **Exercise 6.4** Are you a trend spotter?
-A rather gartuituous but fun exercise to finish the day where you will learn whether you can spot the strength of a relationship.
-Highest score, based on an uploaded screen copy, wins a prize.
-<!-- https://www.guessthecorrelation.com/ -->
+A rather grtuituous but fun exercise to finish the day where you will learn whether you can spot the strength of a relationship.
 
 ## Day 3: Sharing plans, data and code
 
 9-10am Welcome - Coffee, check installation of GitHub Desktop / GitHub account
 
 ### Session 1: Pre-registration and registered reports
-**Exercise 7.1**: Identify issues. Perhaps ask to work as a group finding pre-registrations within certain repositories and evaluate within the group.
 
 **Exercise 7.2**: Pre-registration how-to
-
-**Exercise 7.3**: ...
 
 ### Session 2: Version Control with GitHub 
 We are centering this introductin on GitHub's website and GitHub Desktop graphical interface, not git itself.
@@ -203,19 +169,13 @@ We are centering this introductin on GitHub's website and GitHub Desktop graphic
 
 **Exercise 8.3**: GitHub Desktop overview
 
-**Exercise 8.4**: Committing
+**Exercise 8.4**: Pushing and pulling 
 
-**Exercise 8.5**: Push / pull 
-
-**Exercise 8.6**: Merge conflict resolution
+**Exercise 8.5**: Merge conflict resolution
 
 ### Session 3: Publishing
-
 Pre-printing, reporting guidelines, picking journals, peer review (15-20’)
-- What's FAIR?
-- private links
-- parting note
 
-**Exercise 8.1**: Publish analysis as an html page  
+**Exercise 8.1**: Publish an analysis as an html page  
 
 **Exercise 8.2**: Workshop feedback

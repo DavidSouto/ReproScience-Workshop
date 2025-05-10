@@ -1,0 +1,67 @@
+# Fetch
+
+When you get started the only option is **fetch origin**. Try clicking on it, it won't do a thing unless we changed something to the repository. 
+
+Let's try a change. We go online and modify "index.html" to say "Visuomotor Lab" instead of Laboratory (make sure you are changing your version of the repository). 
+
+On the top right corner we **commit changes** and explain what those changes are. Let's now do a **fetch origin** on GitHub Desktop. This allowed you to get the changes between local and remote repositories. You now have a nother option: **pull origin**. By pressing pull origin now you recover the last version of the code locally. 
+
+Go now your editor and change again "index.html". You see that immediately changes are being pointed to you on GitHub Desktop. 
+
+# Commit
+
+To **commit** (green area) you require at least to provide a **summary** but not necessarily a description. The summary can be one word: e.g. *typos*. "commit to master". Now you have another option on GitHub Desktop (blue area). 
+
+That is to **push to origin**. 
+
+# Push to origin 
+
+Once you have made your first *commit* you see another option in the red area. 
+
+Now the remote repository is in synch with your local repository. 
+
+# Pull origin
+
+If you have remote changes. For instance, you have done some changes on another computer that you have pushed remotely, GitHub Desktop will
+tell you that there are remote changes to need to *pull* before you *push* your changes online.
+
+# Branches
+
+
+
+# Creating repositories from GitHub Desktop
+
+# Forking a repository
+
+Forking creates a personal copy of someone else's project on GitHub, whereas Cloning is making a local copy on your computer.
+
+We'll see how this works when well talk about merge conflict resolution & pull requests in exercise 8.6.
+
+You can see how forking **Forked** repositories are connected to the original repository. Find a repository on GitHub you could be interested in and fork it. 
+
+TBD: Overview of branching and **pull requests**
+
+### The main branch
+
+We didn't talk at all about branches. Creating a new branch from the main branch.
+
+On GitHub Deskptop and remotely you have this notion that you are on the main branch. But it doesn't necessarily have to be.
+
+![2b109bd55352be1ed785b25d6cfe5f2a.png](2b109bd55352be1ed785b25d6cfe5f2a.png "2b109bd55352be1ed785b25d6cfe5f2a.png")
+
+## Let’s try to break things  
+Go to GitHub and delete a line in the README.Rmd file. Then go to the local folder (View Explorer) and delete a different line in the local version of the file. Go to GitHub Desktop and do a pull. Observe the issue. 
+
+## Using aliases
+Lastly, you want short names for your repositories, it makes a few things easier. But things can get messy in your GitHub Desktop if you have many repositories. You can then use “aliases”. They are local to your Github Desktop and can disambiguate names. 
+
+Aliases are italicized, unlike the original names.
+
+## Integration with OSF
+
+Another nice feature of GitHub is that you can link your repository to the [Open Science Framework website](https://osf.io/). This is preferable to simply uploading code to the website, you can then use GitHub's version control and make your code a lot more findable. I am not going through this in detail. I'll just note that the procedure is quicker [than it looks](https://help.osf.io/article/211-connect-github-to-a-project#:~:text=Find%20GitHub%20in%20the%20%22Configure,a%20member%20of%20the%20organization).
+
+# Additional resources
+
+For something more textual, there is a very nice guide to [version control](https://book.the-turing-way.org/reproducible-research/vcs/) and [GitHub](https://book.the-turing-way.org/collaboration/github-novice) in the Turing Way handbook.
+
