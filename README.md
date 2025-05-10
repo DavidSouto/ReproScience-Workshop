@@ -26,7 +26,7 @@ If you are not so familliar with R, This ['R Crash course'](https://billpetti.gi
 * Create a [GitHub account](https://github.com/signup?source=login): [https://github.com/signup?source=login]. This is free (and will do for the masterclass) but it comes with some limitations. As a student (or staff) you can also ask for a free Pro account [here](https://education.github.com/benefits?type=student).
 * Download and install [GitHub Desktop](https://desktop.github.com/download/). This is a version control program that we are going to introduce in day 2.
 
-# Hidden files: 
+# Hidden files
 We are going to pay attention to file extensions (e.g. .docx) and system files that could be hidden by default by your OS; For instance .git, which are used to keep track of what to synchronize with GitHub via Git
 
 ### To show extensions on Windows 10/11: 
