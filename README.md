@@ -43,6 +43,7 @@ Hidden items will appear greyed out.
 Hidden items will appear grayed out.
 
 # On day 1 
+You will need a computer on which you have installation rights (in day 1 there is the alternative of using online RStudio via https://posit.cloud/)
 ### Get the workshop materials
 * Download the [workshop materials](https://github.com/DavidSouto/ReproScience-Workshop) as a ZIP file by clicking on the green "code" icon and selecting the bottom option.  
 * Once downloaded, extract the contents to a location on your hard drive.
