@@ -5,6 +5,8 @@
 The workshop assumes some familarity with R. 
 If you are not so familliar with R, This ['R Crash course'](https://billpetti.github.io/Crash_course_in_R/) covers a lot of ground.
 
+You will need a computer on which you have installation rights (in day 1 there is the alternative of using online RStudio via https://posit.cloud/)
+
 # Pre-session instructions
 ### Installing or re-installing RStudio 
 * Download and install RStudio from the official [website](https://posit.co/download/rstudio-desktop/). Make sure to choose the version compatible with your operating system (Windows or Mac). If you have RStudio already, upgrade to the last version if possible.
@@ -43,7 +45,6 @@ Hidden items will appear greyed out.
 Hidden items will appear grayed out.
 
 # On day 1 
-You will need a computer on which you have installation rights (in day 1 there is the alternative of using online RStudio via https://posit.cloud/)
 ### Get the workshop materials
 * Download the [workshop materials](https://github.com/DavidSouto/ReproScience-Workshop) as a ZIP file by clicking on the green "code" icon and selecting the bottom option.  
 * Once downloaded, extract the contents to a location on your hard drive.
