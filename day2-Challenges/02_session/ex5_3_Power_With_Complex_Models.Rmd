@@ -64,7 +64,7 @@ We’ll use the simr package to estimate power by simulating data and testing fo
 model_power <- extend(model, along = "group", n = 30) # Increase the number of groups 
 
 # Perform power analysis 
-power <- powerSim(model_power, nsim = 100) # Run 100 simulations 
+power <- powerSim(model_power, seed = 42, nsim = 100) # Run 100 simulations 
 power
 ```
 Questions:
@@ -78,13 +78,14 @@ Part 3: Exploring the Impact of Sample Size
 Exercise 3: Power Curve for Sample Size
 
 Let’s explore how power changes with the number of groups. Complete the code below to generate a power curve:
+(hint: you can use the model_power code above, or extend the model with your own code)
 
 ```{r}
 # Define a range of group sizes 
-group_sizes <- seq(10, 50, by = 5) 
+group_sizes <- seq(___, __, by = 5) 
 
 # Calculate power for each group size 
-power_curve <- powerCurve(model, along = "group", breaks = group_sizes, nsim = 50) 
+power_curve <- powerCurve(___, along = "group", breaks = group_sizes, seed = 42, nsim = 50) 
 
 # Plot the power curve 
 plot(power_curve)
@@ -96,23 +97,52 @@ At what group size does power reach 80%?
 Why does power increase with the number of groups?
 
 Part 4: Exploring the Impact of Effect Size
+
 Exercise 4: Power for Different Effect Sizes
+
 Modify the code below to calculate power for different treatment effect sizes (( \beta = 0.2, 0.4, 0.6 )):
-# Adjust the effect size fixef(model)["treatment"] <- 0.4 # Change the treatment effect size # Perform power analysis power_effect <- powerSim(model, nsim = 100) power_effect
+
+```{r}
+# Adjust the effect size 
+fixef(model)["treatment"] <- 0.4 # Change the treatment effect size 
+# Perform power analysis 
+power_effect <- powerSim(model, nsim = 100) 
+power_effect
+```
 Questions:
+
 How does increasing the effect size impact power?
+
 Why is it easier to detect larger effects?
+
+Another way of increasing the effect size is to increase the number of observations per condition. What impact does this have on power?
+
 Part 5: Reflection and Application
+
 Reflection Questions:
+
 Why is simulation-based power analysis useful for complex models like GLMMs?
+
 How can you use power analysis to plan studies with hierarchical or nested data?
+
 What are the trade-offs between increasing sample size and increasing effect size?
+
 Additional Resources
+
 simr Package Documentation: Learn more about the simr package here.
+
+Power Analysis and Effect Sizes: Learn more about conducting power analyses and how to increase effect sizes here.
+
 Power Analysis for Mixed Models: Read this tutorial on power analysis for mixed models here.
+
 Interactive Power Tools: Explore the Shiny app for power analysis of mixed models here.
+
 Key Takeaways
+
 Simulation-Based Power Analysis: Simulation is a flexible and intuitive approach for estimating power in complex models like GLMMs.
+
 Impact of Sample Size: Increasing the number of groups or observations improves power by reducing variability.
+
 Effect Size Matters: Larger effects are easier to detect, requiring fewer samples for adequate power.
+
 Plan Ahead: Use power analysis to design studies that are both efficient and reliable.
