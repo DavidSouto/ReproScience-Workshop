@@ -150,7 +150,6 @@ Principled sample selection (20')
 **Exercise 6.3**: Example of how sequential testing works with NHST 
 
 **Exercise 6.4** Are you a trend spotter?
-A rather grtuituous but fun exercise to finish the day where you will learn whether you can spot the strength of a relationship.
 
 ## Day 3: Sharing plans, data and code
 
