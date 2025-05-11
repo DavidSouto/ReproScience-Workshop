@@ -5,6 +5,8 @@
 The workshop assumes some familarity with R. 
 If you are not so familliar with R, This ['R Crash course'](https://billpetti.github.io/Crash_course_in_R/) covers a lot of ground.
 
+You will need a computer on which you have installation rights (in day 1 there is the alternative of using online RStudio via https://posit.cloud/)
+
 # Pre-session instructions
 ### Installing or re-installing RStudio 
 * Download and install RStudio from the official [website](https://posit.co/download/rstudio-desktop/). Make sure to choose the version compatible with your operating system (Windows or Mac). If you have RStudio already, upgrade to the last version if possible.
@@ -26,7 +28,7 @@ If you are not so familliar with R, This ['R Crash course'](https://billpetti.gi
 * Create a [GitHub account](https://github.com/signup?source=login): [https://github.com/signup?source=login]. This is free (and will do for the masterclass) but it comes with some limitations. As a student (or staff) you can also ask for a free Pro account [here](https://education.github.com/benefits?type=student).
 * Download and install [GitHub Desktop](https://desktop.github.com/download/). This is a version control program that we are going to introduce in day 2.
 
-# Hidden files: 
+# Hidden files
 We are going to pay attention to file extensions (e.g. .docx) and system files that could be hidden by default by your OS; For instance .git, which are used to keep track of what to synchronize with GitHub via Git
 
 ### To show extensions on Windows 10/11: 
