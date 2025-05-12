@@ -1,129 +1,145 @@
 ---
-title: "Exercise 5.2: Power calculation"
+title: "Exercise 5.2: Power calculation through simulation"
 output: David Souto
 output: html_document
 ---
 
 Introduction
 
-Statistical power is the probability of correctly rejecting the null hypothesis when the alternative hypothesis is true. In this worksheet, we’ll explore power through simulation and learn how improving measurement precision can increase power. By the end of this exercise, you’ll understand how power depends on sample size, effect size, and measurement variability.
+In this worksheet, we’ll explore how to think about power through simulation.  
 
-Part 1: Simulating the Null Hypothesis
-
-What is the Null Hypothesis?
+# Simulating the null Hypothesis
 
 The null hypothesis assumes there is no effect or difference between groups. To simulate the null hypothesis, we generate data from the same distribution for two groups and calculate the proportion of p-values below 0.05.
-
-Exercise 1: Simulating the Null Hypothesis
 
 Run the following code to simulate 1000 experiments under the null hypothesis:
 
 ```{r}
 # Function to simulate one experiment under the null hypothesis 
-sim_null <- function(n = 10, mean = 10, sd = 5) { group1 <- rnorm(n, mean, sd) 
-group2 <- rnorm(n, mean, sd) 
-t.test(group1, group2, var.equal = TRUE)$p.value } 
+# We define two groups, independent of each other
+# we run a t-test (base R) assuming variances are equal and return the p-value 
+sim_null_fun <- function(n = 10, mean = 10, sd = 5) {
+  group1 <- rnorm(n, mean, sd) 
+  group2 <- rnorm(n, mean, sd) 
+  result <- t.test(group1, group2, var.equal = TRUE)
+  return(result$p.value)
+} 
 
-# Simulate 1000 experiments 
-null_p_values <- replicate(1000, sim_null()) 
+# You can replicate the experiment a number of times (that is run the function) with replicate()
+# Simulate 1000 experiments with replicate()
+number_of_replications <- 1000
+null_p_values <- replicate(number_of_replications, sim_null_fun()) 
 
-# Plot the distribution of p-values 
-hist(null_p_values, breaks = 30, col = "skyblue", main = "Null Distribution of P-Values", xlab = "P-Value") 
+# Let's plot the distribution of p-values
+hist(null_p_values, 
+     breaks = 30, 
+     col = "skyblue", 
+     main = "Null Distribution of P-Values", 
+     xlab = "P-Value") 
+
 abline(v = 0.05, col = "red", lwd = 2, lty = 2) 
 
-# Proportion of p-values below 0.05 
-mean(null_p_values < 0.05)
+# Calculate the proportion of p-values below 0.05
+sign_p_vals<-mean(null_p_values < 0.05)
+print(sign_p_vals)
 ```
-
-Questions:
-
 What proportion of p-values are below 0.05 under the null hypothesis?
 
-Why is this proportion approximately equal to the significance level (α = 0.05)?
+Try with 10,000 replications.
 
-Part 2: Simulating the Alternative Hypothesis
-
-What is the Alternative Hypothesis?
+# Simulating the Alternative Hypothesis
 
 The alternative hypothesis assumes there is a true effect or difference between groups. To simulate this, we generate data from two different distributions and calculate the proportion of p-values below 0.05.
 
-Exercise 2: Simulating the Alternative Hypothesis
-
-Run the following code to simulate 1000 experiments with a true mean difference of 5:
+Run the following code to simulate 1000 experiments with a true mean difference of 5, which is corresponds to an effect size of 0.5
 
 ```{r}
 # Function to simulate one experiment under the alternative hypothesis 
-sim_alternative <- function(n = 10, mean1 = 10, mean2 = 15, sd = 5) { group1 <- rnorm(n, mean1, sd) 
-group2 <- rnorm(n, mean2, sd) 
-t.test(group1, group2, var.equal = TRUE)$p.value } 
+sim_alternative_fun <- function(n = 20, mean1 = 10, mean2 = 12.5, sd = 5) { 
+  group1 <- rnorm(n, mean1, sd) 
+  group2 <- rnorm(n, mean2, sd) 
+  result <- t.test(group1, group2, var.equal = TRUE)
+  return(result$p.value)
+} 
 
-# Simulate 1000 experiments 
-alt_p_values <- replicate(1000, sim_alternative()) 
+# Simulate 1000 experiments to see the distribution of p-values for an effect that exists
+alt_p_values <- replicate(1000, sim_alternative_fun()) 
 
 # Plot the distribution of p-values 
-hist(alt_p_values, breaks = 30, col = "lightgreen", main = "Alternative Distribution of P-Values", xlab = "P-Value") 
+hist(alt_p_values, 
+     breaks = 30, 
+     col = "lightgreen", 
+     main = "Distribution of P-Values given an existing effect", 
+     xlab = "P-Value") 
 abline(v = 0.05, col = "red", lwd = 2, lty = 2) 
 
-# Proportion of p-values below 0.05 (Power) 
-mean(alt_p_values < 0.05)
+print(mean(alt_p_values < 0.05))
 ```
 
 Questions:
 
 What proportion of p-values are below 0.05 under the alternative hypothesis?
 
-How does this proportion relate to statistical power?
+How does this proportion relate to statistical power? You may go back to the previous worksheet to convince yourself.
 
-Part 3: Exploring the Impact of Sample Size
-
-Exercise 3: Power vs. Sample Size
+# Exploring the impact of sample size
 
 Modify the code below to calculate power for different sample sizes ((n = 10, 20, 30, 40, 50)):
 (hint: you can use the seq() function)
 
+We have done this in the previous worksheet, here we do it by simulation.
+
 ```{r}
 # Function to calculate power for a given sample size 
-calculate_power <- function(n, mean1 = 10, mean2 = 15, sd = 5, sims = 1000) { 
-  p_values <- replicate(sims, sim_alternative(n, mean1, mean2, sd)) 
-  mean(p_values < 0.05) } 
+# we are going to build on the previous chunk function sim_alternative fun that picks random samples
+# under the independent groups scenario
+# note the function sets defaults for the parameters, this could be changed dynamically as well
+# sims = number of simulations of one test / experiment
+calculate_power_fun <- function(n, mean1 = 10, mean2 = 15, sd = 5, sims = 1000) { 
+  
+  p_values <- replicate(sims, sim_alternative_fun(n, mean1, mean2, sd)) 
+  
+  return(mean(p_values < 0.05))
+} 
 
 # Sample sizes to test 
-sample_sizes <- ___
+sample_sizes <- ______
 
 # Calculate power for each sample size 
-power_values <- sapply(sample_sizes, calculate_power) 
+power_values <- sapply(sample_sizes, calculate_power_fun) 
 
 # Create a data frame for plotting 
 power_data <- data.frame(SampleSize = sample_sizes, Power = power_values) 
 
 # Plot power vs. sample size 
-ggplot(power_data, aes(x = SampleSize, y = Power)) + geom_line(color = "blue") + geom_point(color = "red") + labs(title = "Power vs. Sample Size", x = "Sample Size", y = "Power") + theme_minimal()
+ggplot(power_data, aes(x = SampleSize, y = Power)) + 
+  geom_line(color = "blue") + 
+  geom_point(color = "red") + 
+  labs(title = "Power vs. Sample Size", x = "Sample Size", y = "Power") + 
+  theme_minimal()
 ```
 
-Questions:
+# Improving measurement precision
 
-How does power change as sample size increases?
-
-Why does increasing the sample size improve power?
-
-Part 4: Improving Measurement Precision
-
-Exercise 4: The Impact of Reducing Variability
-
-Let’s see how reducing the standard deviation (measurement variability) affects power. Modify the code below to calculate power for different standard deviations ((sd = 5, 4, 3, 2, 1)):
+Let’s see how reducing the standard deviation (measurement variability) affects power. Modify the code below to calculate power for different standard deviations (sd = 5, 4, 3, 2, 1):
 
 ```{r}
 # Standard deviations to test 
 sds <- ___
 
 # Calculate power for each standard deviation 
-power_sd <- sapply(sds, function(sd) calculate_power(n = 20, mean1 = 10, mean2 = 15, sd = sd)) 
+# note how we can define a function so we can apply `sds` to a specific parameter of calculate_power_fun 
+power_sd <- sapply(sds, function(sd) calculate_power_fun(n = 20, mean1 = 10, mean2 = 15, sd = sd)) 
 
 # Create a data frame for plotting 
 sd_data <- data.frame(StandardDeviation = sds, Power = power_sd) 
 
 # Plot power vs. standard deviation 
-ggplot(sd_data, aes(x = StandardDeviation, y = Power)) + geom_line(color = "purple") + geom_point(color = "orange") + labs(title = "Power vs. Measurement Variability", x = "Standard Deviation", y = "Power") + theme_minimal()
+ggplot(sd_data, aes(x = StandardDeviation, y = Power)) + 
+  geom_line(color = "purple") + 
+  geom_point(color = "orange") + 
+  labs(title = "Power vs. Measurement Variability", x = "Standard Deviation", y = "Power") + 
+  theme_minimal()
 ```
 
 Questions:
@@ -132,22 +148,8 @@ How does reducing the standard deviation affect power?
 
 Why does improving measurement precision increase power?
 
-Part 5: Reflection and Application
-
-Reflection Questions:
-
-Why is power important when designing a study?
-
-How can you use simulation to plan for an adequately powered study?
-
-What are the trade-offs between increasing sample size and improving measurement precision?
-
 Key Takeaways
-
-Power Matters: Statistical power ensures that your study has a high probability of detecting true effects.
 
 Simulation is Flexible: Simulating data allows you to calculate power for any experimental design, even complex ones.
 
 Sample Size and Precision: Increasing sample size and improving measurement precision are two key ways to increase power.
-
-Plan Ahead: Use power analysis to design studies that are both efficient and reliable.

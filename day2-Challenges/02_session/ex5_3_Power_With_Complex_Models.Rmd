@@ -1,48 +1,93 @@
 ---
-title: "Exercise 5.3: Power with complex models"
+title: "Exercise 5.3: Power calculation with complex models through simulation"
 author: David Souto
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-library(lme4)  # For glmm
-library(simr) # for simulated power calculation
-set.seed(42)
-```
+# Introduction
 
-Introduction
-
-Power analysis for complex models, such as Generalized Linear Mixed Models (GLMMs), is more challenging than for simpler models like t-tests or ANOVAs. GLMMs account for both fixed and random effects, making them ideal for hierarchical or nested data, but this complexity also makes analytical power calculations difficult.
+Power analysis for complex models, such as Generalized Linear Mixed Models (GLMMs), is more challenging than for simpler models like t-tests or ANOVAs. GLMMs account for both fixed and random effects, making them ideal for hierarchical or nested data, but this complexity also makes it difficult to compute power analytically.
 
 In this worksheet, we’ll explore simulation-based power analysis for GLMMs using the simr package. By the end of this exercise, you’ll understand how to:
-- Perform power analysis for GLMMs.
+- Perform power analysis for GLMMs based on simulations.
 - Explore the impact of sample size and effect size on power.
 - Use simulation to plan studies with complex designs.
 
-Part 1: Setting Up a GLMM
+Run this chunk first to load the packages.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+# we need simr and lme4 in this worksheet
+if(!requireNamespace("simr", quietly = TRUE)){ 
+    install.packages("simr")
+}else{
+    library("simr")
+}
+if(!requireNamespace("lme4", quietly = TRUE)){ 
+    install.packages("lme4")
+}else{
+    library("lme4")
+}
+```
+
+
+# Setting up a general linear mixed model (GLMM)
+
+A General Linear Mixed Model is an extension of a General Linear Model incorporating fixed effects (e.g. treatment) and random effects (e.g. participants, schools, hospitals), and non-linear effects. It is useful for complex data structures, such as involving repeated measures, or hierarchical data, etc.  
 
 Example Scenario
-Imagine we are studying the effect of a treatment (treatment) on a binary outcome (success), where observations are nested within groups (group). We hypothesize that the treatment increases the probability of success.
 
-Exercise 1: Simulating Data for a GLMM
+We'll be using the example from the `simr` [vignette](https://cran.r-project.org/web/packages/simr/vignettes/examples.html)
 
-Run the following code to simulate a dataset for a GLMM:
+Imagine we are studying the effect of a treatment (in the broad sense) on a binary outcome (success or failure, hence we use a binomial model), modelling random effects on another factor. This could be the hopsitals or patients, for instance. We hypothesize that the treatment increases the probability of success.
+
+# Simulate a realistic dataset
+
+Up to know we have simulated the simplest scenario. Check the following chunk line by line, where we simulate a realistic data in which there is an effect of treatment and an effect of hopsital on a health outcome. Note that we have a single value per patient, so we don't need to model patient as a random effect.
+
 
 ```{r}
-# Simulate data 
-set.seed(42) 
-n_groups <- 20 # Number of groups 
-n_obs <- 10 # Observations per group 
-group <- rep(1:n_groups, each = n_obs) 
-treatment <- rep(c(0, 1), length.out = n_groups * n_obs) 
-success <- rbinom(n_groups * n_obs, size = 1, prob = 0.5 + 0.2 * treatment) 
 
-# Create a data frame 
-data <- data.frame(group = factor(group), treatment = treatment, success = success) 
+# Set seed for reproducibility
+set.seed(42)
 
-# Fit a GLMM 
-model <- glmer(success ~ treatment + (1 | group), data = data, family = binomial) 
+# Define parameters
+n_patients <- 20          # Number of patients
+obs_per_patient <- 5      # Number of observations per patient (can vary)
+total_obs <- n_patients * obs_per_patient  # Total number of observations
+
+# Generate patient IDs
+patient_id <- rep(1:n_patients, each = obs_per_patient)
+
+# Generate random effects for patients
+patient_effect <- rnorm(n_patients, mean = 0, sd = 2)
+
+# Assign treatments (randomly)
+treatment <- rep(c(0, 1), length.out = total_obs)
+treatment <- sample(treatment)  # Randomize treatment assignment
+
+treatment_effect = 1 # by how much the score differs when we apply the treatment
+
+# Generate repeated measures (observations per patient)
+health_score <- 50 + 
+                treatment_effect * treatment +                    # Treatment effect
+                patient_effect[patient_id] +       # Random patient effects
+                rnorm(total_obs, mean = 0, sd = 2) # Residual error
+
+# Create dataset
+data <- data.frame(
+    patient = factor(patient_id),
+    treatment = factor(treatment, labels = c("Control", "Treatment")),
+    health_score = health_score
+)
+
+```
+
+Now we can model the effect of treatment and hospital. 
+
+```{r}
+model <- glmer(health_score ~ treatment + (1 | patient), data = data) 
 
 # Summary of the model 
 summary(model)
@@ -51,68 +96,74 @@ Questions:
 
 What is the estimated effect of the treatment on success?
 
-Why do we include (1 | group) in the model?
+Why do we include (1 | patient) in the model?
 
-Part 2: Power Analysis for the GLMM
+# Power Analysis for the GLMM
 
-Exercise 2: Estimating Power for the GLMM
-
-We’ll use the simr package to estimate power by simulating data and testing for significance. Run the following code to calculate power for the treatment effect:
+We’ll use the `simr` package to estimate power by simulating data and testing for significance. Run the following code to calculate power for the treatment effect:
 
 ```{r}
-# Extend the model to include power analysis 
-model_power <- extend(model, along = "group", n = 30) # Increase the number of groups 
+# We can now perform a power analysis with powerSim (part of simr)
+# deciding on running 100 simulations (we'll run more if we wanted a more accurate estimate)
+power <- powerSim(model, nsim = 100) # Run 100 simulations 
 
-# Perform power analysis 
-power <- powerSim(model_power, nsim = 100) # Run 100 simulations 
-power
+print(power)
+
+# Fill the blank, increase the number of patients and see what the power is
+model_with_more_participants <- extend(model, along = "patient", n = ___) 
+power <- powerSim(model_with_more_participants, nsim = 100) # Run 100 simulations 
+
+print(power)
+
 ```
-Questions:
-
 What is the estimated power for detecting the treatment effect?
 
-How does increasing the number of groups affect power?
+How does increasing the number of participants affect power?
 
-Part 3: Exploring the Impact of Sample Size
-
-Exercise 3: Power Curve for Sample Size
+# Power Curve for Sample Size
 
 Let’s explore how power changes with the number of groups. Complete the code below to generate a power curve:
 
 ```{r}
-# Define a range of group sizes 
-group_sizes <- seq(10, 50, by = 5) 
+# Fill the blank Define a range of group sizes 
+group_sizes <- seq(2, 50, by = 5) 
 
-# Calculate power for each group size 
-power_curve <- powerCurve(model, along = "group", breaks = group_sizes, nsim = 50) 
+# Calculate power for each group size (this takes a bit longer, we'll reduce the number of simulations)
+power_curve <- powerCurve(model_with_more_participants, along = "patient", breaks = group_sizes, nsim = 20) 
 
 # Plot the power curve 
 plot(power_curve)
 ```
-Questions:
+
+Questions
 
 At what group size does power reach 80%?
 
-Why does power increase with the number of groups?
+# Exploring the Impact of Effect Size
 
-Part 4: Exploring the Impact of Effect Size
-Exercise 4: Power for Different Effect Sizes
 Modify the code below to calculate power for different treatment effect sizes (( \beta = 0.2, 0.4, 0.6 )):
-# Adjust the effect size fixef(model)["treatment"] <- 0.4 # Change the treatment effect size # Perform power analysis power_effect <- powerSim(model, nsim = 100) power_effect
-Questions:
-How does increasing the effect size impact power?
-Why is it easier to detect larger effects?
-Part 5: Reflection and Application
-Reflection Questions:
-Why is simulation-based power analysis useful for complex models like GLMMs?
-How can you use power analysis to plan studies with hierarchical or nested data?
-What are the trade-offs between increasing sample size and increasing effect size?
-Additional Resources
-simr Package Documentation: Learn more about the simr package here.
-Power Analysis for Mixed Models: Read this tutorial on power analysis for mixed models here.
-Interactive Power Tools: Explore the Shiny app for power analysis of mixed models here.
+
+```{r}
+
+# We can also adjust the effect size (non standardized) with fixef()
+fixef(model)["treatmentTreatment"]<-0.4
+
+# Change the treatment effect size 
+# Perform power analysis 
+power_effect <- powerSim(model, nsim = 100) 
+
+print(power_effect)
+
+```
+
 Key Takeaways
-Simulation-Based Power Analysis: Simulation is a flexible and intuitive approach for estimating power in complex models like GLMMs.
-Impact of Sample Size: Increasing the number of groups or observations improves power by reducing variability.
-Effect Size Matters: Larger effects are easier to detect, requiring fewer samples for adequate power.
-Plan Ahead: Use power analysis to design studies that are both efficient and reliable.
+
+You can now use simulation to generate power calculations that incorporate your knowledge of the data in complex models, as allowed by GLMM. This can include knowledge regarding the reliability of the measures (which we didn't address).
+
+This can be used in addition to analytically solutions with tools such as G*Power.
+
+Additional Resources
+
+Very detailed tutorial expanding on different situations, such as how we can improve power by changing the design and how to deal with interactions. This is essential reading:
+
+Brysbaert, M. (2019). How many participants do we have to include in properly powered experiments? A tutorial of power analysis with reference tables. Journal of cognition, 2(1), 16. https://pmc.ncbi.nlm.nih.gov/articles/PMC6640316/

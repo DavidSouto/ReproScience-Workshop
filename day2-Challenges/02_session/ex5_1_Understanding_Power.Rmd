@@ -2,124 +2,172 @@
 title: "Exercise 5.1: Understanding power"
 author: David Souto
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-library(pwr)  # For power analysis
-library(ggplot2)  # For visualizations
-set.seed(42)
+
+# Run this chunk first
+# we need to check that "simr" (as we will use this later)
+# and that pwr packages are installed
+
+# we check whether the package name exists within the list of installed packages
+# if yes we load it, if not we install it
+if(!requireNamespace("simr", quietly = TRUE)){ 
+    install.packages("simr")
+}else{
+    library("simr")
+}
+
+if(!requireNamespace("pwr", quietly = TRUE)){
+    install.packages("pwr")
+}else{
+    library("pwr")
+}
+
+library(tidyverse)
 ```
 
-Statistical power is a critical concept in research design. It tells us how likely we are to detect an effect if it truly exists. In this worksheet, we’ll explore what power is, why it matters, and how to calculate it using R. 
+Statistical power is a critical concept in research design. It tells us
+how likely we are to detect an effect if it truly exists. In this
+worksheet, we’ll explore what power is, why it matters, and how to
+calculate it using R.
 
-By the end of this exercise, you’ll understand how power relates to sample size, effect size, and significance level.
+By the end of this exercise, you’ll understand how power relates to
+sample size, effect size, and significance level.
 
-Part 1: What is Statistical Power?
+# What is Statistical Power?
 
-Statistical power is the probability of correctly rejecting the null hypothesis when the alternative hypothesis is true. In other words, it’s the likelihood of detecting an effect if there is one.
+Statistical power is the probability of correctly rejecting the null
+hypothesis when the alternative hypothesis is true. In other words, it’s
+the probability of detecting an effect if there is one.
 
-Power depends on:
-Sample size (n): Larger samples provide more information and increase power.
-Effect size (d): Larger effects are easier to detect.
-Significance level (α): The threshold for rejecting the null hypothesis (commonly set at 0.05).
-Power (1 - β): The probability of avoiding a Type II error (failing to detect a true effect).
+# Power depends on (among other things):
 
-Part 2: Calculating Power in R
+Sample size (n): Larger samples provide more information and increase
+power. Effect size (d): Larger effects are easier to detect.
+Significance level (α): The threshold for rejecting the null hypothesis
+(commonly set at 0.05). Power (1 - β): The probability of avoiding a
+Type II error (failing to detect a true effect).
 
-Exercise 1: Power for a Two-Sample t-Test
+# Calculating Power in R: Two-Sample t-Test
 
-Let’s calculate the sample size needed for a two-sample t-test with:
-Effect size (d = 0.5) (medium effect size)
-Power = 0.8 (80%)
-Significance level (α = 0.05)
+Let’s calculate the sample size needed for a two-sample (i.e.
+two-groups) t-test with:
 
-Run the following code:
+Effect size (normalized effect size) being Cohen's d = 0.5 (medium
+effect size) Power = 0.8 (80%) Significance level (α = 0.05)
 
-# Calculate sample size for a two-sample t-test 
+In this scenario Cohen's d is the mean difference divided by the pooled
+standard deviation of the differences, with SD_pooled = (sqrt(SD_grp1 + SD_grp2)/2)
+
+# Calculate sample size for a two-sample t-test
+
 ```{r}
-result <- pwr.t.test(d = 0.5, power = 0.8, sig.level = 0.05, type = "two.sample") 
-result
+result <- pwr.t.test(d = 0.5, power = 0.90, sig.level = 0.05, type = "paired") 
+print(result)
 ```
+
+You have other options, change the code to see how many participants you
+need if you have a one-tailed test (e.g. you have a directional
+pre-registered hypothesis) with `type="paired"` (using a
+repeated-measures design), and when you are testing one sample against
+zero (`type="one.sample"`).
+
+See the effect of changing significance level to 0.01.
+
+See the effect of changing d (e.g. improving your measure of deciding to
+study large effects) to 0.8
+
+Finally, see the effect of increasing power.
+
 Questions:
 
 How many participants are needed in each group to achieve 80% power?
 
+How many participants are needed to reach near certainty of seeing a
+medium effect (power=.99)?
+
 Why does increasing the effect size reduce the required sample size?
 
-Exercise 2: Visualizing the Relationship Between Power and Sample Size
+# Visualizing the Relationship Between Power and Sample Size
 
-Let’s visualize how power changes with sample size for a medium effect size ((d = 0.5)).
+Let’s visualize how power changes with sample size, again for a medium
+effect size (d = 0.5), and again a two-group scenario.
 
-Complete the code below to generate the plot:
-```{r}
-# Define a range of sample sizes 
+Examine the code below line-by-line to see one way of generating power
+for different sample sizes.
+
+```{r echo=TRUE}
+# Define a range of sample sizes (seq(start, end, by=number of divisions))
 sample_sizes <- seq(10, 100, by = 5) 
 
-# Calculate power for each sample size 
-power_values <- sapply(sample_sizes, function(n) { pwr.t.test(n = n, d = ___, sig.level = 0.05, type = "two.sample")$power }) 
+# we are creating a function to calculate power as above, that takes sample_size as the parameter
+calc_power_fun <- function(sample_size) { 
+    result <-pwr.t.test(n = sample_size, d = 0.5, sig.level = 0.05, type = "two.sample")
+    return(result$power)
+}
+
+# we now use sapply() to apply this function to different values of n 
+power_values <- sapply(sample_sizes, calc_power_fun)
 
 # Create a data frame for plotting 
 power_data <- data.frame(SampleSize = sample_sizes, Power = power_values) 
 
 # Plot power vs. sample size 
-ggplot(power_data, aes(x = SampleSize, y = Power)) + geom_line(color = "blue") + geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") + labs(title = "Power vs. Sample Size", x = "Sample Size (per group)", y = "Power") + theme_minimal()
+ggplot(power_data, 
+  aes(x = SampleSize, y = Power)) + 
+  geom_line(color = "blue") + 
+  geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") + 
+  labs(title = "Power vs. Sample Size", x = "Sample Size (per group)", y = "Power") +
+  ylim(0,1)+
+  theme_minimal()
+
 ```
-Questions:
 
-At what sample size does the power reach 0.8?
+Adapt the code so you can show the curve for one sided tests and paired
+samples.
 
-How does the curve change if the effect size is smaller (e.g., (d = 0.3))?
+Adapt the code to show the curve corresponding to an effect size of d =
+0.8 and 0.3.
 
-Part 3: Exploring Effect Size
-
-Effect size measures the magnitude of a difference or relationship. Cohen’s (d) is commonly used for t-tests:
-Small: (d = 0.2)
-Medium: (d = 0.5)
-Large: (d = 0.8)
-
-Exercise 3: Calculating Power for Different Effect Sizes
-
-Modify the code below to calculate power for small ((d = 0.2)), medium ((d = 0.5)), and large ((d = 0.8)) effect sizes, assuming (n = 30) per group.
-
-# Calculate power for different effect sizes 
-```{r}
-effect_sizes <- ___ 
-power_results <- sapply(effect_sizes, function(d) { pwr.t.test(n = ___, d = d, sig.level = 0.05, type = "two.sample")$power }) 
-
-# Display results 
-data.frame(EffectSize = effect_sizes, Power = power_results)
-```
-Questions:
-
-How does power change as the effect size increases?
-
-Why is it harder to detect smaller effects?
-
-Part 4: Reflection and Application
-
-Reflection Questions:
+# Reflection Questions
 
 Why is it important to calculate power before conducting a study?
 
 What are the consequences of conducting a study with low power?
 
-How can you use power analysis to improve the reliability of your research?
+How can you use power analysis to improve the reliability of your own
+research?
 
-Additional Resources
+# Additional Resources
 
-R Documentation for pwr Package: Learn more about the pwr package and its functions here.
+R Documentation for `pwr`Package: The `pwr` package allows you to
+calculate power for many different scenarios. You can check the
+`vignette`
+[online](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html).
+Note you can use `plot(pwr_output)` to simplify things.
 
-Effect Size Guidelines: Cohen’s guidelines for effect sizes are a great starting point for estimating expected effects.
+Effect Size Guidelines: Cohen’s guidelines for effect sizes are a great
+starting point for estimating expected effects.
 
-Interactive Power Calculator: Try an online power calculator for quick estimates: G*Power.
+Interactive Power Calculator:
+[G\*Power](https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower)
+can cope with more scenarios than `pwr` and can be easier to use.
 
 Key Takeaways
 
-Power Matters: Statistical power ensures that your study has a high probability of detecting true effects.
+Power Matters: Statistical power ensures that your study has a high
+probability of detecting true effects.
 
-Plan Ahead: Use power analysis to determine the sample size needed for your study.
+Plan Ahead: Use power analysis to determine the sample size needed for
+your study.
 
-Effect Size is Key: Larger effects are easier to detect, but smaller effects require more participants.
+Effect Size is Key: Larger effects are easier to detect, but smaller
+effects require more participants.
 
-Avoid Low Power: Studies with low power are more likely to produce false negatives and unreliable results.
+Avoid Low Power: Studies with low power are more likely to produce false
+negatives and unreliable results (inflate effect size)
