@@ -123,10 +123,11 @@ How does increasing the number of participants affect power?
 # Power Curve for Sample Size
 
 Let’s explore how power changes with the number of groups. Complete the code below to generate a power curve:
+(hint: you can use the model_power code above, or extend the model with your own code)
 
 ```{r}
 # Fill the blank Define a range of group sizes 
-group_sizes <- seq(2, 50, by = 5) 
+group_sizes <- seq(__,__, by = 5) 
 
 # Calculate power for each group size (this takes a bit longer, we'll reduce the number of simulations)
 power_curve <- powerCurve(model_with_more_participants, along = "patient", breaks = group_sizes, nsim = 20) 
