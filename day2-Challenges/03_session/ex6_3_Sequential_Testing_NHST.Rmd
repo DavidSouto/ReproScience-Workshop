@@ -17,7 +17,7 @@ Sequential testing allows researchers to analyze data as it is collected, rather
 This approach has been used in medical fields where, for ethical reasons, we may not want to continue with a trial if the effect is evident. Recent research has shown the utility of group sequential designs in various medical trials, with studies demonstrating that some trials could have been stopped early for futility, potentially saving time and resources. While less common in other fields, sequential testing can be conducted without p-hacking and offers a more efficient way of collecting data, provided we correct for the family-wise false-discovery rate.
 
 This worksheet will explain how sequential testing works with NHST, introduce key concepts like alpha spending and stopping boundaries, and provide R Markdown chunks to explore these ideas in practice.
-
+  
 ## What is Sequential Testing with NHST?
 
 In traditional NHST, you calculate a p-value after collecting data for a fixed sample size. Sequential testing, however, involves analyzing data at multiple points during data collection. This flexibility allows you to stop the test early if there is strong evidence for or against the null hypothesis.
