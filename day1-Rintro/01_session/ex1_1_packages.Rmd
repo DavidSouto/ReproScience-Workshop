@@ -1,15 +1,22 @@
 ---
 title: "Exercise 1.1: Workshop packages (20 mn)"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-We are going to look explore some of the characteristics of the packages we installed, in particular those are are part of the *tidyverse*
+We are going to look explore some of the characteristics of the packages
+we installed, in particular those are are part of the *tidyverse*
 
 If you didn't install this already:
 
-* Set up the working directory to the day-1 folder: click on the "Session" tab (on top) then "Set working Directory" then "Choose Directory" then "Open".
+-   Set up the working directory to the day-1 folder: click on the
+    "Session" tab (on top) then "Set working Directory" then "Choose
+    Directory" then "Open".
 
-* Run source("workshop_pack.R") if you didn't install the packages yet.
+-   Run source("workshop_pack.R") if you didn't install the packages
+    yet.
 
 ```{r}
 
@@ -20,10 +27,10 @@ source("../../Pre_Package_Install.R")
 
 ### Start by loading the tidyverse
 
-The tidyverse is a collection of R packages designed for data science that share a common philosophy and design. In this worksheet, we'll explore:
-- What packages are included in the tidyverse
-- How to handle package conflicts
-- Compare tidyverse with base R approaches
+The tidyverse is a collection of R packages designed for data science
+that share a common philosophy and design. In this worksheet, we'll
+explore: - What packages are included in the tidyverse - How to handle
+package conflicts - Compare tidyverse with base R approaches
 
 ```{r}
 # Use Ctrl+Enter (Cmd+Enter) to run line-by-line, rather than by chunk
@@ -36,10 +43,17 @@ citation("tidyverse")
 
 ```
 
-Look at the message that appears when loading tidyverse. Which core packages are loaded by default? Take note of conflicts. Those are functions within one of the packages that have the same name as other loaded packages (e.g. part of base R)
+Look at the message that appears when loading tidyverse. Which core
+packages are loaded by default? Take note of conflicts. Those are
+functions within one of the packages that have the same name as other
+loaded packages (e.g. part of base R)
 
 ### Managing package conflicts
-There are different ways to manage naming conflicts. Or you could be explicit about those functions by using the "package_name"::"function name" syntax. You could also install the 'conflicted' package, which will throw an error when 'overloaded' functions are found. 
+
+There are different ways to manage naming conflicts. Or you could be
+explicit about those functions by using the "package_name"::"function
+name" syntax. You could also install the 'conflicted' package, which
+will throw an error when 'overloaded' functions are found.
 
 ```{r}
 # Run this chunk and observe the output 
@@ -56,7 +70,8 @@ filter(mpg, cyl==4) # we are filtering the pre-loaded fuel economy data frame by
 
 ### Data filtering
 
-Let's see how we filter data in the tydiverse by selecting cars with 6 cylinders:
+Let's see how we filter data in the tydiverse by selecting cars with 6
+cylinders:
 
 ```{r}
 # Base R approach 
@@ -90,15 +105,14 @@ mtcars %>% group_by(cyl) %>% summarise(avg_mpg = mean(mpg))
 Reflection Questions (2 minutes)
 
 What differences do you notice between tidyverse and base R syntax?
-Which approach seems more readable to you and why?
-Can you identify situations where one approach might be preferable over the other?
+Which approach seems more readable to you and why? Can you identify
+situations where one approach might be preferable over the other?
 
-Key Takeaways
-The tidyverse is a collection of packages that work together cohesively.
-Keep in mind possible function naming conflicts 
-The tidyverse approach often emphasizes readability 
+Key Takeaways The tidyverse is a collection of packages that work
+together cohesively. Keep in mind possible function naming conflicts The
+tidyverse approach often emphasizes readability
 
-Additional Resources
-R for Data Science (free online): https://r4ds.had.co.nz/
-Tidyverse website: https://www.tidyverse.org/
-RStudio's cheatsheets: https://www.rstudio.com/resources/cheatsheets/
+Additional Resources R for Data Science (free online):
+<https://r4ds.had.co.nz/> Tidyverse website:
+<https://www.tidyverse.org/> RStudio's cheatsheets:
+<https://www.rstudio.com/resources/cheatsheets/>
