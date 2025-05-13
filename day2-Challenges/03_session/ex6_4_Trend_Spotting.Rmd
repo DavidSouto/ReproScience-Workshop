@@ -14,7 +14,7 @@ A slightly gratuitous but fun way of finishing a day that was heavy on theory: A
 4. Observe the estimation error
 4. Repeat until you lose
 
-Feel free to play as many times as you want!
+To give a fair chance to everyone submit your best score after a maximum of three runs.
 
 ### Score submission 
 
