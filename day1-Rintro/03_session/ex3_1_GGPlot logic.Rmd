@@ -9,8 +9,6 @@ GGPlot is part of the tidyverse. It is called a "grammar of graphics" (the gg) b
 
 This is the general structure ([r4ds](https://r4ds.had.co.nz/index.html#welcome))
 
-![This is a group of Zebra Finches By Accelerated Growth following Poor Early Nutrition Impairs Later Learning. Gross L, PLoS Biology Vol. 4/8/2006, e270. https://dx.doi.org/10.1371/journal.pbio.0040270, CC BY 2.5, https://commons.wikimedia.org/w/index.php?curid=1479112](images/finch.png)
-
 # Basic plot structure
 
 Below is a basic GGplot structure.

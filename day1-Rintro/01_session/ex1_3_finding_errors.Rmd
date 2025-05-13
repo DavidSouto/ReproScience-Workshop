@@ -38,7 +38,7 @@ library("lintr")
 # run linter on this file (or any R file):
 lint(filename="./ex1_3_finding_errors.Rmd")
 
-# double click on the list of propositions to locate in the file, try to fix some of the errors, note that you will be on the "Markers" 
+# double click on the list of propositions to locate in the file, try to fix some of the errors, note that you will be on the "Markers" tab
 
 ```
 

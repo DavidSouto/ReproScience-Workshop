@@ -51,14 +51,14 @@ Finally you want to knit your document. You can do so with the knit button. Expl
 
 # Level 2 (optional): Example of using animate 
 
-We can spice things up by animating your data. Fill the blanks in this chunk.
+We can spice things up by animating your data. Fill the blanks in this chunk to plot likes count versus view count per author ban status (hint: variable types may need adjusting)
 
 ```{r eval=FALSE, include=FALSE}
-# Load necessary library for creating GIFs
+# Load necessary library for creating GIFs, comment once installed
 install.packages("animation")
 library(animation)
 
-# Create a simple animated scatter plot of the mtcars dataset
+# Create a simple animated scatter plot of the tiktok dataset
 # Set up the animation parameters
 saveGIF({
   
@@ -66,14 +66,14 @@ saveGIF({
   # author status 
   # note that unique() allows you to select unique values of a variable
   for (____ in unique(___)) {
-    # Subset the data for the current cylinder count
+    # Subset the data by author ban status
     subset_data <- tt_data %>% filter(author_ban_status==___)
     
     # Create the scatter plot
     plot(_____, _____,
-         main = paste("Likes", cyl, "Cylinders"),
-         xlab = "Weight (1000 lbs)",
-         ylab = "Miles Per Gallon (MPG)",
+         main = paste("Likes per view count"),
+         xlab = "Video Likes Count",
+         ylab = "Video View Count",
          pch = 19, col = "blue", cex = 1.5)
     
     # Add a grid for better visualization
@@ -82,11 +82,11 @@ saveGIF({
     # Pause for a moment to create the animation effect
     Sys.sleep(1)  # Pause for 1 second
   }
-}, movie.name = "status_effect.gif", interval = 1, ani.width = 600, ani.height = 400)
+}, movie.name = "images/status_effect.gif", interval = 1, ani.width = 600, ani.height = 400)
 
 ```
 
-Insert the gif in this document using the method we saw above.
+Finally insert the gif in this document using the method we saw above.
 
 Key Takeaways
 

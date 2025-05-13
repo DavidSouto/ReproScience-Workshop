@@ -12,8 +12,8 @@ editor_options:
 Instructors: David Souto, Anna Nowakowska, Samantha Tyler, Mahmoud
 Elsherif
 
-Contributors: David Souto, Anna Nowakowska, Tamara Gheorghes, Faye
-Balcombe, Mahmoud Elsherif, Callum Hunt
+Contributors: David Souto, Anna Nowakowska, Samanthat Tyler, Tamara
+Gheorghes, Faye Balcombe, Mahmoud Elsherif
 
 Main contact: David Souto,
 [d.souto\@le.ac.uk](mailto:d.souto@le.ac.uk){.email} Office: GDC 1.11
@@ -35,14 +35,12 @@ You would have been emailed instructions. They can be found on the
 GitHub repository as well:
 <https://github.com/DavidSouto/ReproScience-Workshop/>
 
-# Troubleshooting 
+# Troubleshooting
 
-- Let us know if this doesnt work. 
-- We can use the
-first hour of each day (Welcome) to troubleshoot issues with
-installation. 
-- If you have issues with internet we'll have local copies
-of packages
+-   Let us know if this doesnt work.
+-   We can use the first hour of each day (Welcome) to troubleshoot
+    issues with installation.
+-   If you have issues with internet we'll have local copies of packages
 
 # Course description
 

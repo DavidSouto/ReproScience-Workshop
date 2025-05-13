@@ -51,7 +51,7 @@ data-01-05-2023.csv
 analysis_05_01_23.csv
 reportMay01.csv
 
-There are many benefit of systematic naming, one is the ability to automate some tasks. Filter out by sample by date: 
+There are many benefit of systematic naming, one is the ability to automate some tasks. For instance, sorting by date in this chunk: 
 
 ```{r}
 
@@ -73,7 +73,7 @@ E.g. in the BIDS system this could be a imaging file for the first run MRI run, 
 
 Additional Resources
 
-Package 'prodigenr' and others (https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/literate-analysis-with-rmarkdown.html#tables) can be used to automatically generate a project structure for research projects. 
+Package ['prodigenr'](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/literate-analysis-with-rmarkdown.html#tables) and others can be used to automatically generate a project structure for research projects. 
 
-Package 'fs' can be used to rename files and manage folders within R. It is a nice tool for messy, inconsistent naming in a large number of files: https://rfortherestofus.com/2025/01/fs-file-management
+Package 'fs' can be used to rename files and manage folders within R. It is a nice tool for messy, inconsistent naming with large number of files: https://rfortherestofus.com/2025/01/fs-file-management
 

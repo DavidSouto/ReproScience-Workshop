@@ -23,6 +23,7 @@ tt_data$video_download_count<-as.numeric(tt_data$video_download_count)
 
 # you will see a warning as indeed some of the data is NA and can't be coerced into a numeric value
 ```
+
 # Data Cleaning
 
 Data cleaning may involve removing NA values, stripping spaces, or converting data types.
@@ -81,7 +82,7 @@ tt_data2<-tt_data %>%
 
 # Try selecting by variable name
 
-# Use of filter()
+##### Use of filter()
 
 # We are interested in looking at the distribution of view counts, likes and shares
 
@@ -101,6 +102,8 @@ hist(tt_data2$video_download_count,
 # We may be interested in filtering out videos with very few view counts
 tt_data_f1 <- tt_data2 %>% 
   filter(video_view_count>1000)
+
+# Fill the blanks
 
 # now filter out by video count AND filtering out accounts that were banned (author_ban_status) with '!=" (not equal to)
 tt_data_f2 <- tt_data2 %>% 
@@ -164,8 +167,7 @@ Additional Resources
 
 We only have touched upon most used functions of `dplyr`. More on [dplyr here](https://dplyr.tidyverse.org/).
 
-The tiktok dataset can be access in [Kaggle.com](https://www.kaggle.com/datasets/yakhyojon/tiktok/data). It is a popular website among the 
-data science / machine learning community. By selecting the "Code" tab you can see what multiple people have done with the dataset.
+The tiktok dataset can be access in [Kaggle.com](https://www.kaggle.com/datasets/yakhyojon/tiktok/data). It is a popular website among the data science / machine learning community. By selecting the "Code" tab you can see what multiple people have done with the dataset.
 
 
 You might find the dplyr and tidyverse [cheatsheets useful](https://rstudio.com/resources/cheatsheets/).

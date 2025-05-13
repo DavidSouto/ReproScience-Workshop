@@ -16,7 +16,7 @@ library(tidyverse)
 
 tt_data <- read.csv("./data/tiktok_data.csv")
 
-# Load the dataset from the URL: letter frequency in the english language
+# We can also load a dataset from an URL: for instance, this letter frequency dataset in the english language
 url <- "https://people.sc.fsu.edu/~jburkardt/data/csv/letter_frequency.csv"
 freq_data <- read.csv(url)
 
@@ -61,7 +61,7 @@ Levels: Each unique value in a factor is called a level. For instance, if you ha
 
 # Change data types and save data
 
-You can change data types with may want to save the cleaned up data
+You may want to save the dataset with the new datatypes.
 
 ```{r}
 

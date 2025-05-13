@@ -27,7 +27,7 @@ The tidyverse is a collection of R packages designed for data science that share
 
 ```{r}
 # Use Ctrl+Enter (Cmd+Enter) to run line-by-line, rather than by chunk
-library("tidyverse"); 
+library("tidyverse")
 
 # find out how to cite in a publication (this format can be imported to Zotero for instance)
 citation("tidyverse")
