@@ -84,10 +84,10 @@ How does this proportion relate to statistical power? You may go back to the pre
 
 # Exploring the impact of sample size
 
-Modify the code below to calculate power for different sample sizes ((n = 10, 20, 30, 40, 50)):
+Modify the code below to calculate power for different sample sizes (n = 10, 20, 30, 40, 50):
 (hint: you can use the seq() function)
 
-We have done this in the previous worksheet, here we do it by simulation.
+We have done this in the previous worksheet, using the pwr package, here we do it by simulation.
 
 ```{r}
 # Function to calculate power for a given sample size 

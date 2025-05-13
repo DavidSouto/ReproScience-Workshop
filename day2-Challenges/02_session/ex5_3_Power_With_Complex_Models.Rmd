@@ -36,15 +36,15 @@ if(!requireNamespace("lme4", quietly = TRUE)){
 
 A General Linear Mixed Model is an extension of a General Linear Model incorporating fixed effects (e.g. treatment) and random effects (e.g. participants, schools, hospitals), and non-linear effects. It is useful for complex data structures, such as involving repeated measures, or hierarchical data, etc.  
 
-Example Scenario
-
 We'll be using the example from the `simr` [vignette](https://cran.r-project.org/web/packages/simr/vignettes/examples.html)
 
-Imagine we are studying the effect of a treatment (in the broad sense) on a binary outcome (success or failure, hence we use a binomial model), modelling random effects on another factor. This could be the hopsitals or patients, for instance. We hypothesize that the treatment increases the probability of success.
+Example Scenario
+
+Imagine we are studying the effect of a treatment (in the broad sense) on a binary outcome (success or failure, hence we use a binomial model), modelling random effects on another factor. This could be the hospitals or patients, for instance. We hypothesize that the treatment increases the probability of success.
 
 # Simulate a realistic dataset
 
-Up to know we have simulated the simplest scenario. Check the following chunk line by line, where we simulate a realistic data in which there is an effect of treatment and an effect of hopsital on a health outcome. Note that we have a single value per patient, so we don't need to model patient as a random effect.
+Up to know we have simulated the simplest scenario. Check the following chunk line by line, where we simulate a realistic data in which there is an effect of treatment and an effect of hospital on a health outcome. Note that we have a single value per patient, so we don't need to model patient as a random effect.
 
 
 ```{r}
@@ -71,7 +71,7 @@ treatment_effect = 1 # by how much the score differs when we apply the treatment
 
 # Generate repeated measures (observations per patient)
 health_score <- 50 + 
-                treatment_effect * treatment +                    # Treatment effect
+                treatment_effect * treatment +      # Treatment effect
                 patient_effect[patient_id] +       # Random patient effects
                 rnorm(total_obs, mean = 0, sd = 2) # Residual error
 
@@ -87,7 +87,7 @@ data <- data.frame(
 Now we can model the effect of treatment and hospital. 
 
 ```{r}
-model <- glmer(health_score ~ treatment + (1 | patient), data = data) 
+model <- lmer(health_score ~ treatment + (1 | patient), data = data) 
 
 # Summary of the model 
 summary(model)
@@ -100,7 +100,7 @@ Why do we include (1 | patient) in the model?
 
 # Power Analysis for the GLMM
 
-We’ll use the `simr` package to estimate power by simulating data and testing for significance. Run the following code to calculate power for the treatment effect:
+We’ll use the `simr` package to estimate power by simulating data and testing for significance. Fill the blanks and run the following code to calculate power for the treatment effect:
 
 ```{r}
 # We can now perform a power analysis with powerSim (part of simr)
@@ -110,7 +110,7 @@ power <- powerSim(model, nsim = 100) # Run 100 simulations
 print(power)
 
 # Fill the blank, increase the number of patients and see what the power is
-model_with_more_participants <- extend(model, along = "patient", n = ___) 
+model_with_more_participants <- extend(model, along = "patient", n = __) 
 power <- powerSim(model_with_more_participants, nsim = 100) # Run 100 simulations 
 
 print(power)
@@ -122,11 +122,11 @@ How does increasing the number of participants affect power?
 
 # Power Curve for Sample Size
 
-Let’s explore how power changes with the number of groups. Complete the code below to generate a power curve:
-(hint: you can use the model_power code above, or extend the model with your own code)
+Let’s explore how power changes with the number of patients.
 
 ```{r}
-# Fill the blank Define a range of group sizes 
+# Fill the blank Define a range of group sizes
+# the maximum has to be smaller or equal to the number of patients you picked above
 group_sizes <- seq(__,__, by = 5) 
 
 # Calculate power for each group size (this takes a bit longer, we'll reduce the number of simulations)
@@ -157,14 +157,14 @@ print(power_effect)
 
 ```
 
-Key Takeaways
+# Key Takeaways
 
 You can now use simulation to generate power calculations that incorporate your knowledge of the data in complex models, as allowed by GLMM. This can include knowledge regarding the reliability of the measures (which we didn't address).
 
 This can be used in addition to analytically solutions with tools such as G*Power.
 
-Additional Resources
+# Additional Resources
 
-Very detailed tutorial expanding on different situations, such as how we can improve power by changing the design and how to deal with interactions. This is essential reading:
+Very detailed tutorial expanding on different situations, such as how we can improve power by changing the design and how to deal with interactions: 
 
 Brysbaert, M. (2019). How many participants do we have to include in properly powered experiments? A tutorial of power analysis with reference tables. Journal of cognition, 2(1), 16. https://pmc.ncbi.nlm.nih.gov/articles/PMC6640316/

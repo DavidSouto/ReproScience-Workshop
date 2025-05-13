@@ -4,28 +4,20 @@ author: David Souto
 output: html_document
 ---
 
-The goal of this worksheet is to:
-
-Get a better understanding of the variability of p-values through simulation
-
-Compare precision measures with probability-based inference
-
-Explore the relationship between effect sizes and statistical significance
-
 # The Dance of P-values
 
 P-values can be highly variable, even when studying the same underlying effect. Let's explore this through simulation.
 
-Complete the following code to simulate p-values from repeated experiments:
+Complete the following code to simulate p-values from repeated experiments. This is similar to what was shown by Cummints in the "Dance of the p-values".
 
-```{r eval=FALSE, include=FALSE}
+```{r echo=TRUE}
 library(tidyverse)
 
 # Fill the blanks in the following function
-# decide on number of observations n
+# decide on number of observations n and on the effect size
 
 # Function to simulate p-values 
-simulate_pvalues_fun <- function(n_simulations = 1000, sample_size = 30, effect_size = 0.3) {   
+simulate_pvalues_fun <- function(n_simulations = 1000, sample_size = 30, effect_size = __) {   
   
   p_values <- numeric(n_simulations) 
 
@@ -64,177 +56,6 @@ Questions:
 
 What proportion of p-values fall below 0.05?
 
-Why do we see such variability even with the same true effect size?
-
-# Confidence Intervals and precision
-
-Use the hints from the slides to complete the code to calculate and visualize confidence intervals:
-
-```{r}
-# TODO: Calculate confidence interval 
-ci_calc <- function(data, conf_level = 0.95) { 
-  
-  mean_val <- mean(data) 
-  
-  # Calculate standard error
-  se <- sd(data) / sqrt(length(data)) 
-  
-  # Calculate the t-value for the given confidence level
-  alpha <- 1 - conf_level
-  t_value <- qt(1 - alpha / 2, df = length(data) - 1) 
-  
-  # Define the lower and upper confidence interval
-  ci_lower <- mean_val - se * t_value 
-  ci_upper <- mean_val + se * t_value 
-  
-  return(list(mean = mean_val, ci = c(lower = ci_lower, upper = ci_upper))) 
-} # Calculate CI
-
-results <- ci_calc(sample_data) # Visualize 
-
-ggplot(data.frame(x = 1:length(sample_data), y = sample_data)) + 
-  geom_point(aes(x = x, y = y), alpha = 0.5) + 
-  geom_hline(yintercept = results$mean, color = "red") + 
-  geom_hline(yintercept = results$ci, color = "green", linetype = "dashed") + 
-  labs(title = "Sample Data with 95% Confidence Interval", x = "Observation", y = "Value")
-
-```
-
-# Effect Sizes and Replication
-
-Comparing Effect Sizes with P-values
-
-```{r eval=FALSE, include=FALSE}
-# Function to calculate Cohen's d 
-calculate_cohens_d <- function(group1, group2){ 
-  # TODO: Implement Cohen's d calculation 
-  mean_diff <- ___ pooled_sd 
-  <- ___ return(mean_diff / pooled_sd) 
-} 
-
-# Test different effect sizes 
-effect_sizes <- c(0.2, 0.5, 0.8) 
-
-# Small, Medium, 
-Large results <- data.frame() 
-
-for(effect in effect_sizes) { 
-  group1 <- rnorm(50, 0, 1) 
-  group2 <- rnorm(50, effect, 1) 
-  
-  # TODO: Calculate effect size and p-value 
-  d <- ___ p_val <- ___ results <- rbind(results, data.frame(Effect_Size = effect, Observed_d = d, p_value = p_val)) 
-  } 
-print(results)
-
-```
-
-# Confidence intervals and credible intervals
-
-# From the Wikipedia page on confidence intervals:
-
-Which one is correct?
-
-Common misunderstandings
-
-A plot of 50 confidence intervals from 50 samples generated from a normal distribution
-Confidence intervals and levels are frequently misunderstood, and published studies have shown that even professional scientists often misinterpret them.[18]
-
-A 95% confidence level does not mean that for a given realized interval there is a 95% probability that the population parameter lies within the interval.[19][20]
-A 95% confidence level does not mean that 95% of the sample data lie within the confidence interval.[1]
-A 95% confidence level does not mean that there is a 95% probability of the parameter estimate from a repeat of the experiment falling within the confidence interval computed from a given experiment.[20]
-For example, suppose a factory produces metal rods. A random sample of 25 rods gives a 95% confidence interval for the population mean length of 36.8 to 39.0 mm.[21]
-
-It is incorrect to say that there is a 95% probability that the true population mean lies within this interval, because the true mean is fixed, not random. For example, it might be 37 mm, which is within the confidence interval, or 40 mm, which is not; in any case, whether it falls between 36.8 and 39.0 mm is a matter of fact, not probability.
-It is not necessarily true that the lengths of 95% of the sampled rods lie within this interval. In this case, it cannot be true: 95% of 25 is not an integer.
-It is incorrect to say that if we took a second sample, there is a 95% probability that the sample mean length (an estimate of the population mean length) would fall within this interval. In fact, if the true mean length is far from this specific confidence interval, it could be very unlikely that the next sample mean falls within the interval.
-
-Instead, the 95% confidence level means that if we took 100 such samples, we would expect the true population mean to lie within approximately 95 of the calculated intervals.[1][19][20][21]
-
-# Lakens free book on improving statistical inference
-"When we report point estimates, we should acknowledge and quantify the uncertainty in these estimates. Confidence intervals provide a way to quantify the precision of an estimate. By reporting an estimate with a confidence interval, results are reported within a range of values that contain the true value of the parameter with a desired percentage. For example, when we report an effect size estimate with a 95% confidence interval, the expectation is that the interval is wide enough such that 95% of the time the range of values around the estimate contains the true parameter value (if all test assumptions are met)."
-
-https://lakens.github.io/statistical_inferences/references.html
-
-Behaviour of confidence intervals shown here:
-https://rpsychologist.com/d3/ci/
-
-As Lakens says "We can now see what is meant by the sentence “Confidence intervals are a statement about the percentage of confidence intervals that contain the true parameter value“
-
-"Because of this random variation a single confidence interval is difficult to interpret. Misinterpretations are common. For example, Cumming (2014) writes “We can be 95% confident that our interval includes  and can think of the lower and upper limits as likely lower and upper bounds for .” Both these statements are incorrect (Morey et al., 2016)."
-
-# Additional: read chapter 7 on confidence intervals https://lakens.github.io/statistical_inferences/07-CI.html
-
-
-Recent discussion of effect sizes / confidence intervals:
-Brysbaert
-https://pmc.ncbi.nlm.nih.gov/articles/PMC6640316/
-
-# Advice by Morey
-https://pmc.ncbi.nlm.nih.gov/articles/PMC4742505/
-
-# Credibility intervals and post-data inference
-
-"Report credible intervals instead of confidence intervals
-
-Never report a confidence interval without noting the procedure and the corresponding statistics
-
-Consider reporting likelihoods or posteriors instead
-
-An interval provides fairly impoverished information. Just as proponents of confidence intervals argue that CIs provide more information than a significance test (although this is debatable for many CIs), a likelihood or a posterior provides much more information than an interval. Recently, 
-Cumming (2014) has proposed so-called “cat’s eye” intervals which correspond to Bayesian posteriors under a “non-informative” prior for normally distributed data. With modern scientific graphics so easy to create, we see no reason why likelihoods and posteriors cannot augment or even replace intervals in most circumstances (e.g., Kruschke, 2010). With a likelihood or a posterior, the arbitrariness of the confidence or credibility coefficient is avoided altogether.
-
-We believe any author who chooses to use confidence intervals should ensure that the intervals correspond numerically with credible intervals under some reasonable prior. Many confidence intervals cannot be so interpreted, but if the authors know they can be, they should be called “credible intervals”. This signals to readers that they can interpret the interval as they have been (incorrectly) told they can interpret confidence intervals. Of course, the corresponding prior must also be reported. This is not to say that one cannot also refer to credible intervals as confidence intervals, if indeed they are; however, readers are likely more interested in knowing that the procedure allows valid post-data inference — not pre-data inference — if they are interested arriving at substantive conclusions from the computed interval."
-
-
-# Level 2: Power Analysis Simulation
-
-Try implementing a power analysis simulation:
-
-```{r}
-simulate_power <- function(effect_size, sample_size, n_sims = 1000, alpha = 0.05) { # TODO: Implement power simulation # 
-
-# Hint: Count proportion of significant results 
-  significant_results <- 0 for(i in 1:n_sims) { #
-    
-    #Your code here 
-    
-  } 
-return(significant_results / n_sims) } # Test different sample sizes sample_sizes <- c(20, 50, 100)
-
-```
-
-Discussion Questions
-
-Based on your simulations, why might relying solely on p-values be problematic?
-
-How do confidence intervals provide more information than p-values?
-
-What role does effect size play in understanding the practical significance of results?
-
 Key Takeaways
 
 P-values show considerable variation even with consistent underlying effects
-
-Precision measures (like confidence intervals) provide more informative results
-
-Effect sizes help quantify the magnitude of differences, complementing statistical significance
-
-Larger sample sizes generally provide more reliable estimates
-
-Additional Resources
-
-Credibility intervals: see "An introduction to bayesian thinking". You can access to the examples through the statsr package, including shiny apps. For instance, you can install the 
-
-Cohen, J. (1988). Statistical power analysis for the behavioral sciences
-https://www.taylorfrancis.com/books/mono/10.4324/9780203771587/statistical-power-analysis-behavioral-sciences-jacob-cohen
-
-Cumming, G. (2014). The new statistics: Why and how https://www.taylorfrancis.com/books/mono/10.4324/9780203807002/understanding-new-statistics-geoff-cumming
-
-Button et al. (2013). Power failure: Why small sample size undermines reliability of neuroscience https://www.nature.com/articles/nrn3475
-
-https://mickresearch.wordpress.com/2012/04/18/use-confidence-intervals-to-avoid-the-dance-of-the-p-values/
-https://theconversation.com/mind-your-confidence-interval-how-statistics-skew-research-results-3186
-
-https://chooser.crossref.org/?doi=10.1111%2Fj.1745-6924.2008.00079.x
-

@@ -5,6 +5,9 @@ editor_options:
   markdown: 
     wrap: 72
 ---
+```{r}
+
+```
 
 We are going to look explore some of the characteristics of the packages
 we installed, in particular those are are part of the *tidyverse*
@@ -61,7 +64,8 @@ filter(mpg, cyl==4) # we are filtering the pre-loaded fuel economy data frame by
 
 # Do the same using "filter" within the dplyr package by using the :: syntax, 
 
-# Do the same using the "stats" package  
+# Do the same using the "stats" package, you will notice that it doesn't work! It is not
+# the same function, check ?stats::filter() and ?dplyr::filter() to see how they differ
 
 # Optional: install the conflicted package (syntax: install.packages(""), then load with library()) and observe the output when running the first line
 
@@ -70,8 +74,7 @@ filter(mpg, cyl==4) # we are filtering the pre-loaded fuel economy data frame by
 
 ### Data filtering
 
-Let's see how we filter data in the tydiverse by selecting cars with 6
-cylinders:
+Let's see how we filter data in the tydiverse by selecting cars with 6 cylinders (mpg is a famous dataset about cars that is preloaded with the tidyverse):
 
 ```{r}
 # Base R approach 

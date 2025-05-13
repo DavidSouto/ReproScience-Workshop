@@ -13,7 +13,7 @@ We are going to use the *specr* package to implement a basic multiverse analysis
 Run the following chunk to make sure packages are installed and attach them
 
 ### Instructions
-1. Set your working directory to the `day2-Challenges` folder where the data is located using with Session > Set Working Directory > Choose Directory.
+1. Set your working directory to the `day2-Challenges/01_session` folder where the data is located using with Session > Set Working Directory > Choose Directory.
 2. Run the setup code to install and load the necessary packages.
 3. Load the hurricane dataset and examine its structure.
 
@@ -39,19 +39,17 @@ library(specr)
 
 ### Load and Examine the Dataset
 
-Load the example dataset data("example_data") \# Display the first few rows of the dataset head(example_data) \# Check the structure of the dataset str(example_data)
+Load the hurricane dataset. Display the first few rows of the dataset and check its structure.
 
 ```{r , include=FALSE}
 
-load(file='./data/hurricane.RData')
-
-# we ar loading the data-set, it takes the form of an .RData file, saved with save(), something
+# we are loading the data-set, it takes the form of an .RData file, saved with save(), something
 # that can be loaded straight away into R, after loading you will see data.frame object in the  Environment window.
-load(file='./data/hurricane.RData')
+load(file='./data/hurricane.RData') # this is where it helps to check the name of the data that was just loaded in the Environment window
 
 # Display the first few rows of the dataset
-head(example_data)  # Check the structure of the dataset
-str(example_data)
+head(hurricane_data)  # Check the structure of the dataset
+str(hurricane_data)
 ```
 
 
@@ -68,27 +66,32 @@ How might the variables you've chosen influence the results of your analysis?
 # zpressure: z-transformed atmospheric pressure
 
 # This is more or less the original analysis in the Paper, showing a significant effect of name "feminity"
-# We apply a general linear mode of a certain type (poisson) and we look at ...
+# We apply a general linear mode of a certain type (poisson)
 # Poisson models are common for count data with a certain type of distribution (e.g., number of deaths, number of neurons action potentials)
-fit <- glm(death ~ masfem * dam + masfem * zpressure, data = df, family = "poisson")
+fit <- glm(death ~ masfem * dam + masfem * zpressure, data = hurricane_data, family = "poisson")
 
 # As odd as it sounds, we see a significant effect of the femininity of the hurricane (masfem)
 summary(fit)
 
 ```
+There are various effects, including an effect of femininity over mortality
 
 ### Execute Specification Curve Analysis
 
+Now we are going to use functions within the specr package to specify different options for our analyses.
+
 ```{r}
-specs <- setup(data = df, # our dataset
+specs <- setup(data = hurricane_data, # our dataset
    x = c("masfem", "masfem:dam", "masfem:zpressure"), # we are entering options for independent variables, those are our main variables of interest
    y = c("death","dam"), # options for dependent variables, we could predict damage amount instead of deaths
    control = c("masfem:dam", "masfem:zpressure"), # options for control variables, that is other predictors in our model
-   model = c("lm","glm"), # optoins for models
+   model = c("lm","glm"), # options for models
    simplify = TRUE)
 ```
 
 ### Running the Analysis
+
+We can how run all those analyses, amounting to 14 specifications.
 
 ```{r}
 results <- specr(specs) # Summarize results summary(results)
@@ -113,11 +116,7 @@ plot(results)
 
 What patterns do you observe in the plot?
 
-How do different specifications affect the estimated impact of femininity on hurricane deaths?
-
-We can have a look at the terms this plot corresponds to by arranging by estimate we haven't isolated the effect of *masfem* but shown the impact of every choice on the ability to predict deaths
-
-To find the formula, let's use the *arrange()* sort the data by estimate, as we do in Figure A
+We coud sort the data by estimate with the dplyr function *arrange()* (as it is done in panel A of the figure above) so we can see which specifications yield the larger esetimates.
 
 ```{r}
 results$data %>% 
@@ -126,17 +125,15 @@ results$data %>%
 
 ```
 
-Note there are many options we didn't explore yet. This particular example didn't consider the type of model that was used in the paper (poisson), many other choices, for illustrative purposes.
+Note there are many options we didn't explore yet. This particular example didn't consider the type of model that was used in the paper (poisson), for illustrative purposes.
 
 Key Takeaways
 
-Understanding Multiverse Analysis: Multiverse analysis allows researchers to explore multiple analytical paths and decision points, providing a more comprehensive view of how different choices can affect research outcomes.
+The multiverse analysis allows researchers to explore multiple analytical paths and decision points, providing a more comprehensive view of how different choices can affect research outcomes.
 
-Impact of Modeling Choices: The analysis of hurricane names illustrates how varying modeling choices—such as the inclusion of outliers, choice of dependent variables, and model types—can lead to different conclusions about the same dataset.
+The analysis of hurricane names illustrates how varying modeling choices—such as the inclusion of outliers, choice of dependent variables, and model types—can lead to different conclusions about the same dataset.
 
-Transparency in Research: By making all analytical decisions explicit, multiverse analysis enhances transparency and helps identify potential biases or false positives in research findings.
-
-Critical Thinking: Engaging with multiverse analysis encourages critical thinking about the robustness of scientific claims and the importance of replicability in research.
+By making all analytical decisions explicit, multiverse analysis enhances transparency and helps identify potential biases or false positives in research findings.
 
 Additional resources
 

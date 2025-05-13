@@ -54,14 +54,14 @@ In the next chunk We are going to review `dplyr` functions `mutate`, `across`, a
 # we are creating a new variable in the dataset, called long, which 
 # takes a value of TRUE if video_duration is below 20 seconds, FALSE if above
 tt_data <- tt_data %>%
-  mutate(short = video_duration_sec>20) 
+  mutate(short = video_duration_sec<20) 
 
 head(tt_data$short)
 
 # Note the equivalence to: dplyr::mutate(tt_data, short=video_duration_sec>20)
 
 # You can also specify the value for observations that meet the condition with
-# if_else(), a dplyr function: if_else(video_duration_sec>20, "Short", "Long")
+# if_else(), a dplyr function: if_else(video_duration_sec<20, "Short", "Long")
 
 # create a new variable that takes the log of the video_comment_count, transform to integer if necessary
 
@@ -144,7 +144,7 @@ We can now use a combination of these functions to clean up, select and summariz
 # Fill the blanks in the following chunk & execute
 
 # Combine functions to summarize and filter data 
-summary_combined <- tt_data2 %>% 
+summary_combined <- tt_data %>% 
   # filter out videso with low view counts
   filter(video_view_count>20) %>% 
   # Select two variables 
@@ -152,7 +152,12 @@ summary_combined <- tt_data2 %>%
   # Group by author_ban_status
   group_by(author_ban_status) %>% 
   # provide summaries for view counts
-  summarise( total_posts = ____, average_views = _____, max_views = ____ , min_views = ____)) 
+#  summarize(total_posts = n())
+
+  summarise( total_posts = n(), average_views = mean(video_view_count), max_views = max(video_view_count) , min_views = min(video_view_count))
+
+  
+#  summarise( total_posts = ____, average_views = _____, max_views = ____ , min_views = ____)) 
 
 
 ```

@@ -14,29 +14,21 @@ The point of this worksheet is not to be a Bayesian statistics primer but to poi
 
 # What Are Bayes Factors?
 
-The **Bayes factor (BF)** is the ratio of the marginal likelihoods of two competing models or hypotheses, \(M_1\) and \(M_2\). It quantifies how much more likely the observed data are under one model compared to the other. Mathematically, the Bayes factor is defined as:
-
-$$
-BF_{10} = \frac{P(D \mid M_1)}{P(D \mid M_2)}
-$$
-
-Where:
-- \(P(D \mid M_1)\): The probability of the data \(D\) given model \(M_1\) (the marginal likelihood of \(M_1\)).
-- \(P(D \mid M_2)\): The probability of the data \(D\) given model \(M_2\) (the marginal likelihood of \(M_2\)).
+The **Bayes factor (BF)** is the ratio of the marginal likelihoods of two competing models or hypotheses.
 
 # Key Features of Bayes Factors
 
-1. **Evidence for Both Hypotheses**: Unlike p-values, Bayes factors can provide evidence in favor of the null hypothesis.
-2. **Continuous Evidence**: Bayes factors provide a continuous measure of evidence, rather than a binary reject/do-not-reject decision.
-3. **Model Comparison**: Bayes factors inherently penalize more complex models, helping to avoid overfitting.
+**Evidence for Both Hypotheses**: Unlike p-values, Bayes factors can provide evidence in favor of the null hypothesis.
+
+**Continuous Evidence**: Bayes factors provide a continuous measure of evidence, rather than a binary reject/do-not-reject decision.
 
 # Interpreting Bayes Factors
 
-The strength of evidence provided by a Bayes factor can be interpreted using scales such as Jeffreys' scale or Kass and Raftery's scale. For example:
+The strength of evidence provided by a Bayes factor can be interpreted using scales such as Jeffreys' scale. For example:
 
-- \(BF_{10} > 10\): Strong evidence for \(M_1\).
-- \(BF_{10} < 1/10\): Strong evidence for \(M_2\).
-- \(BF_{10} \approx 1\): No evidence for either model.
+-   $BF_{10} > 10$: Strong evidence for $H1$.
+-   $BF_{10} < 1/10$: Strong evidence for $H0$.
+-   $BF_{10} \approx 1$: No evidence for either model.
 
 # Sequential Testing with Bayes Factors
 
@@ -60,10 +52,12 @@ library(BayesFactor)
 # Simulate data for two groups
 n_observations <- 100  # Sample size per group
 group1 <- rnorm(n_observations, mean = 0, sd = 1)  # Group 1: Mean = 0
-group2 <- rnorm(n_observations, mean = 0.5, sd = 1)  # Group 2: Mean = 0.5
+group2 <- rnorm(n_observations, mean = 0.6, sd = 1)  # Group 2: Mean = 0.5
 
 # Sequential testing
-threshold <- 10  # Bayes factor threshold for strong evidence
+threshold_h1 <- 10  # Bayes factor threshold for strong evidence in favour of H1
+threshold_h0 <- 1/10  # Bayes factor threshold for strong evidence in favour of H0
+
 bf_values <- numeric(n_observations)  # Store Bayes factors
 
 # we start at 2, we need at least 2 observations
@@ -80,14 +74,16 @@ for (i in 2:(n_observations)) {
     stop("Bayes factor computation returned NULL.")
   }
   
-  bf_values[i] <- 1/exp(bf@bayesFactor$bf)  # Extract BF10 (evidence in favour of hypothesis)
+  bf_values[i] <- exp(bf@bayesFactor$bf)  # Extract BF10 (evidence in favour of hypothesis)
 }
 
-# Plot Bayes factors over time
-plot(1:(n_observations), bf_values, type = "l", col = "blue", lwd = 2,
-     xlab = "Sample Size per Group", ylab = "Bayes Factor (BF10)",
-     main = "Sequential Testing with Bayes Factors")
-abline(h = threshold, col = "red", lty = 2)  # Add threshold line
+plot(1:n_observations, bf_values, type = "l", col = "blue", lwd = 2,
+     xlab = "Sample Size per Group", 
+     ylab = "Bayes Factor (BF10)",
+     main = "Sequential Testing with Bayes Factors",
+     ylim = c(0, 20))  # Set y-axis limits
+abline(h = threshold_h1, col = "red", lty = 2)  # Add threshold line
+abline(h = threshold_h0, col = "blue", lty = 2)  # Add threshold line
 
 ```
 
@@ -95,11 +91,13 @@ Reflection Questions:
 
 How does the Bayes factor evolve as more data is collected?
 
-Compare bayes factors with larger and smaller effects.
+Compare Bayes Factors with larger and smaller effects.
+
+How many participants do you have need to gather strong evidence of the effect? Try several times, drawing a different population.
 
 # Comparing Sequential Testing to NHST
 
-This chunk compares the results of sequential testing with Bayes factors to a traditional t-test.
+This chunk compares the results of sequential testing with Bayes factors to a traditional t-test in the two groups that we defined above. Try with different effect sizes by changing the chunk above.
 
 ```{r}
 
@@ -114,72 +112,23 @@ cat("Traditional t-test p-value:", t_test$p.value, "\n")
 cat("Final Bayes Factor (BF10):", exp(final_bf@bayesFactor$bf), "\n")
 
 ```
+
 Reflection Questions:
 
 How do the conclusions from the Bayes factor and the p-value compare?
 
-What will happen when there is no effect?  
+What will happen when there is no effect?
 
-# Planning Sequential Testing with Bayes Factors
-
-This chunk demonstrates how to plan a sequential testing study by simulating the expected sample size required to reach a decision depending on the effect size. We can see the benefit of this method, where we are are stopping when no more evidence is needed.
-
-```{r}
-set.seed(42)
-
-# Function to simulate sequential testing
-simulate_sequential_fun <- function(effect_size, n_max, threshold) {
-  
-  group1 <- rnorm(n_max, mean = 0, sd = 1)
-  group2 <- rnorm(n_max, mean = effect_size, sd = 1)
-  
-  # need at least 2 obs
-  for (i in 2:(n_max)) {
-    grp1 = group1[1:i]
-    grp2 = group2[1:i]
-      
-    bf <- ttestBF(grp1, grp2, paired=FALSE)
-    
-    if (exp(bf@bayesFactor$bf) > threshold) {
-      return(i * 2)  # Return total sample size
-    }
-  }
-  return(n_max)  # Return max sample size if threshold not reached
-}
-
-# Simulate for different effect sizes
-effect_sizes <- seq(0.2, 0.8, by = 0.2)
-
-# we use sapply to apply a function
-sample_sizes <- sapply(effect_sizes, simulate_sequential_fun, n_max = 100, threshold = 10)
-
-# Plot results
-plot(effect_sizes, sample_sizes, type = "b", col = "blue", lwd = 2,
-     xlab = "Effect Size", ylab = "Sample Size",
-     main = "Sample Size vs. Effect Size in Sequential Testing")
-```
-
-Reflection Questions:
-
-How does the required sample size change with the effect size?
-
-Why is sequential testing more efficient for larger effect sizes?
-
-Key Takeaways
+# Key Takeaways
 
 Bayes Factors: Provide a continuous measure of evidence for or against hypotheses, unlike p-values.
 
 Sequential Testing: Bayes factors allow for optional stopping without inflating Type I error rates, making them ideal for sequential testing. However, this stopping rule has to be specified in advance.
 
-Efficiency: Sequential testing with Bayes factors often requires fewer participants than traditional NHST while maintaining robust conclusions.
+# Additional resources
 
-Dienes Paper: https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2014.00781/full
+Rouder [paper] on Bayes and Stopping rules (<https://pubmed.ncbi.nlm.nih.gov/24659049/>)
 
-"Thus, the following year another group of participants were run. One cannot simply top up participants with orthodox statistics, unless pre-specified as possible by one’s stopping rule (Armitage et al., 1969); by contrast, with Bayes, one can always collect more participants until the data are sensitive enough, that is, B < 1/3 or B > 3; see e.g., Berger and Wolpert (1988), Dienes (2008, 2011). Of course, B is susceptible to random fluctuations up and down; why cannot one capitalize on these and stop when the fluctuations favor a desired result? For example, Sanborn and Hills (2014) and Yu et al. (2014) show that if the null is true, stopping when B > 3 (if that ever occurs) increases the proportion of cases that B > 3 when the null is true. However, as Rouder (2014) shows, it also increases the proportion of cases that B > 3 when Ho is false, and to exactly the same extent: B retains its meaning as relative strength of evidence, regardless of stopping rule (for more discussion, see Dienes, forthcoming)."
+Zoltan Dienes [Paper](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2014.00781/full)
 
-
-Additional resources
-
-Rouder https://pubmed.ncbi.nlm.nih.gov/24659049/
-
-Some more technical discussion / debate: https://pure.rug.nl/ws/portalfiles/portal/210953159/Tendeiro2022_Article_Worked_outExamplesOfTheAdequac.pdf
+"Thus, the following year another group of participants were run. One cannot simply top up participants with orthodox statistics, unless pre-specified as possible by one’s stopping rule (Armitage et al., 1969); by contrast, with Bayes, one can always collect more participants until the data are sensitive enough, that is, B \< 1/3 or B \> 3; see e.g., Berger and Wolpert (1988), Dienes (2008, 2011). Of course, B is susceptible to random fluctuations up and down; why cannot one capitalize on these and stop when the fluctuations favor a desired result? For example, Sanborn and Hills (2014) and Yu et al. (2014) show that if the null is true, stopping when B \> 3 (if that ever occurs) increases the proportion of cases that B \> 3 when the null is true. However, as Rouder (2014) shows, it also increases the proportion of cases that B \> 3 when Ho is false, and to exactly the same extent: B retains its meaning as relative strength of evidence, regardless of stopping rule (for more discussion, see Dienes, forthcoming)."

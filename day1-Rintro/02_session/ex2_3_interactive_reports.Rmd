@@ -55,9 +55,9 @@ We can spice things up by animating your data. Fill the blanks in this chunk to 
 
 ```{r eval=FALSE, include=FALSE}
 # Load necessary library for creating GIFs, comment once installed
-install.packages("animation")
+# install.packages("animation")
 library(animation)
-
+library(tidyverse)
 # Create a simple animated scatter plot of the tiktok dataset
 # Set up the animation parameters
 saveGIF({
@@ -65,12 +65,14 @@ saveGIF({
   # You can use a for loop to go through
   # author status 
   # note that unique() allows you to select unique values of a variable
-  for (____ in unique(___)) {
+  for (n in unique(tt_data$author_ban_status)) {
     # Subset the data by author ban status
-    subset_data <- tt_data %>% filter(author_ban_status==___)
+    subset_data <- tt_data %>% filter(author_ban_status==n)
     
+    #browser()
+      
     # Create the scatter plot
-    plot(_____, _____,
+    plot(, ,
          main = paste("Likes per view count"),
          xlab = "Video Likes Count",
          ylab = "Video View Count",
@@ -83,6 +85,32 @@ saveGIF({
     Sys.sleep(1)  # Pause for 1 second
   }
 }, movie.name = "images/status_effect.gif", interval = 1, ani.width = 600, ani.height = 400)
+
+
+
+saveGIF({
+  
+  # Loop through unique author ban statuses
+  for (n in unique(tt_data$author_ban_status)) {
+    # Subset the data by author ban status
+    subset_data <- tt_data %>% filter(author_ban_status == n)
+    
+    # Create the scatter plot
+    plot(subset_data$likes_count, subset_data$view_count,
+         main = paste("Likes per view count for", n),
+         xlab = "Video Likes Count",
+         ylab = "Video View Count",
+         xlim = c(1,10),
+         ylim = c(0,10),
+         pch = 19, col = "blue", cex = 1.5)
+    
+    # Add a grid for better visualization
+    grid()
+    
+    # Pause for a moment to create the animation effect
+    Sys.sleep(1)  # Pause for 1 second
+  }
+}, movie.name = "status_effect.gif", interval = 1, ani.width = 600, ani.height = 400)
 
 ```
 

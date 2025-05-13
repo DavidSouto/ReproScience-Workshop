@@ -21,7 +21,7 @@ While these practices may seem harmless, they inflate the false positive rate an
 
 # Interactive Exploration with the P-Hacker App
 
-The p-hacker Shiny app allows you to practice p-hacking in a controlled environment. You can access the app here: P-Hacker App [[1]].
+The p-hacker Shiny app allows you to practice p-hacking in a controlled environment. You can access the app here: [P-Hacker App.](https://shinyapps.org/apps/p-hacker/)
 
 Instructions
 - Start a new study in the app.
@@ -34,13 +34,13 @@ How many steps did it take you to achieve a significant result?
 
 Did you find it easy or difficult to manipulate the data to achieve significance?
 
-Reflect: Does this exercise make you question the reliability of published research findings?
+Does this exercise make you question the reliability of published research findings?
 
 # Simulating P-Hacking in R
 
-Exercise 1: Simulating Multiple Hypothesis Tests
+In this exercise, we simulate a scenario where a researcher tests multiple hypotheses on the same dataset with an effect of 0. 
 
-In this exercise, we simulate a scenario where a researcher tests multiple hypotheses on the same dataset. Complete the code below to see how often a significant result is found by chance.
+See how the simulation is implemented and run the code to see how often a significant result is found by chance.
 
 ```{r}
 simulate_p_hacking <- function(n_experiments = 100, n_tests = 10, sample_size = 30, true_effect = 0) {
@@ -86,26 +86,14 @@ ggplot(p_values_long, aes(x = p_value)) +
        y = "Frequency")
 ```
 
-# Function to simulate multiple hypothesis tests 
+Questions:
 
-Questions:
-What proportion of p-values are below 0.05?
-If there is no true effect (true_effect = 0), why do we still see significant results?
-Exercise 2: Adding Covariates to Achieve Significance
-Another common p-hacking strategy is to add covariates to a model until significance is achieved. Complete the code below to simulate this scenario.
-# Function to simulate p-hacking by adding covariates simulate_covariate_p_hacking <- function(n_covariates = 10, sample_size = 30, true_effect = 0) { p_values <- numeric(n_covariates) # Generate data group <- rep(c(0, 1), each = sample_size / 2) outcome <- rnorm(sample_size, mean = true_effect * group, sd = 1) for (i in 1:n_covariates) { # Generate a random covariate covariate <- rnorm(sample_size) # Fit a linear model with the covariate model <- lm(outcome ~ group + covariate) p_values[i] <- summary(model)$coefficients["group", "Pr(>|t|)"] } return(p_values) } # Simulate p-hacking with covariates p_values <- simulate_covariate_p_hacking() # Visualize the distribution of p-values ggplot(data.frame(p_value = p_values), aes(x = p_value)) + geom_histogram(bins = 30, fill = "lightgreen", color = "black") + geom_vline(xintercept = 0.05, color = "red", linetype = "dashed") + labs(title = "P-Values After Adding Covariates", x = "P-Value", y = "Frequency")
-Questions:
-How does adding covariates affect the likelihood of finding a significant result?
-Why is this practice problematic?
-Part 4: Reflection and Discussion
-Ethical Implications
-How does p-hacking undermine the credibility of scientific research?
-What steps can researchers take to avoid p-hacking?
-How can practices like pre-registration and replication help combat p-hacking?
-Key Takeaways
+What proportion of p-values are below 0.05? How does change with the number of tests? 
+
+Key takeways 
+
 P-hacking can easily lead to significant results, even when there is no true effect.
-Practices like testing multiple hypotheses or adding covariates inflate the false positive rate.
-Tools like the p-hacker app demonstrate how easy it is to manipulate data to achieve significance.
-Ethical research practices, such as pre-registration and transparency, are essential to maintaining the integrity of science.
 
-We are going to look explore some of the characteristics of the packages we installed, in particular those are are part of the *tidyverse*
+Practices like testing multiple hypotheses or adding covariates inflate the false positive rate.
+
+Tools like the p-hacker app demonstrate how easy it is to manipulate data to achieve significance.

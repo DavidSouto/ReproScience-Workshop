@@ -184,7 +184,7 @@ What factors could lead to differences in precision between groups?
 
 # Visualizing confidence intervals for effect sizes
 
-This chunk visualizes confidence intervals for the difference in means (effect size).
+This chunk visualizes confidence intervals for the difference in means (effect size), which is what we are often interested about.
 
 ```{r}
 # Calculate difference in means and CI

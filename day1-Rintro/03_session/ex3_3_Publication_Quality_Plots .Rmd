@@ -38,7 +38,7 @@ library(ggthemes)
 
 ggplot(finch_data, aes(x = Beak_length.mm, y = Beak_depth.mm, colour = species)) + 
   geom_point()+
-  scale_colour_colorblind()+  # Apply colorblind-friendly palette
+  scale_colour_colorblind()  # Apply colorblind-friendly palette
 
 # We now have a plot where differences are defined by brightness mostly, and color
 # However, We have the problem that the contrast of the orange dots is not very good
@@ -57,6 +57,8 @@ For a publication-quality figure, a common practice is to use a font size of 10 
 Next we are saving a plot meant for a 3.5-inch width (single-column).
 
 You are faced with the issue of specifying the aspect ratio in inches? 
+
+You need first to show the plot in the clipboard. For that you would need to execute in the Console (e.g. copy and paste)
 
 1. Go to the "Plot" tab in the bottom-right window. Go to "Export" > "Copy to clipboard"
 

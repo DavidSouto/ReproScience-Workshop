@@ -149,14 +149,14 @@ R Documentation for `pwr`Package: The `pwr` package allows you to
 calculate power for many different scenarios. You can check the
 `vignette`
 [online](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html).
-Note you can use `plot(pwr_output)` to simplify things.
+
+Note you can also use `plot(pwr_output)` to simplify things.
 
 Effect Size Guidelines: Cohen’s guidelines for effect sizes are a great
 starting point for estimating expected effects.
 
 Interactive Power Calculator:
-[G\*Power](https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower)
-can cope with more scenarios than `pwr` and can be easier to use.
+[G\*Power](https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower) can cope with more scenarios than `pwr` and can be easier to use.
 
 Key Takeaways
 

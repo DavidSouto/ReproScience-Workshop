@@ -16,6 +16,10 @@ Run the following chunk if needed to get started.
 # let's load the tidyverse, which holds ggplot
 library(tidyverse) 
 
+# This was missing from the orginal worksheet
+install.packages("ggdist") # requires r-tools
+library(ggdist)
+
 # let's load the Finch data, it is actually four datasets
 beak_t1<- read.csv("./data/finch_beaks_1975.csv")     # peak measurements in1 1975 for scandens / fortis
 beak_t2<- read.csv("./data/finch_beaks_2012.csv")     # peak measurements in1 2012 for scandens / fortis
@@ -80,7 +84,7 @@ ggplot(finch_data,aes(x = species, y = Beak_depth.mm)) +
   # we specify we want a standard deviation
   stat_summary(fun.data = "mean_sdl", 
                # specify we want an errorbar geometry
-               geom = "errorbar", colour="red",size=1, width=0.2)+
+               geom = "errorbar", colour="red",size=1, width=0.2)
 
 # we have now created the ugliest error bar possible: make it pretty with the parameter size and colour in stat_summary; 
 # add another summary corresponding to the mean on top, note a subtlety here, you specify fun="" and not fun.data="" because it is a single value, specify size and colour again

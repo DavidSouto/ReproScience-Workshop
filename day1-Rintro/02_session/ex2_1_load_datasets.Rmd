@@ -3,7 +3,7 @@ title: "Exercise 2.1: Loading datasets"
 output: html_document
 ---
 
-In this exercise, we will explore how to load and examine different types of datasets from various sources. 
+In this exercise, we will explore how to load and examine different types of datasets from various sources.
 
 We are using a [Tiktok user engagement dataset](https://www.kaggle.com/datasets/yakhyojon/tiktok?resource=download) shows views and likes for a large number of videos.
 
@@ -22,7 +22,7 @@ freq_data <- read.csv(url)
 
 ```
 
-# Display dataset information 
+# Display dataset information
 
 Common `classes` for data are character,`chr`, numeric, `num`, which allows whole numbers and decimal numbers and integer, `int`. Note how numbers are at times stored as characters (between `""`) and therefore number operations cannot be applied to them.
 
@@ -84,7 +84,7 @@ str(tt_data)
 
 # Other useful dataset types: Tibbles
 
-Tibbles are data frame types that are part of dplyr. 
+Tibbles are data frame types that are part of dplyr.
 
 ```{r}
 
@@ -103,4 +103,4 @@ Handle missing values appropriately
 
 # Additional resources
 
-Analyzing `big data`, data that would exceed memory capacity, is another kettle of fish. There are techniques and packages that enable handling of big data, as explained [here](https://hbs-rcs.github.io/large_data_in_R/). 
+Analyzing `big data`, data that would exceed memory capacity, is another kettle of fish. There are techniques and packages that enable handling of big data, as explained [here](https://hbs-rcs.github.io/large_data_in_R/).

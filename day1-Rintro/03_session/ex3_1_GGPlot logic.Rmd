@@ -1,13 +1,24 @@
 ---
 title: "Exercise 3.1: GGPlot logic"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 # GGplot intro
 
-GGPlot is part of the tidyverse. It is called a "grammar of graphics" (the gg) because you have different elements that you add by layers, like verbs and adjectives they transform the visualization in some way, as those transform meaning. In base R you can't just change things by addition **+**. THere is of course no shame however in using the base functions for plotting, sometimes they offer more liberty and are handier. However, ggplot will be able to handle complex visualizations quicker. We can then exploit that to do more with our graphs.
+GGPlot is part of the tidyverse. It is called a "grammar of graphics"
+(the gg) because you have different elements that you add by layers,
+like verbs and adjectives they transform the visualization in some way,
+as those transform meaning. In base R you can't just change things by
+addition **+**. THere is of course no shame however in using the base
+functions for plotting, sometimes they offer more liberty and are
+handier. However, ggplot will be able to handle complex visualizations
+quicker. We can then exploit that to do more with our graphs.
 
-This is the general structure ([r4ds](https://r4ds.had.co.nz/index.html#welcome))
+This is the general structure
+([r4ds](https://r4ds.had.co.nz/index.html#welcome))
 
 # Basic plot structure
 
@@ -23,23 +34,28 @@ ggplot(data = <DATA>) +
   <FACET_FUNCTION>
 ```
 
-We can specify a number of aspects with this grammar.  
+We can specify a number of aspects with this grammar.
 
 Main elements of GGplot grammar of graphics
-* Data: Acceptable formats are `data.frame` or `tibble`
-* Geometry: `geom_`, functions like `geom_point()`, `geom_line()`
-* Stats: `stats_`, for statistical transformations, like `stat_summary()`
-* Aesthetic: `aes()`, for mapping variables to visual properties
-* Facets: `facets_`, for creating multi-panel plots with `facet_wrap()` or `face_grid()`
+* Data: Acceptable formats are `data.frame` or `tibble` 
+* Geometry: `geom_`, functions like `geom_point()`, `geom_line()` 
+* Stats: `stats_`, for statistical transformations, like `stat_summary()` 
+* Aesthetic: `aes()`, for mapping variables to visual properties 
+* Facets: `facets_`, for creating multi-panel plots with `facet_wrap()` or `face_grid()` 
 * Coordinates: `coord_` for adjusting scale and axis, e.g. `coord_flip()`, `scale_x_log10()`
 
 # Loading our Zebra Finch dataset
 
-We are going to use the famous Zebra Finch dataset to explain how GGplot works.
+We are going to use the famous Zebra Finch dataset to explain how GGplot
+works.
 
-See the data card for Darwin's Finch Evolution Dataset from in  [Kaggle](https://www.kaggle.com/datasets/crbelhekar619/darwins-finches-evolution-dataset/data)
+See the data card for Darwin's Finch Evolution Dataset from in
+[Kaggle](https://www.kaggle.com/datasets/crbelhekar619/darwins-finches-evolution-dataset/data)
 
-(We are taking inspiration from the python analysis [here](https://www.kaggle.com/code/muhammetgamal5/darwin-s-finches-evolution)
+(We are taking inspiration from the python analysis
+[here](https://www.kaggle.com/code/muhammetgamal5/darwin-s-finches-evolution)
+
+Here is a group of ![Zebra finches](images/Zebra_finch_group.png)
 
 ```{r}
 # The working directory needs setting to day1/03_session 
@@ -55,9 +71,10 @@ beak_t2<- read.csv("./data/finch_beaks_2012.csv")     # peak measurements in1 20
 
 ```
 
-# How do we combine / harmonize datasets into one? 
+# How do we combine / harmonize datasets into one?
 
-Following up on our data wrangling worksheets. We will find it a lot handier for plotting if we combine / harmonize datasets. 
+Following up on our data wrangling worksheets. We will find it a lot
+handier for plotting if we combine / harmonize datasets.
 
 ```{r}
 # Add a new variable to each dataset to indicate the year
@@ -74,7 +91,8 @@ head(finch_data)
 
 # Basic scatterplot
 
-Let’s start with a simple scatterplot to explore the relationship between beak length and depth.
+Let’s start with a simple scatterplot to explore the relationship
+between beak length and depth.
 
 ```{r}
 # check the dataset is of the right format: here data.frame
@@ -97,7 +115,9 @@ ggplot(fortis_data,
 
 # Grouping
 
-We can also readily display the data for scandens and fortis in the same plot (a bit messy) with grouping parameter `colour` or `group` (not with geom_point()), to see wide differences in beak shape between species.
+We can also readily display the data for scandens and fortis in the same
+plot (a bit messy) with grouping parameter `colour` or `group` (not with
+geom_point()), to see wide differences in beak shape between species.
 
 ```{r}
 
@@ -110,10 +130,10 @@ ggplot(finch_data,
 
 ```
 
+# Adding color to represent Volume
 
-# Adding color to represent Volume 
-
-Try to produce a scatterplot of beak lengths with `geom_boxplot()` by species.
+Try to produce a plot of beak lengths with `geom_boxplot()` by
+species.
 
 ```{r eval=FALSE, include=FALSE}
 # Fill the blanks 
@@ -125,7 +145,9 @@ ggplot(finch_data,
 
 # Faceting
 
-What if we now want to split by year too to explore (relatively) short term evolution? Faceting allows you to create multiple panels for subsets of your data.
+What if we now want to split by year too to explore (relatively) short
+term evolution? Faceting allows you to create multiple panels for
+subsets of your data.
 
 ```{r eval=FALSE, include=FALSE}
 # facet_wrap allows you to display different variable levels in different plots, 
@@ -146,9 +168,11 @@ ggplot(finch_data,
 
 ```
 
-You can also create a grid of facets. This way we can create a 2D grid with one factor determining the row and another the column.
+You can also create a grid of facets. This way we can create a 2D grid
+with one factor determining the row and another the column.
 
-Note how this allows you to handle the issue of having a similar scale (x and y limits) for different plots. GGPlot does it for you. 
+Note how this allows you to handle the issue of having a similar scale
+(x and y limits) for different plots. GGPlot does it for you.
 
 ```{r eval=FALSE, include=FALSE}
 # Let's display a scatterplot of beak lengths nad beak depths, with each combination of species and year in a different plot 
@@ -157,9 +181,11 @@ ggplot(__,
   geom_point() + 
   facet_grid(species ~ year)
 ```
+
 # Specifying axis
 
-You can specify axis further. We can change the limits of x and y with the layer `coord_cartesian`
+You can specify axis further. We can change the limits of x and y with
+the layer `coord_cartesian`
 
 ```{r eval=FALSE, include=FALSE}
 # Fill the blanks. Specify new limits for the x and y axes (hint: in R we can specify arrays with e.g. c(1,2))
@@ -192,7 +218,7 @@ ggplot(
 
 # Themes
 
-Themes allow you to customize the appearance of your plots in one go. 
+Themes allow you to customize the appearance of your plots in one go.
 
 ```{r}
 # Apply a black-and-white theme 
@@ -204,7 +230,9 @@ ggplot(fortis_data, aes(x = Beak_length.mm, y = Beak_depth.mm)) +
 
 ```
 
-Themes have the important function of sparing us the need to go deep into the theme parameters. There are however some common modifications we could look at. Here we remove grid lines. 
+Themes have the important function of sparing us the need to go deep
+into the theme parameters. There are however some common modifications
+we could look at. Here we remove grid lines.
 
 ```{r}
 ggplot(fortis_data, aes(x = Beak_length.mm, y = Beak_depth.mm)) + 
@@ -218,7 +246,9 @@ ggplot(fortis_data, aes(x = Beak_length.mm, y = Beak_depth.mm)) +
 
 ```
 
-You can also change the font and font size. Being able to change the size of font in all elements of a plot by changing one argument is really handy when it comes to prepare plots for posters or publications. 
+You can also change the font and font size. Being able to change the
+size of font in all elements of a plot by changing one argument is
+really handy when it comes to prepare plots for posters or publications.
 
 ```{r}
 ggplot(fortis_data, aes(x = Beak_length.mm, y = Beak_depth.mm)) + 
@@ -259,7 +289,9 @@ ggsave("figures/fortis_scatterplot.png", dpi = 300, height = 4, width = 5, units
 
 # Level 2 (optional) Graph Gallery
 
-There are many ways to spice things up. You can take inspiration from the [R Graph Gallery](https://r-graph-gallery.com/) website, showing a huge range of styles supported by GGPlot.
+There are many ways to spice things up. You can take inspiration from
+the [R Graph Gallery](https://r-graph-gallery.com/) website, showing a
+huge range of styles supported by GGPlot.
 
 ```{r}
 # 1. Got to the R Graph Gallery website
@@ -270,12 +302,15 @@ There are many ways to spice things up. You can take inspiration from the [R Gra
 
 # Key Takeaways
 
-GGplot's grammar of graphics allows for flexible and layered visualizations.
+GGplot's grammar of graphics allows for flexible and layered
+visualizations.
 
-Faceting and aesthetics make it relatively easy to explore and display data subsets.
+Faceting and aesthetics make it relatively easy to explore and display
+data subsets.
 
 Themes and high-resolution saving ensure publication-quality plots.
 
 Additional resources
 
-See the [official documentation](https://ggplot2.tidyverse.org/), including (overwhelming to some tastes, including mine) cheat-sheets 
+See the [official documentation](https://ggplot2.tidyverse.org/),
+including (overwhelming to some tastes, including mine) cheat-sheets
