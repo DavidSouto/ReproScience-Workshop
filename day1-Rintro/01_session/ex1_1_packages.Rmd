@@ -15,7 +15,7 @@ If you didn't install this already:
     "Session" tab (on top) then "Set working Directory" then "Choose
     Directory" then "Open".
 
--   Run source("workshop_pack.R") if you didn't install the packages
+-   Run source("../../Pre_Package_Install.R") if you didn't install the packages
     yet.
 
 ```{r}
