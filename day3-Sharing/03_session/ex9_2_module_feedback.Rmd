@@ -6,7 +6,9 @@ output: html_document
 
 
 # Module feedback
+Please take the time to fill the module feedback form. It should take about 5-10 minutes. We are particularly interested in knowing which bits you found useful and how we can improve the materials / delivery in the future. Feel free to comment on relevance in relation to your background.
 
-Access the module feedback at this link:
+Access the module feedback at ![this link]( https://docs.google.com/forms/d/e/1FAIpQLSclekth6ONLiviB7D3O33rjtI3ciTSVTsqNGH6XGLU0LWmrMw/viewform?usp=dialog)
+
  
 
