@@ -76,8 +76,8 @@ ggplot(p_values_long, aes(x = p_value)) +
   geom_histogram(bins = 30, fill = "skyblue", color = "black") +
   geom_vline(xintercept = 0.05, color = "red", linetype = "dashed") +
   annotate("text", x = 0.1, y = max(hist(p_values_long$p_value, breaks = 30, plot = FALSE)$counts),
-           label = paste("Experiments with at least\none significant result:", experiments_with_sig,
-                        "\nout of", n_experiments, "experiments\n(",
+           label = paste("Experiments with at least one significant result:", experiments_with_sig,
+                        "out of", n_experiments, "experiments\n(",
                         round(100 * experiments_with_sig/n_experiments, 1), "%)"),
            hjust = 0) +
   labs(title = "Distribution of P-Values from Multiple Experiments",
