@@ -1,0 +1,22 @@
+---
+title: "Pre-registration exercise"
+authors: Anna Nowakowska, Mahmoud Elsherif
+output:
+---
+
+# Exercise 1
+
+Write a pre-registration based on the paper you can find in the ./example folder: 
+
+Waltzer, T., Pilegard, C. & Heyman, G.D. Can you spot the bot? Identifying AI-generated writing in college essays. Int J Educ Integr 20, 11 (2024). https://doi.org/10.1007/s40979-024-00158-3
+
+# Exercise 2
+
+Act as reviewers for Stage 2 registered report proposal developed by your peers.
+
+You have to provide guidance for results and discussion AND check if it violates protocol of Stage 1, but not focus on the METHODS, nor INTRODUCTION!
+
+You can see an example of registered report in the ./example/ folder. It can be found also [here](https://osf.io/cx2b8). You can find many other examples in the OSF website.
+
+
+
