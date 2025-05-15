@@ -8,22 +8,21 @@ We can now have a tour of GitHub Desktop's features. You can have a better look 
 
 ## GitHub Desktop
 
-GitHub Desktop will be our way to use Git. Many people suggest the use of Git through RStudio requiring specific configuration steps. However GitHub Desktop works from the get go and across programming platforms.  
+GitHub Desktop will be our way to use Git. Many people suggest the use of Git through RStudio requiring specific configuration steps. However GitHub Desktop works from the get go and across programming platforms.
 
 You can do a few things on GitHub Desktop, such as create a local repository or ask to clone a repository. We could have gone File \> Clone repository to do what we have done with *playground*. Here are a few elements:
 
 ![](images/f92a4fa78f3e2b63b2874e6ead1249bc.png)
 
-Open with editor (*In red*): If you click Options you can pick the editor you want to use to edit the code from here. I chose Visual Studio Code because it is very polyvalent and widely used. You don't have to use it, but it can be a convenient shortcut. 
+Open with editor (*In red*): If you click Options you can pick the editor you want to use to edit the code from here. I chose Visual Studio Code because it is very polyvalent and widely used. You don't have to use it, but it can be a convenient shortcut.
 
-The two other options below are *Show in Explorer* and *View on GitHub*. Try both! Any other way of locating your repository
-or files will take a lot more time. Keep this in mind.
+The two other options below are *Show in Explorer* and *View on GitHub*. Try both! Any other way of locating your repository or files will take a lot more time. Keep this in mind.
 
 Actions available (*In blue*): This shows you the actions that are available to you in relation to the remote repository (the "test2" that lives under my GitHub list or repositories).
 
 Select the repository, view changes and history (*In orange*): In this corner you can click on "History" and see all the changes to the repository from its creation. On changes you can see what files have changed locally. Since there are no changes it doesn't show anything interesting right now.
 
-Commit to main (*In green*): This is how you can **commit** changes. Unless you **commit** you won't be able to **push** your local changes (changes in yoru computer) to the remote repository (GitHub website). You don't have to do this every time you change something of course. However, it makes sense to **commit** at every stage you want to document or go back to. In the playground example I committed at times small things so the website the repository is linked to could update.
+Commit to main (*In green*): This is how you can **commit** changes. Unless you **commit** you won't be able to **push** your local changes (changes in your computer) to the remote repository (GitHub website). You don't have to do this every time you change something of course. However, it makes sense to **commit** at every stage you want to document or go back to. In the playground example I committed at times small things so the website the repository is linked to could update.
 
 # Creating a repository through GitHub Desktop
 

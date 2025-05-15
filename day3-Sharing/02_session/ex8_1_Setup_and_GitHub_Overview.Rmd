@@ -1,5 +1,5 @@
 ---
-title: "Exercise 8.1: Title"
+title: "Exercise 8.1: Setup and GitHub Overview"
 author: 
 output: html_document
 editor_options: 
@@ -77,11 +77,11 @@ involved.
 You can see that this repository is not something I created from
 scratch. Go to the *commits* again and start from the bottom. You can
 see Vasilios Mavroudis created the website template. I then made changes
-to it. I had several choices before me: 
+to it. I had several choices before me:
 
--I could create a "fork" (more
-on this later), allowing me to later merge with the main repository.
-Aven if I don't plan to merge it can show appreciation of people's work.
+-I could create a "fork" (more on this later), allowing me to later
+merge with the main repository. Aven if I don't plan to merge it can
+show appreciation of people's work.
 
 -I could also download a copy and create a repository that is unlinked
 to the main repository. It still shows who did what. I am doing this
@@ -118,22 +118,42 @@ later on), or clone a repository.
 
 ## Glossary
 
-Let's take some time to review the key terms to avoid all confusion later on.
+Let's take some time to review the key terms to avoid all confusion
+later on.
 
-**Repository** or **repo**: This is the folder where you keep your code. You can have a repo on Github or locally, on your computer, which you want to keep in synch.
+**Repository** or **repo**: This is the folder where you keep your code.
+You can have a repo on Github or locally, on your computer, which you
+want to keep in synch.
 
-**Target repository:** The remote repository to which changes are intended to be pushed or pulled.
+**Target repository:** The remote repository to which changes are
+intended to be pushed or pulled.
 
-**Committing**: You do your thing and after a while you decide that you want to record the changes you have made. This is committing and it involves describing the changes.
+**Committing**: You do your thing and after a while you decide that you
+want to record the changes you have made. This is committing and it
+involves describing the changes.
 
-**Forking**: Making a copy of a remote repository under your account, allowing you to make changes independently. After making changes, you can submit a *pull request* to propose to merging those changes back to the original repository.
+**Forking**: Making a copy of a remote repository under your account,
+allowing you to make changes independently. After making changes, you
+can submit a *pull request* to propose to merging those changes back to
+the original repository.
 
-**Cloning**: Making a local copy of a remote repository allowing you to work on it offline. This can be done regardless of whether the repository has been forked or not.
+**Cloning**: Making a local copy of a remote repository allowing you to
+work on it offline. This can be done regardless of whether the
+repository has been forked or not.
 
-**Fetch origin**: When you *fetch origin*, you retrieve the latest changes from the remote repository *without merging them* with your local version. This way you can see changes made before integrating them.
+**Fetch origin**: When you *fetch origin*, you retrieve the latest
+changes from the remote repository *without merging them* with your
+local version. This way you can see changes made before integrating
+them.
 
-**Push**: You send your committed changes to a remote repository. This updates the remote repository with the changes you've made locally.
+**Push**: You send your committed changes to a remote repository. This
+updates the remote repository with the changes you've made locally.
 
-**Pull origin**: Locally, you use the pull command to fetch changes from the remote repository and merge them into your local copy to keep everything synchronized.
+**Pull origin**: Locally, you use the pull command to fetch changes from
+the remote repository and merge them into your local copy to keep
+everything synchronized.
 
-**Pull request**: You made some changes to a forked repo (basically you are working on a parallel version of the code), then you make a **pull request** to ask to the original repository owner to consider those changes to be incorporated to the original repository.
+**Pull request**: You made some changes to a forked repo (basically you
+are working on a parallel version of the code), then you make a **pull
+request** to ask to the original repository owner to consider those
+changes to be incorporated to the original repository.

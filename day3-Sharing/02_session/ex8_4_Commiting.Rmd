@@ -1,35 +1,38 @@
 ---
-title: "Exercise 8.4: Pulling and Pushing"
+title: "Exercise 8.4: Commiting"
 author: 
 output: html_document
 ---
 
-# Introduction 
+# Introduction
 
 The goal of this worksheet is to go through the intricacies of *push* and *pull* using the GitHub Desktop.
 
 It is the same semantics as pushing towards you and away from you.
 
 # Pull
+
 Say you have made changes online, or you have worked on another copy of the repository in another computer that you have *pushed* to the remote repository. Or a *collaborator* has made changes they have pushed remotely.
 
 To see what happens, make again a change to your copy of the playground repository. Make sure the current repository is the repository you want. For instance do "View on Github" and change one line to the README.md file.
 
-Go back to Github Desktop and *Fetch origin*. 
+Go back to Github Desktop and *Fetch origin*.
 
 You are seeing this:
-[](images/fetch_origin.png)
+
+![](images/fetch_origin.png)
 
 This indicates that there is one change you can pull from the remote repository.
 
-GitHub Desktop is also very helpful in explaning what's going on here: 
-[](images/pull_1_commit.png)
+GitHub Desktop is also very helpful in explaining what's going on here:
 
-Check history and changes. 
+![](images/pull_1_commit.png)
+
+Check history and changes.
 
 Pull those changes by pressing *Pull origin*.
 
-Check history and changes now. In the history tab you should see the change. Who did it and when. 
+Check history and changes now. In the history tab you should see the change. Who did it and when.
 
 If you right click on the commit you will see several options. I you work with collaborators (who can push changes remotely) you might want to reject that change. You can do that with revert. Do that. See that you can how push that reverted change remotely.
 
@@ -37,7 +40,7 @@ If you right click on the commit you will see several options. I you work with c
 
 Now, try to make a series of changes to your local repository. Start by pressing "Show in Explorer" (or Mac equivalent).
 
-For the sake of the exercise, after each change, go back to GitHub Desktop and see the change tab and make a commit explaining briefly the change. Notice how changes are almost immediately detected.  
+For the sake of the exercise, after each change, go back to GitHub Desktop and see the change tab and make a commit explaining briefly the change. Notice how changes are almost immediately detected.
 
 Navigate the different changes and see how they are shown on the right hand side.
 
@@ -45,16 +48,14 @@ These changes are local until you push those remotely. Now press *push origin*.
 
 # What do I do with files I don't want to push remotely
 
-Let's go back to project organization and data management. You want all your project files organized in the same folder.
-If you have multiple projects with multiple folders pointing to the same project data there will be some confusion down the line.
+Let's go back to project organization and data management. You want all your project files organized in the same folder. If you have multiple projects with multiple folders pointing to the same project data there will be some confusion down the line.
 
 But GtiHub is not made to store your data. Storing code requires much less space than data. You won't be able to store large amounts of data on GitHub. There are better repositories for data. So how do you manage to have the data in your local repository?
 
 # Use .gitignore
-You can use the .gitignore file that is created wtih each repository or specify this through the menus (Repository> Repositoroy Settings>Ignored files). 
-You can specify folders to ignore.
 
-Create a new folder where you put things  you don't want to push to GitHub (e.g. I have a file called "local" for things I want to keep local this purpose, 
-to whicih I would add a "data"). Open the .gitignore file (with e.g. notepad) and type the name of the directory you want ignored.
+You can use the .gitignore file that is created with each repository or specify this through the menus (Repository\> Repository Settings\>Ignored files). You can specify folders to ignore.
+
+Create a new folder where you put things you don't want to push to GitHub (e.g. I have a file called "local" for things I want to keep local this purpose, to which I would add a "data"). Open the .gitignore file (with e.g. notepad) and type the name of the directory you want ignored.
 
 Commit the changes and push. Then click "View on GitHub". You should see the folder is not online.
