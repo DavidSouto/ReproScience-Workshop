@@ -22,37 +22,59 @@ You could use, for instance, insert video that you uploaded on
 If you are at UoL you can use the [institutional
 figshare](http://figshare.le.ac.uk/).
 
-# Start 
-Start by creating a repository. The repository has to be **public** unless you have a pro account.
+# Start
 
-The repository name has to be <name>.github.io and not simply <name>, for instance fog.github.io. Make sure it is public.
+Start by creating a repository. The repository has to be **public**
+unless you have a pro account.
 
-Note the published page will be public even if the repository is private.
+The repository name has to be <name>.github.io and not simply <name>,
+for instance fog.github.io. Make sure it is public.
+
+Note the published page will be public even if the repository is
+private.
 
 # Create your site
-Now clone this repository locally and put this file page in there. 
 
-Navigate to your repository on GitHub and do **Set up in Desktop**. This is a way of quickly cloning this repository locally. Now you see that instead of options to **Push** or **Fetch**, you ahve an option to *publish branch*. Save this file in that repository with "save as" and change the working directory to that folder. Commit changes on GitHub Desktop and **publish branch**.
+Now clone this repository locally and put this file page in there.
 
-Now *View on GitHub*, and go to the **Settings** associated with this repository and select **pages** on the left-hand side.
+Navigate to your repository on GitHub and do **Set up in Desktop**. This
+is a way of quickly cloning this repository locally. Now you see that
+instead of options to **Push** or **Fetch**, you have an option to
+*publish branch*. Save this file in that repository with "save as" and
+change the working directory to that folder. Commit changes on GitHub
+Desktop and **publish branch**.
 
-You should see the following 
+Now *View on GitHub*, and go to the **Settings** associated with this
+repository and select **pages** on the left-hand side.
+
+You should see the following
 
 ![](images/pages_settings.png)
 
-You need to select a branch you will deploy. Default is none. Select the only option at this point, which is the **main** branch. You can keep /(root), and save. 
+You need to select a branch you will deploy. Default is none. Select the
+only option at this point, which is the **main** branch. You can keep
+/(root), and save.
 
-Finally, For it to be interpreted correctly it needs an index.html file. We'll get this file by knitting this worksheet (you will see an .html file in the working directory) and saving it as index.html in the local website repository. **Commit** and **push to origin**.
+Finally, For it to be interpreted correctly it needs an index.html file.
+We'll get this file by knitting this worksheet (you will see an .html
+file in the working directory) and saving it as index.html in the local
+website repository. **Commit** and **push to origin**.
 
-Now **View on GitHub** > **Settings** > **Pages**. You should now see that your site is live and the link to the site.
+Now **View on GitHub** \> **Settings** \> **Pages**. You should now see
+that your site is live and the link to the site.
 
-Your site will be found at this address: https://<username>.github.io/<name>.github.io. 
+Your site will be found at this address:
+<https://><username>.github.io/<name>.github.io.
 
 # Further options
 
-There are many options that go on top of the document and specify how it should be knitted. We can go with the defaults on top but we could change to something like that, specifying table of contents and a theme.
+There are many options that go on top of the document and specify how it
+should be knitted. We can go with the defaults on top but we could
+change to something like that, specifying table of contents and a theme.
 
-For instance, modify the header on top so instead of just defining a simple html output you specify a style and a navigable table of contents. *Knit* to see the result.
+For instance, modify the header on top so instead of just defining a
+simple html output you specify a style and a navigable table of
+contents. *Knit* to see the result.
 
 ```         
 title: "My R Markdown Report"
@@ -65,9 +87,11 @@ output:
     theme: united
     highlight: tango
 ```
+
 # How could we embed media?
 
-You could use the [embed package](https://cran.r-project.org/web/packages/vembedr/vignettes/embed.html)
+You could use the [embed
+package](https://cran.r-project.org/web/packages/vembedr/vignettes/embed.html)
 
 ```{r}
 # install.packages("vembedr")
@@ -77,6 +101,10 @@ embed_url("https://www.youtube.com/watch?v=BD_n6ju9iRA")
 ```
 
 # Additional resources
-You can see here usage limits for [GitHub Pages](http://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
 
-The process of creating a page is explained [here](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) in more detail. 
+You can see here usage limits for [GitHub
+Pages](http://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
+
+The process of creating a page is explained
+[here](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)
+in more detail.
